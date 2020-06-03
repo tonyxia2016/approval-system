@@ -1,0 +1,41 @@
+version: '3.6'
+services:
+    flowable-sidecar:
+        image: envoyproxy/envoy-dev
+        depends_on: 
+            - flowable-all-in-one-app
+        volumes:
+            - ./flowable-sidecar.yaml:/etc/envoy/envoy.yaml
+        expose:
+            - 9000
+            - 9001
+        ports:
+            - 9000:9000
+    flowable-all-in-one-app:
+        image: flowable/all-in-one
+        depends_on:
+            - flowable-db
+        environment:
+            - SERVER_PORT=9977
+            - FLOWABLE_COMMON_APP_IDM-REDIRECT-URL=http://localhost:9000/flowable-idm
+            - SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.postgresql.Driver
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://flowable-db:5432/flowable
+            - SPRING_DATASOURCE_USERNAME=flowable
+            - SPRING_DATASOURCE_PASSWORD=flowable
+        expose:
+            - 8080
+        entrypoint: ["/wait-for-something.sh", "flowable-db", "5432", "PostgreSQL", "/opt/tomcat/bin/catalina.sh", "run"]
+    flowable-db:
+        image: postgres:9.6-alpine
+        container_name: flowable-postgres
+        environment:
+            - POSTGRES_PASSWORD=flowable
+            - POSTGRES_USER=flowable
+            - POSTGRES_DB=flowable
+        expose:
+            - 5432
+        volumes:
+            - all-in-one_pgdata:/var/lib/postgresql/data
+        command: postgres
+volumes: 
+    all-in-one_pgdata:
