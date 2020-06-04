@@ -35,7 +35,8 @@ services:
         expose:
             - 5432
         volumes:
-            - all-in-one_pgdata:/var/lib/postgresql/data
+            # - all-in-one_pgdata:/var/lib/postgresql/data
+            - ../db-volume:/var/lib/postgresql/data
         command: postgres
-volumes: 
-    all-in-one_pgdata:
+# volumes: 
+#     all-in-one_pgdata:
