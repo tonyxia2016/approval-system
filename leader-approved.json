@@ -1,0 +1,17 @@
+{
+  "action": "complete",
+  "variables": [
+    {
+      "name": "leaderReviewResult", 
+      "value": 1
+    },
+    {
+      "name": "nextReviewer",
+      "value": ""
+    },
+    {
+      "name": "applicant",
+      "value": "leij"
+    }
+  ]
+}
