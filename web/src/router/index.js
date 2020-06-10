@@ -89,25 +89,25 @@ export const constantRoutes = [
       {
         path: 'single-lump-sum',
         name: 'SingleLumpSum',
-        component: () => import('@/views/apply/index'),
+        component: () => import('@/views/apply/single-lump-sum/index'),
         meta: { title: '包干修复申请', icon: 'form' }
       },
       {
         path: 'high-value',
         name: 'HighValue',
-        component: () => import('@/views/apply/index'),
+        component: () => import('@/views/apply/high-value/index'),
         meta: { title: '高价值件申请', icon: 'form' }
       },
       {
         path: 'assembly-parts',
         name: 'AssemblyParts',
-        component: () => import('@/views/apply/index'),
+        component: () => import('@/views/apply/assembly-parts/index'),
         meta: { title: '总成部件申请', icon: 'form' }
       },
       {
         path: 'cost-adjust',
         name: 'CostAdjust',
-        component: () => import('@/views/apply/index'),
+        component: () => import('@/views/apply/cost-adjust/index'),
         meta: { title: '调价申请', icon: 'form' }
       }
     ]
