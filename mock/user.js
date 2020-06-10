@@ -1,39 +1,67 @@
-
 const tokens = {
-  admin: {
-    token: 'admin-token'
+  // admin: {
+  //   token: 'admin-token'
+  // },
+  // editor: {
+  //   token: 'editor-token'
+  // },
+  dingsun: {
+    token: 'dingsun-token'
   },
-  editor: {
-    token: 'editor-token'
+  reviewer1: {
+    token: 'reviewer1-token'
+  },
+  reviewer2: {
+    token: 'reviewer2-token'
+  },
+  reviewer3: {
+    token: 'reviewer3-token'
+  },
+  reviewer4: {
+    token: 'reviewer4-token'
+  },
+  leader: {
+    token: 'leader-token'
+  },
+  director: {
+    token: 'director-token'
   }
 }
 
 const users = {
-  'admin-token': {
-    roles: ['admin'],
-    introduction: 'I am a super administrator',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
-  },
-  'editor-token': {
-    roles: ['editor'],
-    introduction: 'I am an editor',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+  // 'admin-token': {
+  //   roles: ['admin'],
+  //   introduction: 'I am a super administrator',
+  //   avatar:
+  //     'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+  //   name: 'Super Admin'
+  // },
+  // 'editor-token': {
+  //   roles: ['editor'],
+  //   introduction: 'I am an editor',
+  //   avatar:
+  //     'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+  //   name: 'Normal Editor'
+  // },
+  'dingsun-token': {
+    roles: ['定损员'],
+    introduction: '定损员可以提交审核申请',
+    avatar: '',
+    name: '定损员'
   }
 }
 
 export default [
   // user login
   {
-    url: '/vue-admin-template/user/login',
+    url: '/user/login',
     type: 'post',
     response: config => {
-      const { username } = config.body
+      const { username, password } = config.body
       const token = tokens[username]
 
       // mock error
-      if (!token) {
+      if (!token || password !== '123') {
         return {
           code: 60204,
           message: 'Account and password are incorrect.'
@@ -49,7 +77,7 @@ export default [
 
   // get user info
   {
-    url: '/vue-admin-template/user/info\.*',
+    url: '/user/info.*',
     type: 'get',
     response: config => {
       const { token } = config.query
@@ -72,7 +100,7 @@ export default [
 
   // user logout
   {
-    url: '/vue-admin-template/user/logout',
+    url: '/user/logout',
     type: 'post',
     response: _ => {
       return {
