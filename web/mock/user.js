@@ -46,7 +46,7 @@ const users = {
   'dingsun-token': {
     roles: ['定损员'],
     introduction: '定损员可以提交审核申请',
-    avatar: '',
+    avatar: '/avatar/employee.svg',
     name: '定损员'
   }
 }
