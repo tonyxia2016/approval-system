@@ -90,7 +90,7 @@ export const constantRoutes = [
         path: 'single-lump-sum',
         name: 'SingleLumpSum',
         component: () => import('@/views/apply/single-lump-sum/index'),
-        meta: { title: '包干修复申请', icon: 'form' }
+        meta: { title: '包干修复申请', icon: 'form', mode: 'create' }
       },
       {
         path: 'high-value',
