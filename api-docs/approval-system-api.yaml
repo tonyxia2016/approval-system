@@ -46,7 +46,8 @@ paths:
                 type: object
                 properties:
                   code:
-                    type: string
+                    type: integer
+                    format: int64
                     description: >
                       `20000`: 登录成功 <br>
                       `60204`: 不正确的用户名或密码
@@ -60,12 +61,12 @@ paths:
               examples:
                 登录成功:
                   value:
-                    code: '20000'
+                    code: 20000
                     data: 
                       token: 'dingsun-token'
                 登录失败:
                   value:
-                    code: '60204'
+                    code: 60204
                     message: '不正确的用户名或密码'
         default:
           description: 未知错误
@@ -97,7 +98,8 @@ paths:
                 type: object
                 properties:
                   code:
-                    type: string
+                    type: integer
+                    format: int64
                     description: >
                       `20000`: 获取成功 <br>
                       `50008`: 无效的 token <br>
@@ -112,11 +114,22 @@ paths:
                       avatar:
                         type: string
                         description: 用户头像的 url
+                      introduction:
+                        type: string
+                        description: 用户的详细介绍
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                          description: 用户所属的角色列表
+
                 example:
-                  code: '20000'
+                  code: 20000
                   data:
                     name: '定损员'
                     avatar: '/avatar/memberOfLosses.png'
+                    introduction: '定损员可以创建申请'
+                    roles: [ '定损员' ]
         default:
           description: 未知错误
                     
@@ -145,11 +158,12 @@ paths:
                 type: object
                 properties:
                   code:
-                    type: string
+                    type: integer
+                    format: int64
                   data:
                     type: string
                 example: 
-                  code: '200'
+                  code: 20000
                   data: 'success'
         default:
           description: 未知错误

@@ -54,7 +54,7 @@ const users = {
 export default [
   // user login
   {
-    url: '/user/login',
+    url: '/users/login',
     type: 'post',
     response: config => {
       const { username, password } = config.body
@@ -77,7 +77,7 @@ export default [
 
   // get user info
   {
-    url: '/user/info.*',
+    url: '/users/info.*',
     type: 'get',
     response: config => {
       const { token } = config.query
@@ -100,7 +100,7 @@ export default [
 
   // user logout
   {
-    url: '/user/logout',
+    url: '/users/logout',
     type: 'post',
     response: _ => {
       return {
