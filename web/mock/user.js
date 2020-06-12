@@ -64,7 +64,7 @@ export default [
       if (!token || password !== '123') {
         return {
           code: 60204,
-          message: 'Account and password are incorrect.'
+          message: '不正确的用户名或密码'
         }
       }
 
