@@ -8,7 +8,6 @@ services:
             - ./flowable-sidecar.yaml:/etc/envoy/envoy.yaml
         expose:
             - 18080
-            - 9001
         ports:
             - 18080:18080
     flowable-all-in-one-app:

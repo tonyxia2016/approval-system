@@ -74,7 +74,7 @@ graph LR
 
 官方脚本使用了 **8080** 端口，提供上述组件服务。由于 8080 端口太过热门，开发过程中为了避免冲突，将组件服务端口调整为 **18080**。
 
-修改 `config/all-in-one-postgres.yaml`：
+修改 `config/flowable-container.yaml`：
 
 ```yaml
 version: '3.6'
@@ -83,23 +83,20 @@ services:
     environment:
       # 添加以下环境变量
       - FLOWABLE_COMMON_APP_IDM-REDIRECT-URL=http://localhost:18080/flowable-idm
-    ports:
-      # 修改映射端口
-      - 18080:8080
 ```
-
-
 
 ##### Sidecar（envoy-flowable）
 
 向**“流程设计师”**提供 Flowable 组件服务，向后台服务提供 Flowable REST API 服务。
 
-- 配置文件为：`config/envoy-flowable.yaml`
+- 配置文件为：`config/flowable-sidecar.yaml`
+  - 将 **8080** 端口映射成 **18080** 端口，对外提供服务。
 - 组件服务地址：
   - flowable-idm：http://localhost:18080/flowable-idm
   - flowable-task：http://localhost:18080/flowable-task
   - flowable-admin：http://localhost:18080/flowable-admin
   - flowable-modeler：http://localhost:18080/flowable-modeler
+  - 默认用户名/密码：admin/test
 - REST API 端点地址：
   - Process API：http://localhost:18080/flowable-task/process-api
 
