@@ -1,5 +1,5 @@
 #!/bin/bash
-DOCKER_COMPOSE_FILE="config/all-in-one-postgres.yml"
+DOCKER_COMPOSE_FILE="config/flowable-container.yaml"
 
 if [ -z "$1" ]
 then

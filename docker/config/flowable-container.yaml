@@ -7,17 +7,17 @@ services:
         volumes:
             - ./flowable-sidecar.yaml:/etc/envoy/envoy.yaml
         expose:
-            - 9000
+            - 18080
             - 9001
         ports:
-            - 9000:9000
+            - 18080:18080
     flowable-all-in-one-app:
         image: flowable/all-in-one
         depends_on:
             - flowable-db
         environment:
             - SERVER_PORT=9977
-            - FLOWABLE_COMMON_APP_IDM-REDIRECT-URL=http://localhost:9000/flowable-idm
+            - FLOWABLE_COMMON_APP_IDM-REDIRECT-URL=http://localhost:18080/flowable-idm
             - SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.postgresql.Driver
             - SPRING_DATASOURCE_URL=jdbc:postgresql://flowable-db:5432/flowable
             - SPRING_DATASOURCE_USERNAME=flowable
@@ -36,7 +36,6 @@ services:
             - 5432
         volumes:
             - all-in-one_pgdata:/var/lib/postgresql/data
-            # - ../db-volume:/var/lib/postgresql/data
         command: postgres
 volumes: 
     all-in-one_pgdata:
