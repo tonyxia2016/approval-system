@@ -34,8 +34,8 @@ paths:
                 - username
                 - password
               example:
-                username: 'dingsun'
-                password: '123'
+                username: "dingsun"
+                password: "123"
       
       responses:
         '200':
@@ -63,11 +63,11 @@ paths:
                   value:
                     code: 20000
                     data: 
-                      token: 'dingsun-token'
+                      token: dingsun-token
                 登录失败:
                   value:
                     code: 60204
-                    message: '不正确的用户名或密码'
+                    message: "不正确的用户名或密码"
         default:
           description: 未知错误
           
@@ -167,3 +167,108 @@ paths:
                   data: 'success'
         default:
           description: 未知错误
+
+  /tasks/submitApplication:
+    post:
+      summary: 提交申请
+      operationId: submitApplication
+      tags:
+        - tasks
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: >
+                    申请类别："包干修复"、"高价值件"、"总成部件"、"调价"
+                startUsername:
+                  type: string
+                  description: 发起申请的用户名
+                details:
+                  type: object
+              required:
+                - type
+                - startUsername
+              example:
+                type: "包干修复"
+                startUsername: "dingsun"
+                details:
+                  报案号: "RDAA202032010000001395"
+                  车牌号: "鄂A-12345"
+                  车辆型号: "大众途观"
+                  修理厂名称: "大众"
+                  实际价值: 50000
+                  评估底价: 50000
+                  新车购置价: 200000
+                  一次性协议定损金额: 50000
+                  照片列表:
+                    - "/upload-image/1.jpg"
+                    - "/upload-image/2.jpg"
+                  定损员: "dingsun"
+                  定损时间: "2020-06-16"
+      
+      responses:
+        '200': 
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: 任务 id，全局唯一，用于访问流程的所有信息。
+                example:
+                  id: "37bcdd0a-af7e-11ea-b3de-0242ac130004"
+
+  /tasks/queryApplication:
+    post:
+      summary: 查询申请列表及详情
+      operationId: queryApplication
+      tags:
+        - tasks
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                startUsername:
+                  type: string
+                  description: 申请的发起人用户名
+                currentUsername:
+                  type: string
+                  description: 流程查询人用户名。**必填**，只能查询与该用户相关的流程。
+              required:
+                - currentUsername
+              example:
+                currentUsername: "leader"
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tasks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: string
+                          description: 任务 id，全局唯一，用于访问流程的所有信息。
+                example:
+                  tasks:
+                    - id: "37bcdd0a-af7e-11ea-b3de-0242ac130004"
+                    - id: "f68a9490-af81-11ea-b3de-0242ac130004"
+                
