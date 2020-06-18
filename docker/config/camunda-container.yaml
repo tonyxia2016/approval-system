@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  # flowable-sidecar:
+  #   image: envoyproxy/envoy-dev
+  #   depends_on:
+  #     - flowable-all-in-one-app
+  #   volumes:
+  #     - ./flowable-sidecar.yaml:/etc/envoy/envoy.yaml
+  #   expose:
+  #     - 18080
+  #   ports:
+  #     - 18080:18080
+
+  camunda-bpm-platform:
+    image: camunda/camunda-bpm-platform:latest
+    container_name: camunda-bpm
+    depends_on:
+      - camunda-db
+    environment:
+      - DB_DRIVER=org.postgresql.Driver
+      - DB_URL=jdbc:postgresql://camunda-postgres:5432/camunda
+      - DB_USERNAME=camunda
+      - DB_PASSWORD=camunda
+      - WAIT_FOR=camunda-postgres:5432
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+
+  camunda-db:
+    image: postgres:9.6-alpine
+    container_name: camunda-postgres
+    environment:
+      - POSTGRES_PASSWORD=camunda
+      - POSTGRES_USER=camunda
+      - POSTGRES_DB=camunda
+    expose:
+      - 5432
+    volumes:
+      - camunda_pgdata:/var/lib/postgresql/data
+    command: postgres
+
+volumes:
+  camunda_pgdata:

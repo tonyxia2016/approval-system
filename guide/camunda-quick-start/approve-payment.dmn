@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_1t2iqeb" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <decision id="approve-payment" name="自动验证付款">
+    <decisionTable id="DecisionTable_0rc177s">
+      <input id="Input_1" label="商品名">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>item</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="审核通过" name="approved" typeRef="boolean" />
+      <rule id="DecisionRule_1tumahd">
+        <inputEntry id="UnaryTests_00vuv3b">
+          <text>"item-1555"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0govtig">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ilxd9z">
+        <inputEntry id="UnaryTests_1fxkulv">
+          <text>not("item-1555")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ruo5m6">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0hiss0m">
+      <dmndi:DMNShape id="DMNShape_1mdqyhy" dmnElementRef="approve-payment">
+        <dc:Bounds height="80" width="180" x="150" y="150" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

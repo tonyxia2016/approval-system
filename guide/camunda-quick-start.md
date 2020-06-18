@@ -13,13 +13,13 @@ $ docker run -d --rm -p 8080:8080 camunda/camunda-bpm-platform:latest
 
 
 
-## 流程设计
+## 设计一个自动执行流程
 
 使用 Camunda Modeler 设计一个简单流程，并使用 Node.JS 来执行流程中的自动化步骤。
 
 ### 创建一个付款流程
 
-<img src="payment.png" alt="payment" style="zoom: 40%;" />
+<img src="payment-step-1.png" alt="payment" style="zoom: 40%;" />
 
 - Start Evnet：所有流程都启动于“开始事件”。
   - 设置名字：**要求付款**
@@ -35,7 +35,7 @@ $ docker run -d --rm -p 8080:8080 camunda/camunda-bpm-platform:latest
     - 流程 Id 是否支持中文，尚未测试。但是考虑到兼容性，在 rest api、function parameter 中使用中文，可能导致未知的问题，因此不要使用中文。
     - 考虑到 rest api 中会引用流程 Id，因此 Id 应遵从 **“kebab-case”** 命名规范，即：所有的字母都小写；单词和单词之间使用 **-** 进行连接。例如："the-quick-brown-fox-jumps-over-the-lazy-dog"
 
-### 使用 Node.JS 实现一个外部服务执行者（Worker）
+### 使用 Node.JS 实现一个外部服务执行器（Worker）
 
 #### External Task 的实现机制
 
@@ -104,7 +104,7 @@ client.subscribe('charge-card', async function({ task, taskService }) {
 
 上述代码没有做什么实质性的操作，仅仅读取、显示了 Task 中的变量数据。
 
-> 在启动 Camunda BPM Platform 和部署流程之前，启动 Worker 也没问题，但是会报错，例如：
+> 在启动 Camunda BPM Platform 之前，启动 Worker 也没问题，但是会报错，例如：
 >
 > ```bash
 > $ node worker.js
@@ -116,5 +116,141 @@ client.subscribe('charge-card', async function({ task, taskService }) {
 
 
 
-## 部署流程
+## 部署、启动流程
+
+在 Modeler 中可以直接部署流程，REST Endpoint：http://localhost:8080/engine-rest。
+
+调用 REST API 创建流程实例：
+
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"variables": {"amount": {"value":555,"type":"long"}, "item": {"value":"item-xyz"} } }' http://localhost:8080/engine-rest/process-definition/key/payment-retrieval/start
+```
+
+可以观察到，worker.js 被调用：
+
+```bash
+$ node worker.js
+✓ subscribed to topic charge-card
+Charging credit card with an amount of 555€ for the item 'item-xyz'...
+✓ completed task acb66f40-b118-11ea-9dcd-0242ac140002
+```
+
+
+
+## 添加人工干预流程
+
+使用 User Task 来对需要人工干预的步骤进行建模。
+
+<img src="/Users/rlee/approval-system/guide/payment-step-2.png" style="zoom:40%;" />
+
+- 插入一个 User Task，设置名字：**审核账单**
+- 添加三个 Forms Fields：**amount、item、approved**。人工干预时，需要知道一些信息，并输出干预结果，这些变量被定义在 Forms 中。在本例中：需要从上一步骤（创建流程）获取 amount 和 item 字段，并输出 approved 字段。
+
+部署该流程。
+
+> 由于流程 Id 没有改变，因此在 cockpit 中不会看到新部署了流程，而是对 *payment-retrieval* 流程添加了一个新的版本。这对修改流程非常有用，我们可以保留多个流程版本，并指定现在使用哪个版本。默认执行有效的最新版本。
+
+创建流程实例：
+
+```bash
+curl -H "Content-Type: application/json" -X POST -d '{"variables": {"amount": {"value":555,"type":"long"}, "item": {"value":"item-step-2"} } }' http://localhost:8080/engine-rest/process-definition/key/payment-retrieval/start
+```
+
+> 官方教程通过 tasklist app 来创建流程，用 REST API 更简单。
+
+通过 tasklist app 观察流程状态，会发现：
+
+- 流程停在了**“审核账单“**这个步骤，等待用户操作。
+- 在 Form 中可以看到上一个环节带入的数据 **“amount”、“item”**
+- 在 Form 中可以修改数据 **“approved”**，并完成当前步骤。
+
+> 以上步骤也完全可以通过 REST API 来完成。
+>
+> - 获取 demo 用户的 Task 列表。
+>
+> ```bash
+> $ curl -X GET http://localhost:8080/engine-rest/task\?assignee\=demo
+> ```
+>
+> ​		得到以下结果（已对 JSON 进行了格式化）
+>
+> ```json
+> [
+> 	{
+> 		"id": "a2968db3-b135-11ea-a979-0242ac150003",
+> 		"name": "审核账单",
+> 		"assignee": "demo",
+> 		"created": "2020-06-18T07:30:50.738+0000",
+> 		"due": null,
+>     "followUp": null,
+>     "delegationState": null,
+>     "description": null,
+>     "executionId": "a295a34c-b135-11ea-a979-0242ac150003",
+>     "owner": null,
+>     "parentTaskId": null,
+>     "priority": 50,
+>     "processDefinitionId": "payment-retrieval:2:5ac31a2b-b135-11ea-a979-0242ac150003",
+>     "processInstanceId": "a295a34c-b135-11ea-a979-0242ac150003",
+>     "taskDefinitionKey": "Activity_1ovahsy",
+>     "caseExecutionId": null,
+>     "caseInstanceId": null,
+>     "caseDefinitionId": null,
+>     "suspended": false,
+>     "formKey": null,
+>     "tenantId": null
+> 	}
+> ]
+> ```
+>
+> > 在官方教程中，会得到 3 个结果（其中两个是官方发布时的示例），这里省略了官方示例中的查询结果。
+>
+> - 查看 Form 的数据。
+>
+> ```bash
+> curl -X GET http://localhost:8080/engine-rest/task/a2968db3-b135-11ea-a979-0242ac150003/form-variables
+> ```
+>
+> > "a2968db3-b135-11ea-a979-0242ac150003" 是在上一步查询时得到的 task id。
+>
+> ​		得到以下结果（已对 JSON 进行了格式化）
+>
+> ```json
+> {
+>    "amount": {
+>       "type": "Long",
+>       "value": 555,
+>       "valueInfo": {}
+>    },
+>    "item": {
+>       "type": "String",
+>       "value": "item-step-2",
+>       "valueInfo": {}
+>    },
+>    "approved": {
+>       "type": "Boolean",
+>       "value": null,
+>       "valueInfo": {}
+>    }
+> }
+> ```
+>
+> - 更新 Form 数据，并完成当前步骤。
+>
+> ```bash
+> curl -H "Content-Type: application/json" -X POST \
+> -d '{"variables":{"approved":{"value":true}}}' \ 
+> http://localhost:8080/engine-rest/task/a2968db3-b135-11ea-a979-0242ac150003/submit-form
+> ```
+>
+> > "a2968db3-b135-11ea-a979-0242ac150003" 是在上一步查询时得到的 task id。
+
+
+
+## 添加流程分支
+
+
+
+## 添加自动决策
+
+使用 DMN 引擎，可以由 Camunda 自动进行决策，而无需编写代码。
 
