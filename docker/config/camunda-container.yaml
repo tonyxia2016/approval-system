@@ -11,17 +11,19 @@ services:
   #   ports:
   #     - 18080:18080
 
-  camunda-bpm-platform:
+  camunda-bpm:
     image: camunda/camunda-bpm-platform:latest
     container_name: camunda-bpm
     depends_on:
       - camunda-db
     environment:
       - DB_DRIVER=org.postgresql.Driver
-      - DB_URL=jdbc:postgresql://camunda-postgres:5432/camunda
+      - DB_URL=jdbc:postgresql://camunda-db:5432/camunda
       - DB_USERNAME=camunda
       - DB_PASSWORD=camunda
-      - WAIT_FOR=camunda-postgres:5432
+      - WAIT_FOR=camunda-db:5432
+    volumes:
+      - ./web.xml:/camunda/conf/web.xml
     expose:
       - 8080
     ports:
@@ -29,7 +31,7 @@ services:
 
   camunda-db:
     image: postgres:9.6-alpine
-    container_name: camunda-postgres
+    container_name: camunda-db
     environment:
       - POSTGRES_PASSWORD=camunda
       - POSTGRES_USER=camunda
