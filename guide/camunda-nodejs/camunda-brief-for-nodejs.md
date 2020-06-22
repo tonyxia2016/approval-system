@@ -181,3 +181,19 @@ Camunda BPM REST API 支持 HTTP Basci Authentication（HTTP 基本身份认证�
 
 ## REST API 中的变量
 
+在 REST API 中引用的流程变量的格式如下：
+
+```json
+{
+  "type": "String",
+  "value": "Some value",
+  "valueInfo": {}
+}
+```
+
+REST API 支持以下几种格式：
+
+![Variables](variables-1.png)
+
+> **注意：**在 REST API 中，type 的名字以大写字母开头，例如：`string` 类型，应写作 `String`。
+
