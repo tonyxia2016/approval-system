@@ -233,3 +233,75 @@ Camunda BPM 支持 Javascript 脚本。
 
 
 
+## 外部任务
+
+
+
+## 流程的版本
+
+
+
+## 历史记录和实践日志审计
+
+![process engine history](process-engine-history.png)
+
+### 历史记录的清理策略
+
+为了使用历史记录清理，您必须确定在两个可用的历史记录清理策略中选定一个：
+
+- 基于删除时间的策略（默认策略）
+- 基于结束时间的策略
+
+
+
+## 流程中的事务机制
+
+
+
+## 流程引擎插件 
+
+流程引擎插件用于扩展流程引擎的功能。内置的流程引擎插件包括：
+
+- LDAP 身份服务插件
+- 管理员授权插件
+- 流程应用程序事件监听器插件
+
+
+
+## 流程引擎中的决策
+
+Camunda BPM 集成了 DMN 引擎来运行业务决策。DMN 也支持历史记录查询。
+
+
+
+## 批处理
+
+
+
+## Camunda BPM Run
+
+Camunda BPM Run 是 Camunda BPM Platform 的预打包发行版，包括：Camunda Webapp（Cockpit，Tasklist，Admin）和 REST API。
+
+Run 意图提供一个完整的 Camunda BPM 发行版，其发行版具有简单但功能强大的配置机制，无论开发者对 Java 或应用服务器是否有了解，都可以使用它。
+
+有关分步安装指南，请参阅**安装指南**。
+
+
+
+## 数据格式（XML，JSON，和其它）
+
+由于 JSON 不是 Java 的内置数据格式，因此 Camunda 需要通过 camunda-engine-plugin-spin 插件来处理 JSON 数据。
+
+通过 spin 插件，可以：
+
+- 在 EL（Expression Language）中直接使用 JSON
+- 在 脚本（Scripting）中直接使用 JSON
+- 在 Java 中添加内置的 JSON 类型
+- 序列化过程变量（序列化是指：将内存中的变量，序列化成比特流，用于持久化。简单来说，就是保存变量到文件或数据库）
+- 自定义序列化
+
+
+
+## 认证方式
+
+为了方便开发，默认关闭 REST API 的认证。当在产品部署时，需要开启认证。可以通过 REST API 开启认证。

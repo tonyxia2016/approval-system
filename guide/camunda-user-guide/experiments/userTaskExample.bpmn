@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <bpmn:process id="userTaskExample" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_02mu30n">
+      <bpmn:outgoing>SequenceFlow_14v3dyf</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_144sl4n">
+      <bpmn:incoming>SequenceFlow_0acu0wh</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0acu0wh" sourceRef="Task_096f7n7" targetRef="EndEvent_144sl4n" />
+    <bpmn:userTask id="Task_096f7n7" name="user task sk">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="form_1" label="form_1" type="string" defaultValue="form_1_" />
+        </camunda:formData>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="input_1">input_1_val</camunda:inputParameter>
+          <camunda:inputParameter name="input_2">input_2_val</camunda:inputParameter>
+          <camunda:outputParameter name="output_1">output_2</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0sulfwg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0acu0wh</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_14v3dyf" sourceRef="StartEvent_02mu30n" targetRef="Task_0cphzp1" />
+    <bpmn:sequenceFlow id="SequenceFlow_0sulfwg" sourceRef="Task_0cphzp1" targetRef="Task_096f7n7" />
+    <bpmn:scriptTask id="Task_0cphzp1" name="script task sk" scriptFormat="groovy" camunda:resultVariable="script_task_variable">
+      <bpmn:incoming>SequenceFlow_14v3dyf</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0sulfwg</bpmn:outgoing>
+      <bpmn:script>"scipt task variable"</bpmn:script>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="userTaskExample">
+      <bpmndi:BPMNEdge id="SequenceFlow_0sulfwg_di" bpmnElement="SequenceFlow_0sulfwg">
+        <di:waypoint x="325" y="331" />
+        <di:waypoint x="401" y="342" />
+        <di:waypoint x="383" y="204" />
+        <di:waypoint x="383" y="124" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="392" y="258" width="0" height="0" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_14v3dyf_di" bpmnElement="SequenceFlow_14v3dyf">
+        <di:waypoint x="169" y="102" />
+        <di:waypoint x="169" y="133" />
+        <di:waypoint x="252" y="133" />
+        <di:waypoint x="192" y="204" />
+        <di:waypoint x="275" y="204" />
+        <di:waypoint x="275" y="284" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="222" y="153.5" width="0" height="0" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0acu0wh_di" bpmnElement="SequenceFlow_0acu0wh">
+        <di:waypoint x="433" y="84" />
+        <di:waypoint x="524" y="84" />
+        <di:waypoint x="524" y="84" />
+        <di:waypoint x="616" y="84" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="539" y="84" width="0" height="0" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="StartEvent_02mu30n_di" bpmnElement="StartEvent_02mu30n">
+        <dc:Bounds x="151" y="66" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="169" y="102" width="0" height="0" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_144sl4n_di" bpmnElement="EndEvent_144sl4n">
+        <dc:Bounds x="616" y="66" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="634" y="102" width="0" height="0" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1lppvq8_di" bpmnElement="Task_096f7n7">
+        <dc:Bounds x="333" y="44" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_1q3eqsu_di" bpmnElement="Task_0cphzp1">
+        <dc:Bounds x="225" y="284" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
