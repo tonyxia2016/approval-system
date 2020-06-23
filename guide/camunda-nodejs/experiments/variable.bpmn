@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_06nguud" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <bpmn:process id="variable-experiment" name="过程变量实验" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1n9zzkf</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1n9zzkf" sourceRef="StartEvent_1" targetRef="Gateway_0x80v67" />
+    <bpmn:endEvent id="Event_1du5ww2">
+      <bpmn:incoming>Flow_1bccyv2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1bccyv2" sourceRef="Activity_0krcqb3" targetRef="Event_1du5ww2" />
+    <bpmn:userTask id="Activity_0krcqb3" name="北京">
+      <bpmn:incoming>Flow_0wy9cvr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bccyv2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_0x80v67">
+      <bpmn:incoming>Flow_1n9zzkf</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wy9cvr</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jqwryj</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0wy9cvr" sourceRef="Gateway_0x80v67" targetRef="Activity_0krcqb3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="javascript">address.prop("city").value() === "北京"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0jqwryj" sourceRef="Gateway_0x80v67" targetRef="Activity_0r3gluv">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${address.prop("city").stringValue() == "武汉"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Activity_0r3gluv" name="武汉">
+      <bpmn:incoming>Flow_0jqwryj</bpmn:incoming>
+      <bpmn:outgoing>Flow_04btnw9</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_0pvipi5">
+      <bpmn:incoming>Flow_04btnw9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_04btnw9" sourceRef="Activity_0r3gluv" targetRef="Event_0pvipi5" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="variable-experiment">
+      <bpmndi:BPMNEdge id="Flow_1n9zzkf_di" bpmnElement="Flow_1n9zzkf">
+        <di:waypoint x="148" y="217" />
+        <di:waypoint x="365" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bccyv2_di" bpmnElement="Flow_1bccyv2">
+        <di:waypoint x="580" y="120" />
+        <di:waypoint x="652" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wy9cvr_di" bpmnElement="Flow_0wy9cvr">
+        <di:waypoint x="390" y="192" />
+        <di:waypoint x="390" y="120" />
+        <di:waypoint x="480" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jqwryj_di" bpmnElement="Flow_0jqwryj">
+        <di:waypoint x="390" y="242" />
+        <di:waypoint x="390" y="330" />
+        <di:waypoint x="480" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04btnw9_di" bpmnElement="Flow_04btnw9">
+        <di:waypoint x="580" y="330" />
+        <di:waypoint x="652" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="112" y="199" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1du5ww2_di" bpmnElement="Event_1du5ww2">
+        <dc:Bounds x="652" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1urar4y_di" bpmnElement="Activity_0krcqb3">
+        <dc:Bounds x="480" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0x80v67_di" bpmnElement="Gateway_0x80v67" isMarkerVisible="true">
+        <dc:Bounds x="365" y="192" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09hani9_di" bpmnElement="Activity_0r3gluv">
+        <dc:Bounds x="480" y="290" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0pvipi5_di" bpmnElement="Event_0pvipi5">
+        <dc:Bounds x="652" y="312" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

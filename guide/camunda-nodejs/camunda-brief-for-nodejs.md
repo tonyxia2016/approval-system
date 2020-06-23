@@ -179,9 +179,9 @@ Camunda BPM REST API 支持 HTTP Basci Authentication（HTTP 基本身份认证�
 
 
 
-## REST API 中的变量
+## REST API 中的变量类型
 
-在 REST API 中引用的流程变量的格式如下：
+在 REST API 中引用流程变量的格式如下：
 
 ```json
 {
@@ -196,4 +196,136 @@ REST API 支持以下几种格式：
 ![Variables](variables-1.png)
 
 > **注意：**在 REST API 中，type 的名字以大写字母开头，例如：`string` 类型，应写作 `String`。
+
+
+
+### 原生数据类型（Primitive Types）
+
+Camunda BPM 是基于 Java 的，因此**原生数据类型**是指不需要额外的元数据，直接存储在简单标准 Java classes 中的数据类型。包括：boolean（布尔值）、bytes（字节数组）、short（短整型）、integer（整型）、long（长整型）、double（双精度浮点数）、string（字符串）、null（空）等 9 种类型。
+
+原生数据类型无需设置 `valueInfo` 字段。
+
+对 string、boolean、null 无需设置 `type` 字段，Camunda BPM 会自行推断类型。
+
+**原生数据类型在 API 调用种，可以直接作为搜索条件对流程实例进行查询。**
+
+> **String 类型的长度限制：**
+>
+> string 在数据库中对应了 `varchar` 类型，其最大长度为 4000 字节。UTF-8 编码下，每个汉字占用 3 个字节，也就是约 1300 个汉字。
+
+
+
+### 文件类型（File Type）
+
+（还不知道怎么用，似乎是可以 Upload / Download 一个文件）
+
+
+
+### 对象类型（Object Type）
+
+对象类型是自定义类型。实现对象类型的实质是把 Java 不认识的数据类型（自定义数据类型。JSON 对 Java 来说，也是自定义数据类型）映射到某个 Java 类，以实现对该自定义数据类型的操作。
+
+对 Nodejs 开发者来说，不会在工作流引擎服务端自定义 Java 类，只能使用工作流引擎服务端内置的 Java 类，因此对象类型实际上只会用于传递通用的 JSON / Array 数据。其中：
+
+- JSON 数据对应了 `java.util.LinkedHashMap` 类；
+- Array 数据对应了 `java.util.ArrayList` 类。
+
+在传递 JSON / Array 时，不需要设定 `type` 和 `valueInfo` 字段，Camunda BPM 会自行推断类型。
+
+例如，可以使用以下方式定义 JSON 数据：
+
+```json
+{
+  "value": {
+    "country": "China",
+    "city": "北京"
+  }
+}
+```
+
+定义 Array 数据：
+
+```json
+{
+  "value": ["China", "北京"]
+}
+```
+
+
+
+### JSON / XML 类型
+
+Camunda BPM 透过 camunda-spin 来支持这两种类型，在发行版中默认加载了 camunda-spin。
+
+本质上，JSON / XML 类型等同于映射为 `org.camunda.spin.Spin.S` 类的对象类型数据。
+
+camunda-spin 接收符合  JSON / XML 规范格式的 string，添加了相应的 API 来将 string 转换成 Spin 对象，通过操作 Spin 对象来操作 JSON / XML。有点儿类似于 Javascript  中使用 `JSON.stringify()` 将 JSON 序列化为 String 用于传输、存储；通过 `JSON.parse()` 将 String 转换成 JSON 格式进行读写。
+
+JSON 数据操作过程如下：
+
+- REST API Client 将 JSON 格式化为 string，并将其传递到工作流引擎服务器端；
+- 工作流引擎服务器端使用 `org.camunda.spin.Spin.JSON` 类将 string 转换为 `SpinJsonNode` 对象（object），`SpinJsonNode` 对象等同于 Javascript 中的 JSON 对象，只是提供的 API 与 Javascript JSON 对象的内置方法不同；
+- 在响应 REST API Client 的请求时，工作流引擎服务器端会将 `SpinJsonNode` 对象转换成 string，并发送到客户端。
+
+- 对 JSON 类型，工作流引擎服务端处理 JSON 的类名为：`org.camunda.spin.Spin.JSON`。
+
+- 对 XML 类型，工作流引擎服务端处理 XML 的类名为：`org.camunda.spin.Spin.XML`。
+
+在使用 JSON / XML 类型时，不需要设定 `valueInfo` 字段，Camunda BPM 会自行推断类型。
+
+例如，可以使用以下方式定义 JSON 数据：
+
+```json
+{
+  "type": "Json",
+  "value": "{\"country\": \"China\", \"city\": \"北京\"}"
+}
+
+// 注意："value"的值是字符串，而不是 JSON 格式数据
+```
+
+> 对 Nodejs 开发者来说，Object Type 和 JSON Type 都可以处理 JSON 数据，看上去使用 Object Type 更直接，但是，**推荐使用 JSON 类型！**因为在工作流引擎服务端的 Expression 和 Script 中，可以使用 Spin API 直接引用 JSON 变量，而无法引用 Object 变量。例如，可以直接引用 JSON 作为 BPMN 中的转移条件：
+>
+> ```xml
+> <!--
+>   假设已经定义了流程变量：
+> 	address: {
+> 		"country": "China",
+> 		"city": "北京"
+> 	}
+> -->
+> <sequenceFlow>
+>   <conditionExpression xsi:type="bpmn:tFormalExpression" language="javascript">
+>     address.prop("city").value() === "北京"
+>   </conditionExpression>
+> </sequenceFlow>
+> ```
+
+
+
+### 在 Javascript 脚本中使用 JSON 类型
+
+> **注意：**这里提到的 Javascript 脚本是 Camunda BPM 工作流引擎服务器中 BPMN 构件引用的 Javascript 脚本，而不是独立的 Nodejs 程序，或者 Web 页面内嵌的 Javascript 脚本。
+
+**在服务器端的脚本中，本质上是调用 `SpinJsonNode` 的 API 来操作 JSON 数据**。
+
+具体的 API 使用方法，参阅官方指南 —— [Spin Dataformats - JSON](https://docs.camunda.org/manual/7.13/reference/spin/json/)
+
+
+
+### 序列化和反序列化（Serialization / Deserialization）
+
+对象类型数据被映射为某个 Java 类，由于 Java 类无法保存到数据库，因此需要通过序列化将 Java 类转换成 string 进行保存；从数据库中读出时，则需要通过反序列化操作来恢复数据。
+
+工作流引擎通过 `java.io.Serializable` 来完成对象序列化，序列化的结果是**“不可读的”**字符串（所谓**不可读**是指：字符串没有明显的含义，类似 Base64 编码）。
+
+REST API 将 JSON / Array 数据传递到工作流引擎服务器时，工作流引擎会自动完成序列化；响应 REST API 请求时，Client 可以选择是否让工作流引擎服务器完成反序列化。
+
+REST API 读出对象类型流程数据时，如果不执行反序列化，则读出内容是无法解读的。默认情况下，工作流引擎自动执行反序列化。
+
+REST API 在操作 JSON / XML 类型数据时，Client 传出的 value 就是 string 类型，虽然在服务器端被映射成了 Spin 类，但是在回传（响应客户端请求）时，仍然应该回传 string，而不应反序列化。此时，可以通过 `deserializationValue=false` 参数，要求服务器端不执行反序列化。
+
+
+
+## REST API 中的变量操作
 
