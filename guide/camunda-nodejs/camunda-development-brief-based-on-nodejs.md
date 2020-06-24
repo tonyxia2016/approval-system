@@ -26,7 +26,7 @@ Camunda BPM 是一款用 Java 编写的轻量级工作流引擎，支持 BPMN 2.
 
 > Camunda BPM 工作模式详见：[Camunda BPM Introduction - Architecture Overview](https://docs.camunda.org/manual/7.13/introduction/architecture/)
 
-对于 Node.js 开发者来说，最常用 **“Standalone Process Engine Server”** 模式，使用 REST API 调用工作流引擎服务。官方文档主要围绕 **“Embbed Process Engine”** 模式，针对 Java 开发进行论述，对 Node.js 开发者来说并不友好。本文档以官方文档为基础，结合实践，阐述 Node.js 开发者如何使用 Camunnda BPM 来进行应用程序开发。
+官方文档主要围绕 **“Embbed Process Engine”** 模式，针对 Java 开发进行论述，对 Node.js 开发者来说并不友好。对于 Node.js 开发者来说，最常用 **“Standalone Process Engine Server”** 模式，使用 REST API 调用工作流引擎服务。本文以官方文档为基础，结合实践，阐述 Node.js 开发者如何使用 Camunnda BPM 来进行工作流应用系统开发。
 
 
 
@@ -242,6 +242,8 @@ Camunda BPM 中有一个称为**”作业执行器（Job Executor）“**的部�
 ```flow
 st=>start: Start
 A=>operation: 使用 Modeler 进行建模
+A1=>condition: 有外部任务？
+A2=>operation: 部署外部任务执行器
 B=>operation: 部署流程定义
 C=>operation: 启动一个流程实例
 D=>operation: 用户获取任务列表
@@ -249,20 +251,118 @@ E=>operation: 用户完成当前任务
 F=>condition: 流程结束？
 end=>end
 
-st->A->B->C->D->E->F
+st->A->B->A1
+A1(yes)->A2->C
+A1(no)->C
+C->D->E->F
 F(no)->D
 F(yes)->end
 ```
 
 
 
+## 快速入门
+
+本节基于官方的快速入门教程（[Get Started with Camunda](https://docs.camunda.org/get-started/)），旨在快速浏览一下 Camunda BPM 开发的主要概念。
+
+
+
+### BPMN 建模
+
+
+
+### 部署流程定义
+
+
+
+### 基于 Nodejs 实现自动化任务
+
+
+
+### 启动流程实例
+
+
+
+### 获取用户任务列表
+
+
+
+### 完成当前用户任务
+
+
+
+### 使用决策表实现自动化任务
+
+
+
+### 小结
+
+
+
+
+
 ## BPMN 建模
 
-Camunda 官方给出了 3 篇文档来解说 BPMN 建模，建议完整阅读这 3 篇文档。
+Camunda 官方给出了 3 篇文档来解说 BPMN 建模，**建议完整阅读这 3 篇文档**。
 
 - [BPMN 新手教程](https://camunda.com/bpmn/)：该教程通过三个简单的例子来帮助初学者建立 BPMN 建模的主要概念。
 - [BPMN 建模参考](https://camunda.com/bpmn/reference/)：该参考解释了 BPMN 建模中用到的所有符号含义及主要用法。
 - [BPMN 建模示例、模版、及最佳实践](https://camunda.com/bpmn/examples/)：给出了很多 BPMN 建模的例子，比逐一解说这些例子的优缺点，指出规范的建模方法。其中很多示例可以直接做为模版用于建模。
+
+本文对最常用的几个建模构件进行分析和示例，再次强烈建议完整阅读以上 3 篇文档。
+
+> **注意：BPMN 2.0 是一个标准，Camunda BPM 是这个标准的实现。本节的主题是对标准本身的解释，示例用到了 Camunda BPM。**
+
+
+
+### 泳池和泳道（pool / lane）
+
+泳池和泳道主要为了表达流程间的协作关系，以及流程内各角色之间的协作关系。它们只起到建模语义学的作用，对工作流引擎的实际运作并无直接影响。
+
+通常，泳道用于表达人或角色，例如：
+
+- 组织机构的某个职位，比如：会计
+- 组织机构的某个角色，比如：安全员
+- 通用的角色，比如：顾客
+- 部门，比如：销售部
+- IT 应用系统，比如：CRM 系统
+
+泳道用于表达流程，例如：订购流程、供应流程等。
+
+流程应该按逻辑关系进行拆分。比如：“披萨消费流程”可以拆分成：“披萨订购流程”和“披萨供应流程”。这两个流程分属不同的“组织” —— 订购的主体是客户，供应的主体是披萨店。两者并不是紧密联系的 —— 客户可以选择不同的披萨店 —— 因此应该分别建模（归属不同的泳池）。
+
+流程和流程之间的协作，用泳池之间的消息流来连接。比如：“订购流程” 和 “供应流程” 之间有多个消息流 —— 订单、发货提醒、收货、收款等。
+
+> Camunda Modeler 中
+>
+> - 没有添加泳池时，整张图就是一个“流程”（Process）。
+> - 添加泳池后，每个泳池是一个流程，整张图则是一个“协作”（Collaboration）。
+> - 一旦添加了泳池，所有的构件（Event、Activity等）就只能摆放在泳池中，因为构件只能属于“流程”，而不能独立于”协作“。
+> - **注意：删除泳池，等于删除流程，所有的构件和逻辑连接都会同时被删除！**
+
+
+
+### 活动（Activity）
+
+活动包括 5 大类：任务（Task）、子流程（Subprocess）、调用活动（Call Activity）、事件子流程（Event Subprocess）、事物（Transaction）。其符号如下：
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Task</tspan></text></g></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><rect x="49" y="73" width="12" height="12" r="0" rx="0" ry="0" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><path fill="none" stroke="#808080" d="M50,71V77M47,74H53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" transform="matrix(1,0,0,1,5,5)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></path><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Subprocess</tspan></text></g></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><rect x="49" y="73" width="12" height="12" r="0" rx="0" ry="0" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><path fill="#ffffff" stroke="#808080" d="M50,71V77M47,74H53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" transform="matrix(1,0,0,1,5,5)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></path><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Call Activity</tspan></text></g></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" stroke-dasharray="2,2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><rect x="49" y="73" width="12" height="12" r="0" rx="0" ry="0" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><path fill="none" stroke="#808080" d="M50,71V77M47,74H53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" transform="matrix(1,0,0,1,5,5)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></path><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="-3.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Event</tspan><tspan dy="14.399999999999999" x="55" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Subprocess</tspan></text></g></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><rect x="8" y="8" width="94" height="74" r="3" rx="3" ry="3" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><rect x="49" y="73" width="12" height="12" r="0" rx="0" ry="0" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><path fill="none" stroke="#808080" d="M50,71V77M47,74H53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" transform="matrix(1,0,0,1,5,5)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></path><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Transaction</tspan></text></g></svg>
+
+### 任务（Task）
+
+任务代表单一工作单元，它不会也不能被分解为更深层次上的业务流程细节。
+
+为了工程的目的，在 Camunda BPM 中，任务又被细分为 7 种类型：
+
+
+
+- **人工任务（manual）**：用于对人工操作进行建模，这里的“人工操作”是指和工作流引擎无关的操作，例如：给客户打电话、在文件夹查找文件等。这一任务类别会直接被工作流引擎跳过，对工作流引擎的实际工作不会产生任何影响，仅仅起到建模语义学的作用。
+- **用户任务（user）**：和 manual 类似，也是对人工操作进行建模，但是这里的人工操作是工作流引擎指派的操作，例如：审核请假申请、处理技术支持请求等。工作流引擎会在 user task 的地方暂停，等待用户确认完成任务后，才继续往下执行。通常，用户会获取与自己相关的 user task 列表、读取任务变量、输出一些数据到任务变量、并确认完成任务。
+- **接收消息任务（receive）**：这是捕获消息事件（catch message event）的另一种表达方式，一般不会用。
+- send：
+- script：
+- service：
+- business rule：
 
 
 
