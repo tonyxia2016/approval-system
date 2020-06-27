@@ -346,23 +346,274 @@ Camunda 官方给出了 3 篇文档来解说 BPMN 建模，**建议完整阅读�
 
 活动包括 5 大类：任务（Task）、子流程（Subprocess）、调用活动（Call Activity）、事件子流程（Event Subprocess）、事物（Transaction）。其符号如下：
 
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Task</tspan></text></g></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><rect x="49" y="73" width="12" height="12" r="0" rx="0" ry="0" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><path fill="none" stroke="#808080" d="M50,71V77M47,74H53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" transform="matrix(1,0,0,1,5,5)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></path><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Subprocess</tspan></text></g></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><rect x="49" y="73" width="12" height="12" r="0" rx="0" ry="0" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><path fill="#ffffff" stroke="#808080" d="M50,71V77M47,74H53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" transform="matrix(1,0,0,1,5,5)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></path><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Call Activity</tspan></text></g></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" stroke-dasharray="2,2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><rect x="49" y="73" width="12" height="12" r="0" rx="0" ry="0" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><path fill="none" stroke="#808080" d="M50,71V77M47,74H53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" transform="matrix(1,0,0,1,5,5)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></path><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="-3.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Event</tspan><tspan dy="14.399999999999999" x="55" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Subprocess</tspan></text></g></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><g class="djs-visual"><rect x="5" y="5" width="100" height="80" r="5" rx="5" ry="5" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><rect x="8" y="8" width="94" height="74" r="3" rx="3" ry="3" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;" id="svg_1"></rect><rect x="49" y="73" width="12" height="12" r="0" rx="0" ry="0" fill="#ffffff" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></rect><path fill="none" stroke="#808080" d="M50,71V77M47,74H53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="1" transform="matrix(1,0,0,1,5,5)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 1;"></path><text x="55" y="45" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: Arial, Helvetica, sans-serif;" font-size="12px" font-family="Arial, Helvetica, sans-serif"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Transaction</tspan></text></g></svg>
+![Task](tasks.svg)![subprocess](subprocess.svg)![Event Subprocess](event-subprocess.svg)![Call Activity](call-activity.svg)![transaction](transaction.svg)
+
+
 
 ### 任务（Task）
 
 任务代表单一工作单元，它不会也不能被分解为更深层次上的业务流程细节。
 
-为了工程的目的，在 Camunda BPM 中，任务又被细分为 7 种类型：
+为了工程的目的，在 Camunda BPM 中，任务又被细分为 8 种类型：
 
+![Undefined](undefined-task.svg)![manual](manual-task.svg)![user](user-task.svg)![receive](receive-task.svg)
 
+![send](send-task.svg)![script](script-task.svg)![service](service-task.svg)![business rule](business-rule-task.svg)
 
+- **未定义（undefined）**：仅用于建模，在工作流引擎中没有实际作用。
 - **人工任务（manual）**：用于对人工操作进行建模，这里的“人工操作”是指和工作流引擎无关的操作，例如：给客户打电话、在文件夹查找文件等。这一任务类别会直接被工作流引擎跳过，对工作流引擎的实际工作不会产生任何影响，仅仅起到建模语义学的作用。
 - **用户任务（user）**：和 manual 类似，也是对人工操作进行建模，但是这里的人工操作是工作流引擎指派的操作，例如：审核请假申请、处理技术支持请求等。工作流引擎会在 user task 的地方暂停，等待用户确认完成任务后，才继续往下执行。通常，用户会获取与自己相关的 user task 列表、读取任务变量、输出一些数据到任务变量、并确认完成任务。
 - **接收消息任务（receive）**：这是捕获消息事件（catch message event）的另一种表示方式，通常使用捕获消息事件建模，而不会用它。
-- **发送消息任务（send）**：发送消息任务
-- script：
-- service：
-- business rule：
+- **发送消息任务（send）**：发送消息任务将调用外部服务，向消息队列发送消息。在 Camunda BPM 中，其实现方式与 Service Task 完全相同，只是表示符号不同，起到建模语义学的作用。
+- **脚本任务（script）**：可以通过内置脚本来完成一些自动化任务。Camunda BPM 支持的脚本类型包括：Groovy、Javascript、JRuby 和 Jython。
+- **服务任务（service）**：通过调用外部服务来完成一些自动化任务。通常外部服务是 Web Service，但是 Camunda BPM 采用了另一种方案来实现外部服务，在外部服务一节进行讨论。
+- **业务规则任务（business rule）**：根据业务规则进行决策的任务。在 Camunda BPM 中可以调用 DMN 引擎，或外部服务来进行业务决策。
+
+
+
+### 任务标记（Task Markers）
+
+任务可以被标记为：循环（loop）、多实例（multiple instance）、补偿（compensations）。
+
+
+
+### 循环（Loop）
+
+重复执行任务。例如下面的示例：我们向客人推荐各种菜肴，直到所有人都同意为止；然后，可以准备饭菜。
+
+![Loop Task](loop-task.svg)
+
+在 Camunda BPM 中，尚未支持循环标记，解决方案是对循环进行显示建模：
+
+![loop-task-in-camunda](loop-task-in-camunda.svg)
+
+
+
+### 多实例（Multiple Instance）
+
+在有些情况下，有些任务的执行可以是并行的，以提高效率。例如下面的示例：公寓里的每个人独立进行点餐（并行的），直到所有人决定了披萨类型；然后，可以订披萨。
+
+![Multiple Instance](multiple-instance.svg)
+
+多实例和循环类似，也是重复特定步骤的方法。在 Camunda BPM 中，多实例与 `for each` 结构匹配：它允许为给定集合中的每个项目依次或并行地执行某个步骤。
+
+一下活动（Activity）可以标记为多实例：
+
+- Service Task
+- Send Task
+- User Task
+- Business Rule Task
+- Script Task
+- Receive Task
+- Manual Task
+- Subprocess
+- Call Activity
+- Transaction Subprocess
+
+网关（Gateway）和事件（Event）不能标记为多实例。
+
+在 Camunda BPM 中，多实例被进一步分成：并行执行的多实例（用三条垂直线表示）和顺序执行的多实例（用三个水平线来表示）。
+
+![Multiple Instance in Camunda](multiple-instance-in-camunda.svg)
+
+> 进一步分析可知：顺序执行的多实例实质上就是一种循环。与循环相比，顺序执行的多实例要求明确循环的次数（`for each` 结构需要在一开始就确定循环集合），而循环则对应（`do...while` 或 `while...do` 结构，无需在循环开始时，确定循环的大小）。
+
+
+
+### 补偿
+
+用一个活动改变另一个活动的结果，称之为补偿。补偿处理流程不包含在常规流程中，仅在补偿事件发生时被执行。因此，它仅通过关联而不是按顺序流程集成在流程图中。
+
+![Compensation](compensation-task-in-camunda.svg)
+
+
+
+### 网关
+
+网关用来控制流程的执行流向。有 4 种网关：排他网关（Exclusive Gateway）、并行网关（Parallel Gateway）、包容网关（Inclusive Gateway）、事件网关（Event-based Gateway）。
+
+![Exclusive GW](exclusive-gw.svg)![Parallel GW](parallel-gw.svg)![Inclusive GW](inclusive-gw.svg)![Event Based GW](event-based-gw.svg)
+
+
+
+### 排他网关（Exclusive Gateway）
+
+排他网关用于在流程中对决策进行建模。简单来说，就是 `if...else if...else` 结构（与 `switch...case` 结构不同）：
+
+- 按照定义顺序评估所有的传出序列，选择条件评估为“true”的序列以继续该流程；
+- 如果有多个序列流评估为“true”，仅选择 XML 中定义的第一个序列以继续流程；
+- 如果没有条件评估为“true”，这将导致运行时异常，流程将停在上一个活动；
+- 如果定义了默认流，则允许在其它条件都不满足的情况下，继续流程。
+
+![Exclusive Gateway](exclusive-gateway.svg)
+
+
+
+### 并行网关（Parallel Gateway）
+
+并行网关用于流程中的并发活动建模，它允许分支进入多个执行路径。
+
+- fork：并行执行所有传出序列，为每个序列创建一个并发执行。
+- join：所有到达并行网关的并发执行都在网关处等待，直到每个传入序列都执行完毕，然后继续后面的流程。
+
+![Parallel Gateway](parallel-gateway.svg)
+
+> 并行网关并不需要“平衡”，即，fork 并行网关和 join 并行网关数量并不需要相同。
+
+
+
+### 包容网关（Inclusive Gateway）
+
+包容网关可以视为排他网关和并行网关的组合、语法糖：如果传出序列条件有多个“true”，则这些序列将并行执行。
+
+![Inclusive Gateway](inclusive-gateway.svg)
+
+
+
+### 事件网关（Event-based Gateway）
+
+事件网关对基于事件的决策进行建模。以下面的例子来说明：
+
+![Event-based Gateway](event-based-gateway.svg)
+
+当执行到事件网关时，流程执行被挂起。流程实例订阅了 `Alter` 事件，并创建了一个计时器，该计时器在 10 分钟后触发。这将导致工作流引擎等待 10 分钟 `Alter` 事件。如果 `Alter` 在 10 分钟内发生，则取消计时器，并执行后续流程；如果未触发 `Alter`，则 10 分钟后，计时器事件触发后续流程，并取消对 `Alter` 信号的订阅。
+
+
+
+### 事件的术语（Event）
+
+任务和网关时到目前为止我们已经知道的三个流程元素中的两个：事情（任务）必须在某些情况下（网关）完成。但仍然缺少了关键的流程元素 —— 会发生什么事儿（事件）。
+
+**捕获事件**是定义了触发器的事件。当事件发生时，可能导致：
+
+- 开始流程
+- 继续流程
+- 终止当前流程或子流程的执行
+- 执行当前流程或子流程的另一条分支路径
+
+**抛出事件**是触发自身的事件。抛出事件可以：
+
+- 在流程中触发
+- 在流程结束时触发
+
+**附加中间事件**放置在活动的边界处，当它发生时，会中断当前活动。
+
+![Attached Intermediate Event](attached-intermediate-event.svg)
+
+- 流程运行到 task 1，该任务开始执行。
+- 在处理 task 1 时，发生 event 1，则立即取消 task 1，并执行 task 3。
+- 如果直到 task 1 处理完毕，event 1 都没有发生，则执行 task 2。
+- 一旦 task 1 处理完毕，则不再监听 event 1。此时，无论 event 1 是否发生，都不会执行 task 3。
+
+**非中断中间事件**。有些情况下，不希望中间事件导致活动被取消，因此引入了非中断中间事件的概念。
+
+![Non-interrupting Intermediate Event](non-interrupting-intermediate-event.svg)
+
+- 此时，在处理 task 1 时，发生 event 1，task 1 不会被取消，而会执行完成，同时执行 task 3。
+
+
+
+### 事件的分类
+
+Camunda BPM 中定义了 10 种事件：空白事件（None）、消息事件（Message）、定时器事件（Timer）、条件事件（Conditional）、链接事件（Link）、信号事件（Signal）、错误事件（Error）、升级事件（Escalation）、终止事件（Terminal）、补偿与取消事件（Compensation and Cancel）。
+
+> Camunda BPM 实现的事件类型略少于 BPMN 2.0 标准定义的 13 种事件。其中，Multiple 和 Multiple Parallel 事件尚未实现；Compensation 和 Cancel 事件合并为 Compensation 事件。
+
+
+
+### 开始事件（Start Event）和结束事件（End Event）
+
+开始事件和结束事件并不是 BPMN 定义的事件类型，它们只是按照流程定义中功能来命名的事件。
+
+流程和子流程都必须从开始事件开始，以结束事件结束。
+
+开始事件可以是：
+
+- 空白事件
+- 定时器事件
+- 消息事件
+- 信号事件
+- 条件事件
+
+结束事件可以是：
+
+- 空白事件
+- 消息事件
+- 信号事件
+- 错误事件
+- 升级事件
+- 终止事件
+- 补偿事件
+
+简单的流程定义，总是从空白的开始事件开始，以空白的结束事件结束。
+
+
+
+### 空白事件（None）
+
+空白事件表示什么都没有指定：无条件启动和无条件结束。
+
+
+
+### 消息事件（Message）
+
+消息事件时引用命名消息的事件。每个消息都有名称和有效载荷（附加数据）。与信号事件不同，消息事件始终是针对某个收件人的。
+
+
+
+
+
+### 子流程
+
+子流程用于封装复杂性。在一个复杂的流程中应用子流程，可以让设计者关注于整体流程，按照自上而下，或者自下而上的层次设计方法来设计流程。
+
+在 Camunda BPM 中，有两种子流程的表示方法：
+
+- 子流程在父流程的流程图中直接进行定义，称之为”嵌入式子流程（Subprocess）“
+- 子流程在另一个流程图中定义，父流程调用外部定义的子流程，称之为“调用活动（Call Activity）”
+
+
+
+### 嵌入式子流程
+
+应用嵌入式子流程，需要注意：
+
+- 子流程允许分层建模。
+- Camunda Modeler 中一旦展开了子流程，就无法再折叠。
+- 子流程为事件（Event）创建了新的作用域 —— 子流程中的事件仅限于子流程内部，在子流程执行期间引发的事件可由子流程边界上的边界事件捕获。
+- 子流程只能有一个无条件开始事件，不允许其它的开始事件类型。子流程必须至少有一个结束事件。
+- 工作流不能跨越子流程边界。
+
+> BPMN 2.0 规范允许省略子流程中的开始和结束事件，但是目前 Camunda BPM 尚不支持该功能。
+
+![Subprocess Collapsed](subprocess-collapsed.svg)
+
+如果展开了子流程，则该子流程的步骤将显示在子流程边界内：
+
+![Subprocess Expanded](subprocess-expanded.svg)
+
+使用子流程的主要原因之一是为事件定义范围。例如下面的示例：如果收到吃饭邀请，那么将取消烹饪过程；但是，如果已经在吃饭，则不再对邀请作出反应。用专业术语来说：吃饭邀请事件的范围是烹饪子流程，只能在子流程处于活动状态时接收消息。
+
+![Subprocess Event Boundary](subprocess-event-boundary.svg)
+
+
+
+### 调用活动
+
+调用活动主要用于具有可重用的流程定义。
+
+当流程执行达到调用活动时，将创建一个新的流程实例，该实例用于执行子流程。主流程实例等待子流程完全借宿，然后再继续原始流程。
+
+由于调用活动可以被多个父流程调用，而嵌入式子流程则只和一个父流程的上下文相关，因此在处理输入输出变量上，两者有所不同：
+
+- 嵌入式子流程可以直接读取父流程的所有数据
+- 调用活动由于启动了一个新的流程实例，因此需要通过变量映射 —— 将父流程的变量复制到调用活动中，在调用活动结束时再复制回主流程 —— 来访问父流程的变量。
+
+> 在配置调用活动时，可以将父流程中的所有流程变量复制到调用活动中，并保持同名。
+>
+> `Variables -> In Mapping -> all`，`Variables -> Out Mapping -> all`
+
+
 
 
 

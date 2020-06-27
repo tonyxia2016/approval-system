@@ -1,0 +1,18 @@
+<svg width="110" height="90" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="92" width="112" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_2" class="djs-visual">
+   <rect id="svg_1" stroke-linejoin="round" stroke-linecap="round" stroke-width="4" stroke="#808080" fill="#ffffff" ry="5" rx="5" height="80" width="100" y="5" x="5"/>
+   <rect id="svg_3" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#808080" fill="#ffffff" height="12" width="12" y="73" x="49"/>
+   <path id="svg_4" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" d="m55,76l0,6m-3,-3l6,0" stroke="#808080" fill="#ffffff"/>
+   <text id="svg_5" font-family="Arial, Helvetica, sans-serif" font-size="12px" fill="#000000" text-anchor="middle" y="45" x="55">
+    <tspan id="svg_6" dy="4">Call Activity</tspan>
+   </text>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,356 @@
+<svg width="690" height="247" 
+    xmlns="http://www.w3.org/2000/svg" data-element-id="sid-23660efe-97a9-4ff6-a4a7-6ee4e6fa2ce6">
+    <desc>Created with Snap</desc>
+    <defs>
+        <marker viewBox="0 0 20 20" markerWidth="10" markerHeight="10" orient="auto" refX="11" refY="10" id="markerSkbxovhl49l">
+            <path d="M 1 5 L 11 10 L 1 15 Z" fill="#000000" style="stroke-width: 1; stroke-linecap: round; stroke-dasharray: 10000, 1;"/>
+        </marker>
+        <marker viewBox="0 0 20 20" markerWidth="20" markerHeight="20" orient="auto" refX="6" refY="6" id="markerSkbxovhl49n">
+            <circle cx="6" cy="6" r="3.5" fill="#ffffff" stroke="#000000" style="stroke-width: 1; stroke-linecap: round; stroke-dasharray: 10000, 1;"/>
+        </marker>
+        <marker viewBox="0 0 20 20" markerWidth="20" markerHeight="20" orient="auto" refX="8.5" refY="5" id="markerSkbxovhl49p">
+            <path d="m 1 5 l 0 -3 l 7 3 l -7 3 z" fill="#ffffff" stroke="#000000" style="stroke-width: 1; stroke-linecap: butt; stroke-dasharray: 10000, 1;"/>
+        </marker>
+        <marker viewBox="0 0 20 20" markerWidth="10" markerHeight="10" orient="auto" refX="11" refY="10" id="markerSkbxovhl49r">
+            <path d="M 1 5 L 11 10 L 1 15" fill="#ffffff" stroke="#000000" style="stroke-width: 1; stroke-linecap: round; stroke-dasharray: 10000, 1;"/>
+        </marker>
+        <marker viewBox="0 0 20 20" markerWidth="10" markerHeight="10" orient="auto" refX="-1" refY="10" id="markerSkbxovhl49t">
+            <path d="M 0 10 L 8 6 L 16 10 L 8 14 Z" fill="#ffffff" stroke="#000000" style="stroke-width: 1; stroke-linecap: round; stroke-dasharray: 10000, 1;"/>
+        </marker>
+        <marker viewBox="0 0 20 20" markerWidth="10" markerHeight="10" orient="auto" refX="-5" refY="10" id="markerSkbxovhl49v">
+            <path d="M 1 4 L 5 16" fill="#000000" stroke="#000000" style="stroke-width: 1; stroke-linecap: round; stroke-dasharray: 10000, 1;"/>
+        </marker>
+    </defs>
+    <g class="viewport" transform="matrix(0.8603,0,0,0.8603,-106.6833,-63.6658)">
+        <g data-element-id="sid-23660efe-97a9-4ff6-a4a7-6ee4e6fa2ce6" class="layer-base">
+            <g class="djs-group">
+                <g data-element-id="sid-E9CADEFF-D7D4-4780-BDFE-26BAEBCFF2D9" transform="matrix(1,0,0,1,160,145)" style="display: block;" class="djs-element djs-shape">
+                    <g class="djs-visual">
+                        <circle cx="15" cy="15" r="15" stroke="#000000" fill="#ffffff" style="stroke-width: 2;"/>
+                    </g>
+                    <rect x="0" y="0" width="30" height="30" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="42" height="42" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-E9CADEFF-D7D4-4780-BDFE-26BAEBCFF2D9_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,130,175)" style="display: block;">
+                    <g class="djs-visual">
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                            <tspan x="26.8828125" y="12.40625">Hunger</tspan>
+                            <tspan x="27.2578125" y="24.8125">noticed</tspan>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="90" height="27" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="102" height="39" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-0FFC7EE3-1A41-40F2-996D-1B7D503A75AF" class="djs-element djs-shape" transform="matrix(1,0,0,1,225,80)" style="display: block;">
+                    <g class="djs-visual">
+                        <rect x="0" y="0" width="450" height="160" rx="10" ry="10" stroke="#000000" fill="#ffffff" style="stroke-width: 2;"/>
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 12px;">
+                            <tspan x="225" y="5"/>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="450" height="160" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="462" height="172" fill="none" style="" class="djs-outline"/>
+                </g>
+                <g class="djs-children">
+                    <g class="djs-group">
+                        <g data-element-id="sid-07C60FE4-7468-45F2-B165-B0949047E8DC" class="djs-element djs-shape" transform="matrix(1,0,0,1,330,120)" style="display: block;">
+                            <g class="djs-visual">
+                                <rect x="0" y="0" width="100" height="80" rx="10" ry="10" stroke="#000000" fill="#ffffff" style="stroke-width: 2;"/>
+                                <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 12px;">
+                                    <tspan x="11.3046875" y="43.3046875">Choose recipe</tspan>
+                                </text>
+                            </g>
+                            <rect x="0" y="0" width="100" height="80" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="112" height="92" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-6B89E49A-FE2A-493D-BA67-3563FCBE2160" transform="matrix(1,0,0,1,260,145)" style="display: block;" class="djs-element djs-shape">
+                            <g class="djs-visual">
+                                <circle cx="15" cy="15" r="15" stroke="#000000" fill="#ffffff" style="stroke-width: 2;"/>
+                            </g>
+                            <rect x="0" y="0" width="30" height="30" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="42" height="42" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-6B89E49A-FE2A-493D-BA67-3563FCBE2160_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,230,175)" style="display: none;">
+                            <g class="djs-visual">
+                                <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                                    <tspan x="45" y="0"/>
+                                </text>
+                            </g>
+                            <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-11F79E4D-EA6E-472A-BC83-98282F01A681" class="djs-element djs-shape" transform="matrix(1,0,0,1,480,120)" style="display: block;">
+                            <g class="djs-visual">
+                                <rect x="0" y="0" width="100" height="80" rx="10" ry="10" stroke="#000000" fill="#ffffff" style="stroke-width: 2;"/>
+                                <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 12px;">
+                                    <tspan x="13.9765625" y="43.3046875">Prepare meal</tspan>
+                                </text>
+                            </g>
+                            <rect x="0" y="0" width="100" height="80" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="112" height="92" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-8F43B582-5BBF-4E23-86FA-C768F3DC1B50" transform="matrix(1,0,0,1,615,146)" style="display: block;" class="djs-element djs-shape">
+                            <g class="djs-visual">
+                                <circle cx="14" cy="14" r="14" stroke="#000000" fill="#ffffff" style="stroke-width: 4;"/>
+                            </g>
+                            <rect x="0" y="0" width="28" height="28" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="40" height="40" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-8F43B582-5BBF-4E23-86FA-C768F3DC1B50_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,584,174)" style="display: none;">
+                            <g class="djs-visual">
+                                <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                                    <tspan x="45" y="0"/>
+                                </text>
+                            </g>
+                            <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-46D6E6F7-B7A7-4725-BAAC-610254C35E31" class="djs-element djs-connection" style="display: block;">
+                            <g class="djs-visual">
+                                <path d="m  290,160L330,160 " fill="none" stroke="#000000" style="stroke-width: 2; stroke-linejoin: round; marker-end: url(&quot;#markerSkbxovhl49l&quot;);"/>
+                            </g>
+                            <polyline points="290,160 330,160 " fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="284" y="154" width="52" height="12" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-46D6E6F7-B7A7-4725-BAAC-610254C35E31_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,265,150)" style="display: none;">
+                            <g class="djs-visual">
+                                <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                                    <tspan x="45" y="0"/>
+                                </text>
+                            </g>
+                            <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-D5DA07C4-5B1D-49D4-AC3B-90B5BB543EE4" class="djs-element djs-connection" style="display: block;">
+                            <g class="djs-visual">
+                                <path d="m  430,160L480,160 " fill="none" stroke="#000000" style="stroke-width: 2; stroke-linejoin: round; marker-end: url(&quot;#markerSkbxovhl49l&quot;);"/>
+                            </g>
+                            <polyline points="430,160 480,160 " fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="424" y="154" width="62" height="12" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-D5DA07C4-5B1D-49D4-AC3B-90B5BB543EE4_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,410,150)" style="display: none;">
+                            <g class="djs-visual">
+                                <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                                    <tspan x="45" y="0"/>
+                                </text>
+                            </g>
+                            <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-0EA229EC-6D6F-4AF6-964A-DA63BF02789E" class="djs-element djs-connection" style="display: block;">
+                            <g class="djs-visual">
+                                <path d="m  580,160L615,160 " fill="none" stroke="#000000" style="stroke-width: 2; stroke-linejoin: round; marker-end: url(&quot;#markerSkbxovhl49l&quot;);"/>
+                            </g>
+                            <polyline points="580,160 615,160 " fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="574" y="154" width="47" height="12" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                    <g class="djs-group">
+                        <g data-element-id="sid-0EA229EC-6D6F-4AF6-964A-DA63BF02789E_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,553,150)" style="display: none;">
+                            <g class="djs-visual">
+                                <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                                    <tspan x="45" y="0"/>
+                                </text>
+                            </g>
+                            <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                            <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-7369E330-FCE1-4427-A75B-94ADA492A508" class="djs-element djs-shape" transform="matrix(1,0,0,1,720,120)" style="display: block;">
+                    <g class="djs-visual">
+                        <rect x="0" y="0" width="100" height="80" rx="10" ry="10" stroke="#000000" fill="#ffffff" style="stroke-width: 2;"/>
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 12px;">
+                            <tspan x="26.3203125" y="43.3046875">Eat meal</tspan>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="100" height="80" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="112" height="92" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-1E7D8FB3-7814-4711-B9CC-51ECC2897F4F" class="djs-element djs-shape" transform="matrix(1,0,0,1,358,275)" style="display: block;">
+                    <g class="djs-visual">
+                        <rect x="0" y="0" width="100" height="80" rx="10" ry="10" stroke="#000000" fill="#ffffff" style="stroke-width: 2;"/>
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 12px;">
+                            <tspan x="23.234375" y="36.6953125">Go out for </tspan>
+                            <tspan x="33.234375" y="49.9140625">dinner </tspan>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="100" height="80" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="112" height="92" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-C1CD91E3-75AA-440D-851A-EA52DAF95FC0" transform="matrix(1,0,0,1,860,146)" style="display: block;" class="djs-element djs-shape">
+                    <g class="djs-visual">
+                        <circle cx="14" cy="14" r="14" stroke="#000000" fill="#ffffff" style="stroke-width: 4;"/>
+                    </g>
+                    <rect x="0" y="0" width="28" height="28" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="40" height="40" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-C1CD91E3-75AA-440D-851A-EA52DAF95FC0_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,830,174)" style="display: block;">
+                    <g class="djs-visual">
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                            <tspan x="26.8828125" y="12.40625">Hunger</tspan>
+                            <tspan x="24.8203125" y="24.8125">satisfied</tspan>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="90" height="27" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="102" height="39" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-41527287-4D07-408B-9903-0B0DBF73DBF3" transform="matrix(1,0,0,1,265,225)" style="display: block;" class="djs-element djs-shape">
+                    <g class="djs-visual">
+                        <circle cx="15" cy="15" r="15" stroke="#000000" fill="#ffffff" style="stroke-width: 1;"/>
+                        <circle cx="15" cy="15" r="12" stroke="#000000" fill="none" style="stroke-width: 1;"/>
+                        <path d="m 7.05,9.45 l 0,10.5 l 15.75,0 l 0,-10.5 z l 7.875,4.5 l 7.875,-4.5" fill="#ffffff" stroke="#000000" style="stroke-width: 1;"/>
+                    </g>
+                    <rect x="0" y="0" width="30" height="30" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="42" height="42" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-41527287-4D07-408B-9903-0B0DBF73DBF3_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,205,256)" style="display: block;">
+                    <g class="djs-visual">
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                            <tspan x="22.984375" y="12.40625">Invitation </tspan>
+                            <tspan x="22.0703125" y="24.8125">Received </tspan>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="90" height="27" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="102" height="39" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-48F2CDF8-15AA-409C-9FFF-F7E1DC71A68F" class="djs-element djs-connection" style="display: block;">
+                    <g class="djs-visual">
+                        <path d="m  190,160L225,160 " fill="none" stroke="#000000" style="stroke-width: 2; stroke-linejoin: round; marker-end: url(&quot;#markerSkbxovhl49l&quot;);"/>
+                    </g>
+                    <polyline points="190,160 225,160 " fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="184" y="154" width="47" height="12" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-48F2CDF8-15AA-409C-9FFF-F7E1DC71A68F_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,163,150)" style="display: none;">
+                    <g class="djs-visual">
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                            <tspan x="45" y="0"/>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-F2E4324B-AB45-4B00-BF2D-542F5B69FE1E" class="djs-element djs-connection" style="display: block;">
+                    <g class="djs-visual">
+                        <path d="m  675,160L720,160 " fill="none" stroke="#000000" style="stroke-width: 2; stroke-linejoin: round; marker-end: url(&quot;#markerSkbxovhl49l&quot;);"/>
+                    </g>
+                    <polyline points="675,160 720,160 " fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="669" y="154" width="57" height="12" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-F2E4324B-AB45-4B00-BF2D-542F5B69FE1E_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,653,150)" style="display: none;">
+                    <g class="djs-visual">
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                            <tspan x="45" y="0"/>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-EADB8798-6D60-4FBC-86F8-490AEA2B80C6" class="djs-element djs-connection" style="display: block;">
+                    <g class="djs-visual">
+                        <path d="m  820,160L860,160 " fill="none" stroke="#000000" style="stroke-width: 2; stroke-linejoin: round; marker-end: url(&quot;#markerSkbxovhl49l&quot;);"/>
+                    </g>
+                    <polyline points="820,160 860,160 " fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="814" y="154" width="52" height="12" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-EADB8798-6D60-4FBC-86F8-490AEA2B80C6_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,795,150)" style="display: none;">
+                    <g class="djs-visual">
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                            <tspan x="45" y="0"/>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-19B29333-6427-4F75-8FC8-108778B3985C" class="djs-element djs-connection" style="display: block;">
+                    <g class="djs-visual">
+                        <path d="m  280,255L280,315 L358,315 " fill="none" stroke="#000000" style="stroke-width: 2; stroke-linejoin: round; marker-end: url(&quot;#markerSkbxovhl49l&quot;);"/>
+                    </g>
+                    <polyline points="280,255 280,315 358,315 " fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="274" y="249" width="90" height="72" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-19B29333-6427-4F75-8FC8-108778B3985C_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,235,275)" style="display: none;">
+                    <g class="djs-visual">
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                            <tspan x="45" y="0"/>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-BC2CC9EB-BED8-42AC-A8AC-D390F2BFE855" class="djs-element djs-connection" style="display: block;">
+                    <g class="djs-visual">
+                        <path d="m  458,315L770,315 L770,200 " fill="none" stroke="#000000" style="stroke-width: 2; stroke-linejoin: round; marker-end: url(&quot;#markerSkbxovhl49l&quot;);"/>
+                    </g>
+                    <polyline points="458,315 770,315 770,200 " fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="452" y="194" width="324" height="127" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+            <g class="djs-group">
+                <g data-element-id="sid-BC2CC9EB-BED8-42AC-A8AC-D390F2BFE855_label" class="djs-element djs-shape" transform="matrix(1,0,0,1,569,305)" style="display: none;">
+                    <g class="djs-visual">
+                        <text class=" djs-label" style="font-family: Arial, sans-serif; font-size: 11px;">
+                            <tspan x="45" y="0"/>
+                        </text>
+                    </g>
+                    <rect x="0" y="0" width="90" height="20" fill="none" stroke="#ffffff" style="stroke-opacity: 0; stroke-width: 15;" class="djs-hit"/>
+                    <rect x="-6" y="-6" width="102" height="32" fill="none" style="" class="djs-outline"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
