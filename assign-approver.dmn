@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_15hqply" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <decision id="assign-approver" name="选择审批人">
+    <decisionTable id="DecisionTable_1v32blv">
+      <input id="Input_1" label="审核状态">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>state</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_04hrcqk" label="审核类型">
+        <inputExpression id="LiteralExpression_0peewgt" typeRef="string">
+          <text>type</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="审批人" name="user" typeRef="string" />
+      <output id="OutputClause_1m6dej4" label="审批角色" name="role" typeRef="string" />
+      <rule id="DecisionRule_1hp7vst">
+        <inputEntry id="UnaryTests_1dh4q6h">
+          <text>"初审"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07gjes5">
+          <text>"包干修复"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19p8w28">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o9r2ho">
+          <text>"包干修复初审"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_106eyvc">
+        <inputEntry id="UnaryTests_1qlxole">
+          <text>"初审"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12cgp9r">
+          <text>"高价值件"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1mf19zc">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xu6kqr">
+          <text>"高价值件初审"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q3wmrc">
+        <inputEntry id="UnaryTests_0mtn6y1">
+          <text>"初审"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x2inqp">
+          <text>"总成部件"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1egddnj">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kmi671">
+          <text>"总成部件初审"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kyim91">
+        <inputEntry id="UnaryTests_1q0ve4e">
+          <text>"初审"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0btv93p">
+          <text>"调价申请"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0feqva2">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cu4lw0">
+          <text>"调价申请初审"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ysy8hi">
+        <inputEntry id="UnaryTests_0jmq0hx">
+          <text>"平移"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o866rp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lcb9na" expressionLanguage="feel">
+          <text>approver</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16ltbyh">
+          <text>"组长"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0b941zn">
+        <inputEntry id="UnaryTests_1hlkjc6">
+          <text>"上报"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ragg3s">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a8d852">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lwizsx">
+          <text>"主任"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0vtfs3z">
+      <dmndi:DMNShape id="DMNShape_0y0386e" dmnElementRef="assign-approver">
+        <dc:Bounds height="80" width="180" x="150" y="150" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
