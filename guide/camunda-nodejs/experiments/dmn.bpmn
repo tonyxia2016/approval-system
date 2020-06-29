@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0uhv36v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <bpmn:process id="dmn-experiment" name="DMN 实验" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="state" label="审核状态" type="string" defaultValue="初审" />
+          <camunda:formField id="type" label="审核类型" type="string" defaultValue="包干修复" />
+          <camunda:formField id="approver" label="审核人" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_10iqc3n</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_10iqc3n" sourceRef="StartEvent_1" targetRef="Activity_0rzb7hp" />
+    <bpmn:businessRuleTask id="Activity_0rzb7hp" camunda:resultVariable="dmn_decision" camunda:decisionRef="assign-approver" camunda:mapDecisionResult="singleResult">
+      <bpmn:incoming>Flow_10iqc3n</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cpla5j</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_0cpla5j" sourceRef="Activity_0rzb7hp" targetRef="Activity_0jv40ut" />
+    <bpmn:userTask id="Activity_0jv40ut" name="检查流程变量" camunda:assignee="${dmn_decision.user}" camunda:candidateGroups="${dmn_decision.role}">
+      <bpmn:incoming>Flow_0cpla5j</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vaq6iq</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1nei33i">
+      <bpmn:incoming>Flow_1vaq6iq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1vaq6iq" sourceRef="Activity_0jv40ut" targetRef="Event_1nei33i" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="dmn-experiment">
+      <bpmndi:BPMNEdge id="Flow_10iqc3n_di" bpmnElement="Flow_10iqc3n">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cpla5j_di" bpmnElement="Flow_0cpla5j">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vaq6iq_di" bpmnElement="Flow_1vaq6iq">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0fpvvjl_di" bpmnElement="Activity_0rzb7hp">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hqxd3d_di" bpmnElement="Activity_0jv40ut">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1nei33i_di" bpmnElement="Event_1nei33i">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
