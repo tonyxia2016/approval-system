@@ -13,7 +13,7 @@
         </inputExpression>
       </input>
       <output id="Output_1" label="审批人" name="user" typeRef="string" />
-      <output id="OutputClause_1m6dej4" label="审批角色" name="role" typeRef="string" />
+      <output id="OutputClause_1m6dej4" label="审批组" name="group" typeRef="string" />
       <rule id="DecisionRule_1hp7vst">
         <inputEntry id="UnaryTests_1dh4q6h">
           <text>"初审"</text>
@@ -72,30 +72,16 @@
       </rule>
       <rule id="DecisionRule_1ysy8hi">
         <inputEntry id="UnaryTests_0jmq0hx">
-          <text>"平移"</text>
+          <text>"复审"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1o866rp">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0lcb9na" expressionLanguage="feel">
-          <text>approver</text>
+          <text>approverUser</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_16ltbyh">
-          <text>"组长"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0b941zn">
-        <inputEntry id="UnaryTests_1hlkjc6">
-          <text>"上报"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ragg3s">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0a8d852">
-          <text>""</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0lwizsx">
-          <text>"主任"</text>
+          <text>approverGroup</text>
         </outputEntry>
       </rule>
     </decisionTable>
