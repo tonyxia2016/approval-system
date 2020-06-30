@@ -1,0 +1,454 @@
+openapi: 3.0.0
+
+info:
+  title: 审批流程 API
+  contact:
+    name: Ryan Li
+    email: rlee@163.com
+  version: 0.5.0
+
+servers:
+  - url: http://localhost:3001/process
+
+paths:
+  /start:
+    post:
+      tags:
+        - process
+      summary: 创建流程实例
+      description: 申请人在“申请页面”填写相关信息并提交申请，将调用此 API 来创建一个审批流程实例。
+      operationId: start
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/application-details"
+            examples:
+              包干修复初审:
+                value:
+                  state: 初审
+                  type: 包干修复
+                  applicant: 定损员A
+                  startDate: 2020-06-30
+                  reportNo: PICC-123456
+                  plateNo: 鄂A-12345
+                  vehicleModel: 奔驰 GLC 260 豪华型
+                  repairPlant: 武汉星隆汽车销售服务有限公司
+                  actualCost: "250000"
+                  evaluationCost: "250000"
+                  purchasePrice: "422800"
+                  agreementAmount: "100000"
+                  investigator: 定损员A
+                  investigateDate: 2020-06-28
+              高价值件初审:
+                value:
+                  state: 初审
+                  type: 高价值件
+                  applicant: 定损员A
+                  startDate: 2020-06-30
+                  reportNo: PICC-123456
+                  plateNo: 鄂A-12345
+                  vehicleModel: 奔驰 GLC 260 豪华型
+                  investigator: 定损员A
+                  investigateLocation: 武汉星隆汽车销售服务有限公司
+                  investigateDate: 2020-06-28
+                  identifier: LBVNPU39008SB69093
+                  insurer: 市人保营业部
+                  insured: 奔驰车主
+                  finalAmount: "50000"
+                  deductible: "10000"
+              总成部件初审:
+                value:
+                  state: 初审
+                  type: 总成部件
+                  applicant: 定损员A
+                  startDate: 2020-06-30
+                  reportNo: PICC-123456
+                  plateNo: 鄂A-12345
+                  vehicleModel: 奔驰 GLC 260 豪华型
+                  investigator: 定损员A
+                  investigateLocation: 武汉星隆汽车销售服务有限公司
+                  investigateDate: 2020-06-28
+                  identifier: LBVNPU39008SB69093
+                  insurer: 市人保营业部
+                  insured: 奔驰车主
+                  finalAmount: "100000"
+                  deductible: "20000"
+              调价申请初审:
+                value:
+                  state: 初审
+                  type: 包干修复
+                  applicant: 定损员A
+                  startDate: 2020-06-30
+                  reportNo: PICC-123456
+                  plateNo: 鄂A-12345
+                  vehicleModel: 奔驰 GLC 260 豪华型
+                  investigator: 定损员A
+                  investigateDate: 2020-06-28
+                  occurredDate: 2020-06-14
+                  quoteDate: 2020-06-25
+                  quoteAmount: "20000"
+                  targetAmount: "25000"
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: 申请流程实例 id
+                example:
+                  id: bc8d2f78-ba94-11ea-b3de-0242ac130004
+
+  /task:
+    post:
+      tags:
+        - process
+      summary: 获取任务列表
+      description: >
+        获取和本人相关的待处理任务列表。即：指定给本人的任务，或本人所在组在任务的候选用户组列表中。
+
+        - 支持分页。
+
+        - 在获取列表前，可以通过 `POST /task/count` API 来获取结果的总数。
+
+        - 支持查询其它条件。可查询条件包括：
+
+          - 申请类型
+
+          - 案件号
+          
+          - 车牌号
+      operationId: getPendingTaskList
+
+      parameters:
+        - in: query
+          name: firstResult
+          schema:
+            type: integer
+          description: 第一条结果的索引，用于分页。
+          example: 26
+        - in: query
+          name: maxResults
+          schema:
+            type: integer
+          description: 返回结果的最大条数，用于分页。
+          example: 25
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/task-query"
+            example:
+              userId: 定损员A
+              type: 包干修复
+              plateNo: 鄂A-12345
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                description: 符合条件的任务 id 列表
+                example:
+                  [
+                    "507f4e4a-baa5-11ea-b3de-0242ac130004",
+                    "759a30e6-baa5-11ea-b3de-0242ac130004",
+                    "7a54eb30-baa5-11ea-b3de-0242ac130004",
+                  ]
+
+  /task/count:
+    post:
+      tags:
+        - process
+      summary: 获取任务列表的总项数
+      description: >
+        获取和本人相关的待处理任务列表总项数。
+
+        - 支持查询其它条件。可查询条件包括：
+
+          - 申请类型
+
+          - 案件号
+          
+          - 车牌号
+      operationId: getPendingTaskListCount
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/task-query"
+            example:
+              userId: 定损员A
+              type: 包干修复
+              plateNo: 鄂A-12345
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                example:
+                  count: 3
+
+  /task/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+          example: 507f4e4a-baa5-11ea-b3de-0242ac130004
+        required: true
+        description: 任务 id
+
+    get:
+      tags:
+        - process
+      summary: 获取任务详情
+      description: 根据 task id 获取任务详情
+      operationId: getPendingTask
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/application-details"
+                  - $ref: "#/components/schemas/approval-history"
+              example:
+                state: 复审
+                type: 包干修复
+                applicant: 定损员A
+                startDate: 2020-06-30
+                reportNo: PICC-123456
+                plateNo: 鄂A-12345
+                vehicleModel: 奔驰 GLC 260 豪华型
+                repairPlant: 武汉星隆汽车销售服务有限公司
+                actualCost: "250000"
+                evaluationCost: "250000"
+                purchasePrice: "422800"
+                agreementAmount: "100000"
+                investigator: 定损员A
+                investigateDate: 2020-06-28
+                approvalHistory:
+                  [
+                    {
+                      approver: 主任A,
+                      date: 2020-06-30,
+                      approved: false,
+                      comment: 驳回的原因...,
+                    },
+                    {
+                      approver: 组长A,
+                      date: 2020-06-30,
+                      approved: false,
+                      comment: 上交主任处理。,
+                    },
+                  ]
+
+    put:
+      tags:
+        - process
+      summary: 更新申请内容
+      description: 更新申请内容。
+      operationId: updatePendingTask
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/application-details"
+            example:
+              state: 复审
+              type: 包干修复
+              applicant: 定损员A
+              startDate: 2020-06-30
+              reportNo: PICC-123456
+              plateNo: 鄂A-12345
+              vehicleModel: 奔驰 GLC 260 豪华型
+              repairPlant: 武汉星隆汽车销售服务有限公司
+              actualCost: "250000"
+              evaluationCost: "250000"
+              purchasePrice: "422800"
+              agreementAmount: "100000"
+              investigator: 定损员A
+              investigateDate: 2020-06-28
+
+      responses:
+        "200":
+          description: OK
+
+  /approval:
+    post:
+      tags:
+        - process
+      summary: 审核
+      description: 审核人通过审核界面，给出审核决定。
+      operationId: approval
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/approval-details"
+            example:
+              approver: 主任A
+              date: 2020-06-30
+              approved: false
+              comment: 驳回的原因...
+
+      responses:
+        "200":
+          description: OK
+
+components:
+  schemas:
+    application-details:
+      required:
+        - state
+        - type
+        - applicant
+        - startDate
+      type: object
+      properties:
+        state:
+          type: string
+          description: 审批状态。开始申请时，状态为“初审”。
+          enum: [初审, 复审]
+        type:
+          type: string
+          description: 审批类型。
+          enum: [包干修复, 高价值件, 总成部件, 调价申请]
+        applicant:
+          type: string
+          description: 申请人，也就是定损员。
+        startDate:
+          type: string
+          description: 提交申请的时间。
+        reportNo:
+          type: string
+          description: 报案号
+        plateNo:
+          type: string
+          description: 车牌号
+        vehicleModel:
+          type: string
+          description: 车辆型号
+        repairPlant:
+          type: string
+          description: 修理厂名称
+        actualCost:
+          type: string
+          description: 实际价值
+        evaluationCost:
+          type: string
+          description: 评估价值
+        purchasePrice:
+          type: string
+          description: 新车购置价
+        agreementAmount:
+          type: string
+          description: 一次性协议定损金额
+        investigator:
+          type: string
+          description: 定损员
+        investigateLocation:
+          type: string
+          description: 定损地点
+        investigateDate:
+          type: string
+          description: 定损时间
+        identifier:
+          type: string
+          description: 识别代码
+        insurer:
+          type: string
+          description: 承保公司
+        insured:
+          type: string
+          description: 被保险人姓名
+        finalAmount:
+          type: string
+          description: 最终价格
+        deductible:
+          type: string
+          description: 自付标准
+        occurredDate:
+          type: string
+          description: 出险时间
+        quoteDate:
+          type: string
+          description: 报价时间
+        quoteAmount:
+          type: string
+          description: 报价金额
+        targetAmount:
+          type: string
+          description: 目标金额
+
+    approval-details:
+      type: object
+      properties:
+        approver:
+          type: string
+          description: 审核人
+        date:
+          type: string
+          description: 审核时间
+        approved:
+          type: boolean
+          description: 审核结果。true：通过；false：不通过
+        comment:
+          type: string
+          description: 审核意见
+
+    approval-history:
+      type: object
+      properties:
+        approvalHistory:
+          type: array
+          description: 审核历史记录，按时间倒序排列。
+          items:
+            $ref: "#/components/schemas/approval-details"
+
+    task-query:
+      type: object
+      required:
+        - userId
+      properties:
+        userId:
+          type: string
+          description: 用户 id
+        type:
+          type: string
+          description: 申请类型
+          enum: [包干修复, 高价值件, 总成部件, 调价申请]
+        reportNo:
+          type: string
+          description: 报案号
+        plateNo:
+          type: string
+          description: 车牌号
