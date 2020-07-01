@@ -1,11 +1,15 @@
 openapi: 3.0.0
 
 info:
-  title: 审批流程 API
+  title: Approval System API
+  description: OpenApi Spec for Approval System API
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://mit-license.org/
   contact:
     name: Ryan Li
     email: rlee@163.com
-  version: 0.5.0
 
 servers:
   - url: http://localhost:3001/process
