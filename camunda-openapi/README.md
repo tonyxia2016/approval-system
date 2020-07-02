@@ -13,7 +13,7 @@
 
 客户端的生成方法请浏览 [Camunda-BPM-JSSDK 项目](https://github.com/hustrlee/camunda-bpm-jssdk)。
 
-可以直接使用预编译的 JS 客户端，最新版本为：`camunda-bpm-jssdk/camunda_bpm_rest_api-7.13.0.tgz`
+可以直接使用预编译的 JS 客户端，最新版本为：`jssdk/camunda_bpm_rest_api-7.13.0.tgz`
 
 
 

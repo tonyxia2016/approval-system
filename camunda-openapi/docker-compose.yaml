@@ -4,8 +4,8 @@ services:
     image: swaggerapi/swagger-ui
     container_name: camunda-api
     environment:
-      - SWAGGER_JSON=/camunda/openapi.json
+      - SWAGGER_JSON=/camunda/camunda-engine-rest-openapi-7.13.0.json
     volumes:
-      - ./camunda-engine-rest-openapi-7.13.0:/camunda
+      - ./:/camunda
     ports:
       - 88:8080
