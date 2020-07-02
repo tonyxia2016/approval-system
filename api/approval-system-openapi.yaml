@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.0.2
 
 info:
-  title: Approval System API
-  description: OpenApi Spec for Approval System API
+  title: Approval System
+  description: OpenApi Spec for Approval System
   version: 1.0.0
   license:
     name: MIT
@@ -12,23 +12,23 @@ info:
     email: rlee@163.com
 
 servers:
-  - url: http://localhost:3001/process
+  - url: http://localhost:3001/
 
 paths:
-  /start:
+  /process/start:
     post:
       tags:
         - process
       summary: 创建流程实例
       description: 申请人在“申请页面”填写相关信息并提交申请，将调用此 API 来创建一个审批流程实例。
-      operationId: start
+      operationId: startApplication
 
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/application-details"
+              $ref: "#/components/schemas/ApplicationDetailsDto"
             examples:
               包干修复初审:
                 value:
@@ -110,11 +110,11 @@ paths:
                 example:
                   id: bc8d2f78-ba94-11ea-b3de-0242ac130004
 
-  /task:
+  /process/task:
     post:
       tags:
         - process
-      summary: 获取任务列表
+      summary: 获取未完成的任务列表
       description: >
         获取和本人相关的待处理任务列表。即：指定给本人的任务，或本人所在组在任务的候选用户组列表中。
 
@@ -150,7 +150,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/task-query"
+              $ref: "#/components/schemas/TaskQueryDto"
             example:
               userId: 定损员A
               type: 包干修复
@@ -330,7 +330,7 @@ paths:
 
 components:
   schemas:
-    application-details:
+    ApplicationDetailsDto:
       required:
         - state
         - type
@@ -438,7 +438,7 @@ components:
           items:
             $ref: "#/components/schemas/approval-details"
 
-    task-query:
+    TaskQueryDto:
       type: object
       required:
         - userId

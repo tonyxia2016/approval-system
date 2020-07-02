@@ -1,22 +1,24 @@
 #!/bin/bash
-API_FILE="approval-process-openapi.yaml"
+API_FILE="approval-system-openapi.yaml"
 
 buildServer() {
     docker run --rm -v $PWD:/local -u $(id -u):$(id -g) \
-    swaggerapi/swagger-codegen-cli-v3 \
-    generate \
+    openapitools/openapi-generator-cli generate \
+    --global-property apiTests=false \
+    --global-property modelTests=false \
     -i /local/${API_FILE} \
-    -o /local/swagger/server \
-    -l nodejs-server
+    -o /local/server \
+    -g nodejs-express-server
 }
 
 buildClient() {
     docker run --rm -v $PWD:/local -u $(id -u):$(id -g) \
-    swaggerapi/swagger-codegen-cli-v3 \
-    generate \
+    openapitools/openapi-generator-cli generate \
+    --global-property apiTests=false \
+    --global-property modelTests=false \
     -i /local/${API_FILE} \
-    -o /local/swagger/client \
-    -l javascript \
+    -o /local/client \
+    -g javascript \
     --additional-properties usePromises=true
 }
 

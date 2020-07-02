@@ -15,37 +15,7 @@
   },
   "servers": [
     {
-      "url": "http://{host}:{port}/{contextPath}",
-      "description": "The API server for the default process engine",
-      "variables": {
-        "host": {
-          "default": "localhost"
-        },
-        "port": {
-          "default": "8080"
-        },
-        "contextPath": {
-          "default": "engine-rest"
-        }
-      }
-    },
-    {
-      "url": "http://{host}:{port}/{contextPath}/engine/{engineName}",
-      "description": "The API server for a named process engine",
-      "variables": {
-        "host": {
-          "default": "localhost"
-        },
-        "port": {
-          "default": "8080"
-        },
-        "contextPath": {
-          "default": "engine-rest"
-        },
-        "engineName": {
-          "default": "default"
-        }
-      }
+      "url": "http://localhost:9001/engine-rest"
     }
   ],
   "tags": [

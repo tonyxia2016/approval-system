@@ -27,7 +27,7 @@ services:
     expose:
       - 8080
     ports:
-      - 8080:8080
+      - 9001:8080
 
   camunda-db:
     image: postgres:9.6-alpine
