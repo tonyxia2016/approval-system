@@ -108,9 +108,7 @@
     "/condition": {
       "post": {
         "operationId": "evaluateCondition",
-        "tags": [
-          "Condition"
-        ],
+        "tags": ["Condition"],
         "description": "Triggers evaluation of conditions for conditional start event(s). \nInternally this maps to the engines condition evaluation builder method ConditionEvaluationBuilder#evaluateStartConditions(). \nFor more information see the [Conditional Start Events](https://docs.camunda.org/manual/7.13/reference/bpmn20/events/conditional-events/#conditional-start-event)\nsection of the [BPMN 2.0 Implementation Reference](https://docs.camunda.org/manual/7.13/reference/bpmn20/).",
         "requestBody": {
           "content": {
@@ -212,9 +210,7 @@
     "/deployment": {
       "get": {
         "operationId": "getDeployments",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Queries for deployments that fulfill given parameters. Parameters may be the properties of deployments,\nsuch as the id or name or a range of the deployment time. The size of the result set can be retrieved by\nusing the [Get Deployment count](https://docs.camunda.org/manual/7.13/reference/rest/deployment/get-query-count/) method.",
         "parameters": [
           {
@@ -314,10 +310,7 @@
             "name": "sortOrder",
             "in": "query",
             "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "type": "string"
             },
             "description": "Sort the results in a given order. Values may be asc for ascending order or desc for descending order.\nMust be used in conjunction with the sortBy parameter."
@@ -383,9 +376,7 @@
     "/deployment/count": {
       "get": {
         "operationId": "getDeploymentsCount",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Queries for the number of deployments that fulfill given parameters. Takes the same parameters as the\n[Get Deployments](https://docs.camunda.org/manual/7.13/reference/rest/deployment/get-query/) method.",
         "parameters": [
           {
@@ -509,9 +500,7 @@
     "/deployment/create": {
       "post": {
         "operationId": "createDeployment",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Creates a deployment.\n\n**Security Consideration**\n\nDeployments can contain custom code in form of scripts or EL expressions to customize process behavior.\nThis may be abused for remote execution of arbitrary code.",
         "requestBody": {
           "content": {
@@ -606,9 +595,7 @@
                                 "line": 87,
                                 "column": 20,
                                 "mainBpmnElementId": "BoundaryEvent_1",
-                                "bpmnElementIds": [
-                                  "BoundaryEvent_1"
-                                ]
+                                "bpmnElementIds": ["BoundaryEvent_1"]
                               }
                             ]
                           }
@@ -627,9 +614,7 @@
     "/deployment/{id}": {
       "delete": {
         "operationId": "deleteDeployment",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Deletes a deployment by id.",
         "parameters": [
           {
@@ -687,9 +672,7 @@
       },
       "get": {
         "operationId": "getDeployment",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Retrieves a deployment by id, according to the `Deployment` interface of the engine.",
         "parameters": [
           {
@@ -743,9 +726,7 @@
     "/deployment/{id}/redeploy": {
       "post": {
         "operationId": "redeploy",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Re-deploys an existing deployment.\n\nThe deployment resources to re-deploy can be restricted by using the properties `resourceIds` or\n`resourceNames`. If no deployment resources to re-deploy are passed then all existing resources of the\ngiven deployment are re-deployed.\n\n**Warning**: Deployments can contain custom code in form of scripts or EL expressions to customize\nprocess behavior. This may be abused for remote execution of arbitrary code. See the section on\n[security considerations for custom code](https://docs.camunda.org/manual/7.13/user-guide/process-engine/securing-custom-code/) in\nthe user guide for details.",
         "parameters": [
           {
@@ -768,12 +749,8 @@
                 "example-1": {
                   "summary": "POST `/deployment/anDeploymentId/redeploy`",
                   "value": {
-                    "resourceIds": [
-                      "aResourceId"
-                    ],
-                    "resourceNames": [
-                      "aResourceName"
-                    ],
+                    "resourceIds": ["aResourceId"],
+                    "resourceNames": ["aResourceName"],
                     "source": "cockpit"
                   }
                 }
@@ -846,9 +823,7 @@
     "/deployment/{id}/resources": {
       "get": {
         "operationId": "getDeploymentResources",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Retrieves all deployment resources of a given deployment.",
         "parameters": [
           {
@@ -908,9 +883,7 @@
     "/deployment/{id}/resources/{resourceId}": {
       "get": {
         "operationId": "getDeploymentResource",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Retrieves a deployment resource by resource id for the given deployment.",
         "parameters": [
           {
@@ -969,9 +942,7 @@
     "/deployment/{id}/resources/{resourceId}/data": {
       "get": {
         "operationId": "getDeploymentResourceData",
-        "tags": [
-          "Deployment"
-        ],
+        "tags": ["Deployment"],
         "description": "Retrieves the binary content of a deployment resource for the given deployment by id.",
         "parameters": [
           {
@@ -1029,9 +1000,7 @@
     "/engine": {
       "get": {
         "operationId": "getProcessEngineNames",
-        "tags": [
-          "Engine"
-        ],
+        "tags": ["Engine"],
         "description": "Retrieves the names of all process engines available on your platform.\n**Note**: You cannot prepend `/engine/{name}` to this method.",
         "responses": {
           "200": {
@@ -1065,9 +1034,7 @@
     "/event-subscription": {
       "get": {
         "operationId": "getEventSubscriptions",
-        "tags": [
-          "Event Subscription"
-        ],
+        "tags": ["Event Subscription"],
         "description": "Queries for event subscriptions that fulfill given parameters.\nThe size of the result set can be retrieved by using the\n[Get Event Subscriptions count](https://docs.camunda.org/manual/7.13/reference/rest/event-subscription/get-query-count/) method.",
         "parameters": [
           {
@@ -1090,12 +1057,7 @@
             "name": "eventType",
             "in": "query",
             "schema": {
-              "enum": [
-                "message",
-                "signal",
-                "compensate",
-                "conditional"
-              ],
+              "enum": ["message", "signal", "compensate", "conditional"],
               "type": "string"
             },
             "description": "Only select subscriptions for events with the given type.\nValid values: `message`, `signal`, `compensate` and `conditional`."
@@ -1152,10 +1114,7 @@
             "name": "sortBy",
             "in": "query",
             "schema": {
-              "enum": [
-                "created",
-                "tenantId"
-              ],
+              "enum": ["created", "tenantId"],
               "type": "string"
             },
             "description": "Sort the results lexicographically by a given criterion.\nMust be used in conjunction with the sortOrder parameter."
@@ -1164,10 +1123,7 @@
             "name": "sortOrder",
             "in": "query",
             "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "type": "string"
             },
             "description": "Sort the results in a given order. Values may be asc for ascending order or desc for descending order.\nMust be used in conjunction with the sortBy parameter."
@@ -1246,9 +1202,7 @@
     "/event-subscription/count": {
       "get": {
         "operationId": "getEventSubscriptionsCount",
-        "tags": [
-          "Event Subscription"
-        ],
+        "tags": ["Event Subscription"],
         "description": "Queries for the number of event subscriptions that fulfill given parameters.\nTakes the same parameters as the\n[Get Event Subscriptions](https://docs.camunda.org/manual/7.13/reference/rest/event-subscription/get-query/) method.",
         "parameters": [
           {
@@ -1271,12 +1225,7 @@
             "name": "eventType",
             "in": "query",
             "schema": {
-              "enum": [
-                "message",
-                "signal",
-                "compensate",
-                "conditional"
-              ],
+              "enum": ["message", "signal", "compensate", "conditional"],
               "type": "string"
             },
             "description": "Only select subscriptions for events with the given type.\nValid values: `message`, `signal`, `compensate` and `conditional`."
@@ -1365,9 +1314,7 @@
     "/external-task": {
       "get": {
         "operationId": "getExternalTasks",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Queries for the external tasks that fulfill given parameters. Parameters may be static as well as dynamic\nruntime properties of executions. The size of the result set can be retrieved by using the\n[Get External Task Count](https://docs.camunda.org/manual/7.13/reference/rest/external-task/get-query-count/) method.",
         "parameters": [
           {
@@ -1563,10 +1510,7 @@
             "name": "sortOrder",
             "in": "query",
             "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "type": "string"
             },
             "description": "Sort the results in a given order. Values may be asc for ascending order or desc for descending order.\nMust be used in conjunction with the sortBy parameter."
@@ -1659,9 +1603,7 @@
       },
       "post": {
         "operationId": "queryExternalTasks",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Queries for external tasks that fulfill given parameters in the form of a JSON object.\n\nThis method is slightly more powerful than the\n[Get External Tasks](https://docs.camunda.org/manual/7.13/reference/rest/external-task/get-query/) method because it allows to\nspecify a hierarchical result sorting.",
         "parameters": [
           {
@@ -1781,9 +1723,7 @@
     "/external-task/count": {
       "get": {
         "operationId": "getExternalTasksCount",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Queries for the number of external tasks that fulfill given parameters. Takes the same parameters as the\n[Get External Tasks](https://docs.camunda.org/manual/7.13/reference/rest/external-task/get-query/) method.",
         "parameters": [
           {
@@ -1992,9 +1932,7 @@
       },
       "post": {
         "operationId": "queryExternalTasksCount",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Queries for the number of external tasks that fulfill given parameters. This method takes the same message\nbody as the [Get External Tasks (POST)](https://docs.camunda.org/manual/7.13/reference/rest/external-task/post-query/) method.",
         "requestBody": {
           "content": {
@@ -2049,9 +1987,7 @@
     "/external-task/fetchAndLock": {
       "post": {
         "operationId": "fetchAndLock",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Fetches and locks a specific number of external tasks for execution by a worker. Query can be restricted\nto specific task topics and for each task topic an individual lock time can be provided.",
         "requestBody": {
           "content": {
@@ -2071,9 +2007,7 @@
                       {
                         "topicName": "createOrder",
                         "lockDuration": 10000,
-                        "variables": [
-                          "orderId"
-                        ]
+                        "variables": ["orderId"]
                       }
                     ]
                   }
@@ -2241,9 +2175,7 @@
     "/external-task/retries": {
       "put": {
         "operationId": "setExternalTaskRetries",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Sets the number of retries left to execute external tasks by id synchronously. If retries are set to 0, \nan incident is created.",
         "requestBody": {
           "content": {
@@ -2256,10 +2188,7 @@
                   "summary": "PUT /external-task/retries",
                   "value": {
                     "retries": 123,
-                    "externalTaskIds": [
-                      "anExternalTask",
-                      "anotherExternalTask"
-                    ]
+                    "externalTaskIds": ["anExternalTask", "anotherExternalTask"]
                   }
                 }
               }
@@ -2296,9 +2225,7 @@
     "/external-task/retries-async": {
       "post": {
         "operationId": "setExternalTaskRetriesAsyncOperation",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Sets the number of retries left to execute external tasks by id asynchronously. If retries are set to 0,\nan incident is created.",
         "requestBody": {
           "content": {
@@ -2311,10 +2238,7 @@
                   "summary": "POST /external-task/retries-async",
                   "value": {
                     "retries": 123,
-                    "externalTaskIds": [
-                      "anExternalTask",
-                      "anotherExternalTask"
-                    ]
+                    "externalTaskIds": ["anExternalTask", "anotherExternalTask"]
                   }
                 }
               }
@@ -2377,9 +2301,7 @@
     "/external-task/topic-names": {
       "get": {
         "operationId": "getTopicNames",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Queries for distinct topic names of external tasks that fulfill given parameters.\nQuery can be restricted to only tasks with retries left, tasks that are locked, or tasks\nthat are unlocked. The parameters withLockedTasks and withUnlockedTasks are\nexclusive. Setting them both to true will return an empty list.\nProviding no parameters will return a list of all distinct topic names with external tasks.",
         "parameters": [
           {
@@ -2420,11 +2342,7 @@
                 "examples": {
                   "example-1": {
                     "summary": "GET /external-task/topic-names?withLockedTasks",
-                    "value": [
-                      "topic-a",
-                      "topic-b",
-                      "topic-c"
-                    ]
+                    "value": ["topic-a", "topic-b", "topic-c"]
                   }
                 }
               }
@@ -2445,9 +2363,7 @@
     "/external-task/{id}": {
       "get": {
         "operationId": "getExternalTask",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Retrieves an external task by id, corresponding to the `ExternalTask` interface in the engine.",
         "parameters": [
           {
@@ -2510,9 +2426,7 @@
     "/external-task/{id}/bpmnError": {
       "post": {
         "operationId": "handleExternalTaskBpmnError",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Reports a business error in the context of a running external task by id. The error code must be specified\nto identify the BPMN error handler.",
         "parameters": [
           {
@@ -2594,9 +2508,7 @@
     "/external-task/{id}/complete": {
       "post": {
         "operationId": "completeExternalTaskResource",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Completes an external task by id and updates process variables.",
         "parameters": [
           {
@@ -2682,9 +2594,7 @@
     "/external-task/{id}/errorDetails": {
       "get": {
         "operationId": "getExternalTaskErrorDetails",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Retrieves the error details in the context of a running external task by id.",
         "parameters": [
           {
@@ -2733,9 +2643,7 @@
     "/external-task/{id}/extendLock": {
       "post": {
         "operationId": "extendLock",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Extends the timeout of the lock by a given amount of time.",
         "parameters": [
           {
@@ -2796,9 +2704,7 @@
     "/external-task/{id}/failure": {
       "post": {
         "operationId": "handleFailure",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Reports a failure to execute an external task by id. A number of retries and a timeout until the task can\nbe retried can be specified. If retries are set to 0, an incident for this task is created.",
         "parameters": [
           {
@@ -2871,9 +2777,7 @@
     "/external-task/{id}/priority": {
       "put": {
         "operationId": "setExternalTaskResourcePriority",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Sets the priority of an existing external task by id. The default value of a priority is 0.",
         "parameters": [
           {
@@ -2923,9 +2827,7 @@
     "/external-task/{id}/retries": {
       "put": {
         "operationId": "setExternalTaskResourceRetries",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Sets the number of retries left to execute an external task by id. If retries are set to 0, an \nincident is created.",
         "parameters": [
           {
@@ -2985,9 +2887,7 @@
     "/external-task/{id}/unlock": {
       "post": {
         "operationId": "unlock",
-        "tags": [
-          "External Task"
-        ],
+        "tags": ["External Task"],
         "description": "Unlocks an external task by id. Clears the task\u0027s lock expiration time and worker id.",
         "parameters": [
           {
@@ -3020,9 +2920,7 @@
     "/message": {
       "post": {
         "operationId": "deliverMessage",
-        "tags": [
-          "Message"
-        ],
+        "tags": ["Message"],
         "description": "Correlates a message to the process engine to either trigger a message start event or an intermediate message \ncatching event. Internally this maps to the engine\u0027s message correlation builder methods\n`MessageCorrelationBuilder#correlateWithResult()` and `MessageCorrelationBuilder#correlateAllWithResult()`.\nFor more information about the correlation behavior, see the [Message Events](https://docs.camunda.org/manual/7.13/bpmn20/events/message-events/)\nsection of the [BPMN 2.0 Implementation Reference](https://docs.camunda.org/manual/7.13/reference/bpmn20/).",
         "requestBody": {
           "content": {
@@ -3203,9 +3101,7 @@
     "/metrics": {
       "get": {
         "operationId": "interval",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "description": "Retrieves a list of metrics, aggregated for a given interval.",
         "parameters": [
           {
@@ -3335,9 +3231,7 @@
     "/metrics/{metrics-name}/sum": {
       "get": {
         "operationId": "getMetrics",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "description": "Retrieves the `sum` (count) for a given metric.",
         "parameters": [
           {
@@ -3409,9 +3303,7 @@
     "/process-definition": {
       "get": {
         "operationId": "getProcessDefinitions",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get List",
         "description": "Queries for process definitions that fulfill given parameters. Parameters may be the properties of \nprocess definitions, such as the name, key or version. The size of the result set can be retrieved\nby using the [Get Definition Count](https://docs.camunda.org/manual/7.13/reference/rest/process-definition/get-query-count/) method.",
         "parameters": [
@@ -3697,10 +3589,7 @@
             "name": "sortOrder",
             "in": "query",
             "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "type": "string"
             },
             "description": "Sort the results in a given order. Values may be asc for ascending order or desc for descending order.\nMust be used in conjunction with the sortBy parameter."
@@ -3792,9 +3681,7 @@
     "/process-definition/count": {
       "get": {
         "operationId": "getProcessDefinitionsCount",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get List Count",
         "description": "Requests the number of process definitions that fulfill the query criteria.\nTakes the same filtering parameters as the [Get Definitions](https://docs.camunda.org/manual/7.13/reference/rest/process-definition/get-query/) method.",
         "parameters": [
@@ -4094,9 +3981,7 @@
     "/process-definition/key/{key}": {
       "delete": {
         "operationId": "deleteProcessDefinitionsByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Delete By Key",
         "description": "Deletes process definitions by a given key which belong to no tenant id.",
         "parameters": [
@@ -4164,9 +4049,7 @@
       },
       "get": {
         "operationId": "getProcessDefinitionByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get",
         "description": "Retrieves the latest version of the process definition which belongs to no tenant according to the `ProcessDefinition` interface in the engine.",
         "parameters": [
@@ -4229,9 +4112,7 @@
     "/process-definition/key/{key}/deployed-start-form": {
       "get": {
         "operationId": "getDeployedStartFormByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Deployed Start Form",
         "description": "Retrieves the deployed form that can be referenced from a start event.\nFor further information please refer to [User Guide](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#embedded-task-forms).",
         "parameters": [
@@ -4301,9 +4182,7 @@
     "/process-definition/key/{key}/diagram": {
       "get": {
         "operationId": "getProcessDefinitionDiagramByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Diagram",
         "description": "Retrieves the diagram for the latest version of the process definition which belongs to no tenant.\n\nIf the process definition\u0027s deployment contains an image resource with the same file name\nas the process definition, the deployed image will be returned by the Get Diagram endpoint.\nExample: `someProcess.bpmn` and `someProcess.png`.\nSupported file extentions for the image are: `svg`, `png`, `jpg`, and `gif`.",
         "parameters": [
@@ -4356,9 +4235,7 @@
     "/process-definition/key/{key}/form-variables": {
       "get": {
         "operationId": "getStartFormVariablesByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Start Form Variables",
         "description": "Retrieves the start form variables for the latest process definition which belongs to no tenant\n(only if they are defined via the \n[Generated Task Form](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms) approach).\nThe start form variables take form data specified on the start event into account.\nIf form fields are defined, the variable types and default values\nof the form fields are taken into account.",
         "parameters": [
@@ -4437,9 +4314,7 @@
     "/process-definition/key/{key}/history-time-to-live": {
       "put": {
         "operationId": "updateHistoryTimeToLiveByProcessDefinitionKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Update History Time to Live",
         "description": "Updates history time to live for the latest version of the process definition which belongs to no tenant.\nThe field is used within [History cleanup](https://docs.camunda.org/manual/7.13/user-guide/process-engine/history/#history-cleanup).",
         "parameters": [
@@ -4500,9 +4375,7 @@
     "/process-definition/key/{key}/rendered-form": {
       "get": {
         "operationId": "getRenderedStartFormByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Rendered Start Form",
         "description": "Retrieves  the rendered form for the latest version of the process definition which belongs to no tenant.\nThis method can be used to get the HTML rendering of a\n[Generated Task Form](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms).",
         "parameters": [
@@ -4562,9 +4435,7 @@
     "/process-definition/key/{key}/start": {
       "post": {
         "operationId": "startProcessInstanceByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Start Instance",
         "description": "Instantiates a given process definition, starts the latest version of the process definition\nwhich belongs to no tenant.\nProcess variables and business key may be supplied in the request body.",
         "parameters": [
@@ -4772,9 +4643,7 @@
     "/process-definition/key/{key}/startForm": {
       "get": {
         "operationId": "getStartFormByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Start Form Key",
         "description": "Retrieves the key of the start form for the latest version of the process definition\nwhich belongs to no tenant.\nThe form key corresponds to the `FormData#formKey` property in the engine.",
         "parameters": [
@@ -4835,9 +4704,7 @@
     "/process-definition/key/{key}/statistics": {
       "get": {
         "operationId": "getActivityStatisticsByProcessDefinitionKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Activity Instance Statistics",
         "description": "Retrieves runtime statistics of the latest version of the given process definition\nwhich belongs to no tenant, grouped by activities.\nThese statistics include the number of running activity instances, optionally the number of failed jobs\nand also optionally the number of incidents either grouped by incident types or\nfor a specific incident type.\n**Note**: This does not include historic data.",
         "parameters": [
@@ -4992,9 +4859,7 @@
     "/process-definition/key/{key}/submit-form": {
       "post": {
         "operationId": "submitFormByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Submit Start Form",
         "description": "Starts the latest version of the process definition which belongs to no tenant\nusing a set of process variables and the business key.\nIf the start event has Form Field Metadata defined, the process engine will perform backend validation\nfor any form fields which have validators defined.\nSee [Documentation on Generated Task Forms](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms).",
         "parameters": [
@@ -5104,9 +4969,7 @@
     "/process-definition/key/{key}/suspended": {
       "put": {
         "operationId": "updateProcessDefinitionSuspensionStateByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Activate/Suspend by Id",
         "description": "Activates or suspends a given process definition by latest version of process definition key\nwhich belongs to no tenant.",
         "parameters": [
@@ -5170,9 +5033,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}": {
       "delete": {
         "operationId": "deleteProcessDefinitionsByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Delete By Key",
         "description": "Deletes process definitions by a given key and which belong to a tenant id.",
         "parameters": [
@@ -5249,9 +5110,7 @@
       },
       "get": {
         "operationId": "getLatestProcessDefinitionByTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get",
         "description": "Retrieves the latest version of the process definition for tenant according to\nthe `ProcessDefinition` interface in the engine.",
         "parameters": [
@@ -5323,9 +5182,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/deployed-start-form": {
       "get": {
         "operationId": "getDeployedStartFormByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Deployed Start Form",
         "description": "Retrieves the deployed form that can be referenced from a start event.\nFor further information please refer to [User Guide](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#embedded-task-forms).",
         "parameters": [
@@ -5404,9 +5261,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/diagram": {
       "get": {
         "operationId": "getProcessDefinitionDiagramByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Diagram",
         "description": "Retrieves the diagram for the latest version of the process definition for tenant.\n\nIf the process definition\u0027s deployment contains an image resource with the same file name\nas the process definition, the deployed image will be returned by the Get Diagram endpoint.\nExample: `someProcess.bpmn` and `someProcess.png`.\nSupported file extentions for the image are: `svg`, `png`, `jpg`, and `gif`.",
         "parameters": [
@@ -5468,9 +5323,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/form-variables": {
       "get": {
         "operationId": "getStartFormVariablesByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Start Form Variables",
         "description": "Retrieves the start form variables for the latest process definition for a tenant\n(only if they are defined via the \n[Generated Task Form](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms) approach).\nThe start form variables take form data specified on the start event into account.\nIf form fields are defined, the variable types and default values\nof the form fields are taken into account.",
         "parameters": [
@@ -5558,9 +5411,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/history-time-to-live": {
       "put": {
         "operationId": "updateHistoryTimeToLiveByProcessDefinitionKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Update History Time to Live",
         "description": "Updates history time to live for the latest version of the process definition for a tenant.\nThe field is used within [History cleanup](https://docs.camunda.org/manual/7.13/user-guide/process-engine/history/#history-cleanup).",
         "parameters": [
@@ -5630,9 +5481,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/rendered-form": {
       "get": {
         "operationId": "getRenderedStartFormByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Rendered Start Form",
         "description": "Retrieves  the rendered form for the latest version of the process definition for a tenant.\nThis method can be used to get the HTML rendering of a\n[Generated Task Form](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms).",
         "parameters": [
@@ -5701,9 +5550,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/start": {
       "post": {
         "operationId": "startProcessInstanceByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Start Instance",
         "description": "Instantiates a given process definition, starts the latest version of the process definition for tenant.\nProcess variables and business key may be supplied in the request body.",
         "parameters": [
@@ -5920,9 +5767,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/startForm": {
       "get": {
         "operationId": "getStartFormByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Start Form Key",
         "description": "Retrieves the key of the start form for the latest version of the process definition for a tenant.\nThe form key corresponds to the `FormData#formKey` property in the engine.",
         "parameters": [
@@ -5992,9 +5837,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/statistics": {
       "get": {
         "operationId": "getActivityStatisticsByProcessDefinitionKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Activity Instance Statistics",
         "description": "Retrieves runtime statistics of the latest version of the given process definition for a tenant,\ngrouped by activities.\nThese statistics include the number of running activity instances, optionally the number of failed jobs\nand also optionally the number of incidents either grouped by incident types or\nfor a specific incident type.\n**Note**: This does not include historic data.",
         "parameters": [
@@ -6158,9 +6001,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/submit-form": {
       "post": {
         "operationId": "submitFormByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Submit Start Form",
         "description": "Starts the latest version of the process definition for a tenant\nusing a set of process variables and the business key.\nIf the start event has Form Field Metadata defined, the process engine will perform backend validation\nfor any form fields which have validators defined.\nSee [Documentation on Generated Task Forms](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms).",
         "parameters": [
@@ -6279,9 +6120,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/suspended": {
       "put": {
         "operationId": "updateProcessDefinitionSuspensionStateByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Activate/Suspend by Id",
         "description": "Activates or suspends a given process definition by the latest version of\nthe process definition for tenant.",
         "parameters": [
@@ -6354,9 +6193,7 @@
     "/process-definition/key/{key}/tenant/{tenant-id}/xml": {
       "get": {
         "operationId": "getProcessDefinitionBpmn20XmlByKeyAndTenantId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get XML",
         "description": "Retrieves latest version the BPMN 2.0 XML of a process definition.\nReturns the XML for the latest version of the process definition for tenant.",
         "parameters": [
@@ -6425,9 +6262,7 @@
     "/process-definition/key/{key}/xml": {
       "get": {
         "operationId": "getProcessDefinitionBpmn20XmlByKey",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get XML",
         "description": "Retrieves latest version the BPMN 2.0 XML of a process definition.",
         "parameters": [
@@ -6487,9 +6322,7 @@
     "/process-definition/statistics": {
       "get": {
         "operationId": "getProcessDefinitionStatistics",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Process Instance Statistics",
         "description": "Retrieves runtime statistics of the process engine, grouped by process definitions.\nThese statistics include the number of running process instances, optionally the number of failed jobs\nand also optionally the number of incidents either grouped by incident types or\nfor a specific incident type.\n**Note**: This does not include historic data.",
         "parameters": [
@@ -6750,9 +6583,7 @@
     "/process-definition/suspended": {
       "put": {
         "operationId": "updateProcessDefinitionSuspensionState",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Activate/Suspend By Key",
         "description": "Activates or suspends process definitions with the given process definition key.",
         "requestBody": {
@@ -6806,9 +6637,7 @@
     "/process-definition/{id}": {
       "delete": {
         "operationId": "deleteProcessDefinition",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Delete",
         "description": "Deletes a running process instance by id.",
         "parameters": [
@@ -6866,9 +6695,7 @@
       },
       "get": {
         "operationId": "getProcessDefinition",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get",
         "description": "Retrieves a process definition according to the `ProcessDefinition` interface in the engine.",
         "parameters": [
@@ -6931,9 +6758,7 @@
     "/process-definition/{id}/deployed-start-form": {
       "get": {
         "operationId": "getDeployedStartForm",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Deployed Start Form",
         "description": "Retrieves the deployed form that can be referenced from a start event.\nFor further information please refer to [User Guide](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#embedded-task-forms).",
         "parameters": [
@@ -7003,9 +6828,7 @@
     "/process-definition/{id}/diagram": {
       "get": {
         "operationId": "getProcessDefinitionDiagram",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Diagram",
         "description": "Retrieves the diagram of a process definition.\n\nIf the process definition\u0027s deployment contains an image resource with the same file name\nas the process definition, the deployed image will be returned by the Get Diagram endpoint.\nExample: `someProcess.bpmn` and `someProcess.png`.\nSupported file extentions for the image are: `svg`, `png`, `jpg`, and `gif`.",
         "parameters": [
@@ -7058,9 +6881,7 @@
     "/process-definition/{id}/form-variables": {
       "get": {
         "operationId": "getStartFormVariables",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Start Form Variables",
         "description": "Retrieves the start form variables for a process definition\n(only if they are defined via the \n[Generated Task Form](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms) approach).\nThe start form variables take form data specified on the start event into account.\nIf form fields are defined, the variable types and default values\nof the form fields are taken into account.",
         "parameters": [
@@ -7139,9 +6960,7 @@
     "/process-definition/{id}/history-time-to-live": {
       "put": {
         "operationId": "updateHistoryTimeToLiveByProcessDefinitionId",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Update History Time to Live",
         "description": "Updates history time to live for process definition.\nThe field is used within [History cleanup](https://docs.camunda.org/manual/7.13/user-guide/process-engine/history/#history-cleanup).",
         "parameters": [
@@ -7202,9 +7021,7 @@
     "/process-definition/{id}/rendered-form": {
       "get": {
         "operationId": "getRenderedStartForm",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Rendered Start Form",
         "description": "Retrieves the rendered form for a process definition.\nThis method can be used to get the HTML rendering of a\n[Generated Task Form](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms).",
         "parameters": [
@@ -7264,9 +7081,7 @@
     "/process-definition/{id}/restart": {
       "post": {
         "operationId": "restartProcessInstance",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Restart Process Instance",
         "description": "Restarts process instances that were canceled or terminated synchronously.\nCan also restart completed process instances.\nIt will create a new instance using the original instance information.\nTo execute the restart asynchronously, use the\n[Restart Process Instance Async](https://docs.camunda.org/manual/7.13/reference/rest/process-definition/post-restart-process-instance-async/) method.\n\nFor more information about the difference between synchronous and asynchronous execution,\nplease refer to the related section of the\n[User Guide](https://docs.camunda.org/manual/7.13/user-guide/process-engine/process-instance-restart/#execution).",
         "parameters": [
@@ -7357,9 +7172,7 @@
     "/process-definition/{id}/restart-async": {
       "post": {
         "operationId": "restartProcessInstanceAsyncOperation",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Restart Process Instance Async",
         "description": "Restarts process instances that were canceled or terminated asynchronously.\nCan also restart completed process instances.\nIt will create a new instance using the original instance information.\nTo execute the restart asynchronously, use the\n[Restart Process Instance](https://docs.camunda.org/manual/7.13/reference/rest/process-definition/post-restart-process-instance-sync/) method.\n\nFor more information about the difference between synchronous and asynchronous execution,\nplease refer to the related section of the\n[User Guide](https://docs.camunda.org/manual/7.13/user-guide/process-engine/process-instance-restart/#execution).",
         "parameters": [
@@ -7476,9 +7289,7 @@
     "/process-definition/{id}/start": {
       "post": {
         "operationId": "startProcessInstance",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Start Instance",
         "description": "Instantiates a given process definition.\nProcess variables and business key may be supplied in the request body.",
         "parameters": [
@@ -7686,9 +7497,7 @@
     "/process-definition/{id}/startForm": {
       "get": {
         "operationId": "getStartForm",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Start Form Key",
         "description": "Retrieves the key of the start form for a process definition.\nThe form key corresponds to the `FormData#formKey` property in the engine.",
         "parameters": [
@@ -7749,9 +7558,7 @@
     "/process-definition/{id}/statistics": {
       "get": {
         "operationId": "getActivityStatistics",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get Activity Instance Statistics",
         "description": "Retrieves runtime statistics of a given process definition, grouped by activities.\nThese statistics include the number of running activity instances, optionally the number of failed jobs\nand also optionally the number of incidents either grouped by incident types or for a specific incident type.\n**Note**: This does not include historic data.",
         "parameters": [
@@ -7906,9 +7713,7 @@
     "/process-definition/{id}/submit-form": {
       "post": {
         "operationId": "submitForm",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Submit Start Form",
         "description": "Starts a process instance using a set of process variables and the business key.\nIf the start event has Form Field Metadata defined, the process engine will perform backend validation\nfor any form fields which have validators defined.\nSee [Documentation on Generated Task Forms](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms).",
         "parameters": [
@@ -8018,9 +7823,7 @@
     "/process-definition/{id}/suspended": {
       "put": {
         "operationId": "updateProcessDefinitionSuspensionStateById",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Activate/Suspend By Id",
         "description": "Activates or suspends a given process definition by id.",
         "parameters": [
@@ -8084,9 +7887,7 @@
     "/process-definition/{id}/xml": {
       "get": {
         "operationId": "getProcessDefinitionBpmn20Xml",
-        "tags": [
-          "Process Definition"
-        ],
+        "tags": ["Process Definition"],
         "summary": "Get XML",
         "description": "Retrieves the BPMN 2.0 XML of a process definition.",
         "parameters": [
@@ -8156,9 +7957,7 @@
     "/process-instance": {
       "get": {
         "operationId": "getProcessInstances",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Queries for process instances that fulfill given parameters.\nParameters may be static as well as dynamic runtime properties of process instances.\nThe size of the result set can be retrieved by using the Get Instance Count method.",
         "parameters": [
           {
@@ -8180,10 +7979,7 @@
             "name": "sortOrder",
             "in": "query",
             "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "type": "string"
             },
             "description": "Sort the results in a given order. Values may be asc for ascending order or desc for descending order.\nMust be used in conjunction with the sortBy parameter."
@@ -8492,9 +8288,7 @@
       },
       "post": {
         "operationId": "queryProcessInstances",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Queries for process instances that fulfill given parameters through a JSON object.\nThis method is slightly more powerful than the Get Instances method because\nit allows filtering by multiple process variables of types `string`, `number` or `boolean`.",
         "parameters": [
           {
@@ -8600,9 +8394,7 @@
     "/process-instance/count": {
       "get": {
         "operationId": "getProcessInstancesCount",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Queries for the number of process instances that fulfill given parameters.",
         "parameters": [
           {
@@ -8881,9 +8673,7 @@
       },
       "post": {
         "operationId": "queryProcessInstancesCount",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Queries for the number of process instances that fulfill the given parameters.\nThis method takes the same message body as the Get Instances (POST) method and\ntherefore it is slightly more powerful than the Get Instance Count method.",
         "requestBody": {
           "content": {
@@ -8949,9 +8739,7 @@
     "/process-instance/delete": {
       "post": {
         "operationId": "deleteProcessInstancesAsyncOperation",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Deletes multiple process instances asynchronously (batch).",
         "requestBody": {
           "description": "**Unallowed property**: `historicProcessInstanceQuery`",
@@ -8965,10 +8753,7 @@
                   "summary": "POST `/process-instance/delete` Request Body 1",
                   "value": {
                     "deleteReason": "aReason",
-                    "processInstanceIds": [
-                      "aProcess",
-                      "secondProcess"
-                    ],
+                    "processInstanceIds": ["aProcess", "secondProcess"],
                     "skipCustomListeners": true,
                     "skipSubprocesses": true
                   }
@@ -9023,9 +8808,7 @@
     "/process-instance/delete-historic-query-based": {
       "post": {
         "operationId": "deleteAsyncHistoricQueryBased",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Deletes a set of process instances asynchronously (batch) based on a historic process instance query.",
         "requestBody": {
           "description": "**Unallowed property**: `processInstanceQuery`",
@@ -9096,9 +8879,7 @@
     "/process-instance/job-retries": {
       "post": {
         "operationId": "setRetriesByProcess",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Create a batch to set retries of jobs associated with given processes asynchronously.",
         "requestBody": {
           "description": "Please note that if both processInstances and processInstanceQuery are provided,\nthen the resulting execution will be performed on the union of these sets.\n**Unallowed property**: `historicProcessInstanceQuery`",
@@ -9112,10 +8893,7 @@
                   "summary": "POST `/process-instance/job-retries` Request Body 1",
                   "value": {
                     "retries": 5,
-                    "processInstances": [
-                      "aProcess",
-                      "secondProcess"
-                    ],
+                    "processInstances": ["aProcess", "secondProcess"],
                     "processInstanceQuery": {
                       "processDefinitionId": "aProcessDefinitionId"
                     }
@@ -9170,9 +8948,7 @@
     "/process-instance/job-retries-historic-query-based": {
       "post": {
         "operationId": "setRetriesByProcessHistoricQueryBased",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Create a batch to set retries of jobs asynchronously based on a historic process instance query.",
         "requestBody": {
           "description": "Please note that if both processInstances and historicProcessInstanceQuery are provided,\nthen the resulting execution will be performed on the union of these sets.\n**Unallowed property**: `processInstanceQuery`",
@@ -9189,10 +8965,7 @@
                     "historicProcessInstanceQuery": {
                       "startedBefore": "2017-04-28T11:24:37.769+0200"
                     },
-                    "processInstances": [
-                      "aProcess",
-                      "secondProcess"
-                    ]
+                    "processInstances": ["aProcess", "secondProcess"]
                   }
                 }
               }
@@ -9245,9 +9018,7 @@
     "/process-instance/suspended": {
       "put": {
         "operationId": "updateSuspensionState",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Activates or suspends process instances by providing certain criteria:\n\n# Activate/Suspend Process Instance By Process Definition Id\n* `suspend`\n* `processDefinitionId`\n\n# Activate/Suspend Process Instance By Process Definition Key\n\n* `suspend`\n* `processDefinitionKey`\n* `processDefinitionTenantId`\n* `processDefinitionWithoutTenantId`\n\n# Activate/Suspend Process Instance In Group\n* `suspend`\n* `processInstanceIds`\n* `processInstanceQuery`\n* `historicProcessInstanceQuery`",
         "requestBody": {
           "content": {
@@ -9307,9 +9078,7 @@
     "/process-instance/suspended-async": {
       "post": {
         "operationId": "updateSuspensionStateAsyncOperation",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Activates or suspends process instances asynchronously with a list of process instance ids,\na process instance query, and/or a historical process instance query.",
         "requestBody": {
           "content": {
@@ -9379,9 +9148,7 @@
     "/process-instance/{id}": {
       "delete": {
         "operationId": "deleteProcessInstance",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Deletes a running process instance by id.",
         "parameters": [
           {
@@ -9450,9 +9217,7 @@
     "/process-instance/{id}/activity-instances": {
       "get": {
         "operationId": "getActivityInstanceTree",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Retrieves an Activity Instance (Tree) for a given process instance by id.",
         "parameters": [
           {
@@ -9508,9 +9273,7 @@
                         }
                       ],
                       "childTransitionInstances": [],
-                      "executionIds": [
-                        "eca75c6b-f70c-11e9-8777-e4a7a094a9d6"
-                      ],
+                      "executionIds": ["eca75c6b-f70c-11e9-8777-e4a7a094a9d6"],
                       "activityName": "Invoice Receipt",
                       "incidentIds": null,
                       "incidents": null
@@ -9537,9 +9300,7 @@
     "/process-instance/{id}/modification": {
       "post": {
         "operationId": "modifyProcessInstance",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Submits a list of modification instructions to change a process instance\u0027s execution state.\nA modification instruction is one of the following:\n\n* Starting execution before an activity\n* Starting execution after an activity on its single outgoing sequence flow\n* Starting execution on a specific sequence flow\n* Canceling an activity instance, transition instance, or all instances (activity or transition) for an activity\n\nInstructions are executed immediately and in the order they are provided in this request\u0027s body.\nVariables can be provided with every starting instruction.\n\nThe exact semantics of modification can be read about in the [User guide](https://docs.camunda.org/manual/develop/user-guide/process-engine/process-instance-modification/).",
         "parameters": [
           {
@@ -9623,9 +9384,7 @@
     "/process-instance/{id}/modification-async": {
       "post": {
         "operationId": "modifyProcessInstanceAsyncOperation",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Submits a list of modification instructions to change a process instance\u0027s execution state async.\nA modification instruction is one of the following:\n\n* Starting execution before an activity\n* Starting execution after an activity on its single outgoing sequence flow\n* Starting execution on a specific sequence flow\n* Cancelling an activity instance, transition instance, or all instances (activity or transition) for an activity\n\nInstructions are executed asynchronous and in the order they are provided in this request\u0027s body.\nVariables can be provided with every starting instruction.\n\nThe exact semantics of modification can be read about in the\n[User guide](https://docs.camunda.org/manual/7.13/user-guide/process-engine/process-instance-modification/).",
         "parameters": [
           {
@@ -9733,9 +9492,7 @@
     "/process-instance/{id}/suspended": {
       "put": {
         "operationId": "updateSuspensionStateById",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Activates or suspends a given process instance by id.",
         "parameters": [
           {
@@ -9775,9 +9532,7 @@
     "/process-instance/{id}/variables": {
       "get": {
         "operationId": "getProcessInstanceVariables",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Retrieves all variables of a given process instance by id.",
         "parameters": [
           {
@@ -9858,9 +9613,7 @@
       },
       "post": {
         "operationId": "modifyProcessInstanceVariables",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Updates or deletes the variables of a process instance by id. Updates precede deletions.\nSo, if a variable is updated AND deleted, the deletion overrides the update.",
         "parameters": [
           {
@@ -9894,10 +9647,7 @@
                         "type": "Integer"
                       }
                     },
-                    "deletions": [
-                      "aThirdVariable",
-                      "FourthVariable"
-                    ]
+                    "deletions": ["aThirdVariable", "FourthVariable"]
                   }
                 }
               }
@@ -9934,9 +9684,7 @@
     "/process-instance/{id}/variables/{varName}": {
       "delete": {
         "operationId": "deleteProcessInstanceVariable",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Deletes a variable of a process instance by id.",
         "parameters": [
           {
@@ -9966,9 +9714,7 @@
       },
       "get": {
         "operationId": "getProcessInstanceVariable",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Retrieves a variable of a given process instance by id.",
         "parameters": [
           {
@@ -10051,9 +9797,7 @@
       },
       "put": {
         "operationId": "setProcessInstanceVariable",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Sets a variable of a given process instance by id.",
         "parameters": [
           {
@@ -10126,9 +9870,7 @@
     "/process-instance/{id}/variables/{varName}/data": {
       "get": {
         "operationId": "getProcessInstanceVariableBinary",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Retrieves the content of a Process Variable by the Process Instance id and the Process Variable name.\nApplicable for byte array or file Process Variables.",
         "parameters": [
           {
@@ -10206,9 +9948,7 @@
       },
       "post": {
         "operationId": "setProcessInstanceVariableBinary",
-        "tags": [
-          "Process Instance"
-        ],
+        "tags": ["Process Instance"],
         "description": "Sets the serialized value for a binary variable or the binary value for a file variable.",
         "parameters": [
           {
@@ -10277,9 +10017,7 @@
     "/schema/log": {
       "get": {
         "operationId": "getSchemaLog",
-        "tags": [
-          "Schema Log"
-        ],
+        "tags": ["Schema Log"],
         "description": "Queries for schema log entries that fulfill given parameters.",
         "parameters": [
           {
@@ -10343,9 +10081,7 @@
       },
       "post": {
         "operationId": "querySchemaLog",
-        "tags": [
-          "Schema Log"
-        ],
+        "tags": ["Schema Log"],
         "description": "Queries for schema log entries that fulfill given parameters.",
         "parameters": [
           {
@@ -10418,9 +10154,7 @@
     "/signal": {
       "post": {
         "operationId": "throwSignal",
-        "tags": [
-          "Signal"
-        ],
+        "tags": ["Signal"],
         "description": "A signal is an event of global scope (broadcast semantics) and is delivered to all\nactive handlers. Internally this maps to the engine\u0027s signal event received builder\nmethod `RuntimeService#createSignalEvent()`. For more information about the signal\nbehavior, see the [Signal Events](https://docs.camunda.org/manual/7.13/reference/bpmn20/events/signal-events/)\nsection of the [BPMN 2.0 Implementation Reference](https://docs.camunda.org/manual/7.13/reference/bpmn20/).",
         "parameters": [],
         "requestBody": {
@@ -10486,9 +10220,7 @@
     "/task": {
       "get": {
         "operationId": "getTasks",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Queries for tasks that fulfill a given filter. The size of the result set can be\nretrieved by using the Get Task Count method.\n\n**Security Consideration:** There are several query parameters (such as\nassigneeExpression) for specifying an EL expression. These are disabled by default to\nprevent remote code execution. See the section on\n[security considerations](https://docs.camunda.org/manual/7.13/user-guide/process-engine/securing-custom-code/)\nfor custom code in the user guide for details.",
         "parameters": [
           {
@@ -11075,10 +10807,7 @@
             "name": "delegationState",
             "in": "query",
             "schema": {
-              "enum": [
-                "PENDING",
-                "RESOLVED"
-              ],
+              "enum": ["PENDING", "RESOLVED"],
               "type": "string"
             },
             "description": "Restrict to tasks that are in the given delegation state. Valid values are\n`PENDING` and `RESOLVED`."
@@ -11234,10 +10963,7 @@
             "name": "sortOrder",
             "in": "query",
             "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "type": "string"
             },
             "description": "Sort the results in a given order. Values may be asc for ascending order or desc for descending order.\nMust be used in conjunction with the sortBy parameter."
@@ -11318,9 +11044,7 @@
       },
       "post": {
         "operationId": "queryTasks",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Queries for tasks that fulfill a given filter. This method is slightly more powerful\nthan the [Get Tasks](https://docs.camunda.org/manual/7.13/reference/rest/task/get-query/) method because it\nallows filtering by multiple process or task variables of types `String`, `Number`\nor `Boolean`. The size of the result set can be retrieved by using the\n[Get Task Count (POST)](https://docs.camunda.org/manual/7.13/reference/rest/task/post-query-count/) method.\n\n**Security Consideration**:\nThere are several parameters (such as `assigneeExpression`) for specifying an EL\nexpression. These are disabled by default to prevent remote code execution. See the\nsection on\n[security considerations for custom code](https://docs.camunda.org/manual/7.13/user-guide/process-engine/securing-custom-code/)\nin the user guide for details.",
         "parameters": [
           {
@@ -11490,9 +11214,7 @@
     "/task/count": {
       "get": {
         "operationId": "getTasksCount",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Retrieves the number of tasks that fulfill a provided filter. Corresponds to the size\nof the result set when using the [Get Tasks](https://docs.camunda.org/manual/7.13/reference/rest/task/) method.\n\n**Security Consideration:** There are several query parameters (such as\nassigneeExpression) for specifying an EL expression. These are disabled by default to\nprevent remote code execution. See the section on\n[security considerations](https://docs.camunda.org/manual/7.13/user-guide/process-engine/securing-custom-code/)\nfor custom code in the user guide for details.",
         "parameters": [
           {
@@ -12079,10 +11801,7 @@
             "name": "delegationState",
             "in": "query",
             "schema": {
-              "enum": [
-                "PENDING",
-                "RESOLVED"
-              ],
+              "enum": ["PENDING", "RESOLVED"],
               "type": "string"
             },
             "description": "Restrict to tasks that are in the given delegation state. Valid values are\n`PENDING` and `RESOLVED`."
@@ -12241,9 +11960,7 @@
       },
       "post": {
         "operationId": "queryTasksCount",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Retrieves the number of tasks that fulfill the given filter. Corresponds to the size\nof the result set of the [Get Tasks (POST)](https://docs.camunda.org/manual/7.13/reference/rest/task/post-query/)\nmethod and takes the same parameters.\n\n**Security Consideration**:\nThere are several parameters (such as `assigneeExpression`) for specifying an EL\nexpression. These are disabled by default to prevent remote code execution. See the\nsection on\n[security considerations for custom code](https://docs.camunda.org/manual/7.13/user-guide/process-engine/securing-custom-code/)\nin the user guide for details.",
         "requestBody": {
           "content": {
@@ -12342,9 +12059,7 @@
     "/task/create": {
       "post": {
         "operationId": "createTask",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Creates a new task.",
         "requestBody": {
           "content": {
@@ -12394,9 +12109,7 @@
     "/task/{id}": {
       "delete": {
         "operationId": "deleteTask",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Removes a task by id.",
         "parameters": [
           {
@@ -12437,9 +12150,7 @@
       },
       "get": {
         "operationId": "getTask",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Retrieves a task by id.",
         "parameters": [
           {
@@ -12505,9 +12216,7 @@
       },
       "put": {
         "operationId": "updateTask",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Updates a task.",
         "parameters": [
           {
@@ -12577,9 +12286,7 @@
     "/task/{id}/assignee": {
       "post": {
         "operationId": "setAssignee",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Changes the assignee of a task to a specific user.\n\n**Note:** The difference with the [Claim Task](https://docs.camunda.org/manual/7.13/reference/rest/task/post-claim/)\nmethod is that this method does not check if the task already has a user\nassigned to it.",
         "parameters": [
           {
@@ -12631,9 +12338,7 @@
     "/task/{id}/attachment": {
       "get": {
         "operationId": "getAttachments",
-        "tags": [
-          "Task Attachment"
-        ],
+        "tags": ["Task Attachment"],
         "description": "Gets the attachments for a task.",
         "parameters": [
           {
@@ -12716,9 +12421,7 @@
     "/task/{id}/attachment/create": {
       "post": {
         "operationId": "addAttachment",
-        "tags": [
-          "Task Attachment"
-        ],
+        "tags": ["Task Attachment"],
         "description": "Creates an attachment for a task.",
         "parameters": [
           {
@@ -12807,9 +12510,7 @@
     "/task/{id}/attachment/{attachmentId}": {
       "delete": {
         "operationId": "deleteAttachment",
-        "tags": [
-          "Task Attachment"
-        ],
+        "tags": ["Task Attachment"],
         "description": "Removes an attachment from a task by id.",
         "parameters": [
           {
@@ -12859,9 +12560,7 @@
       },
       "get": {
         "operationId": "getAttachment",
-        "tags": [
-          "Task Attachment"
-        ],
+        "tags": ["Task Attachment"],
         "description": "Retrieves a task attachment by task id and attachment id.",
         "parameters": [
           {
@@ -12933,9 +12632,7 @@
     "/task/{id}/attachment/{attachmentId}/data": {
       "get": {
         "operationId": "getAttachmentData",
-        "tags": [
-          "Task Attachment"
-        ],
+        "tags": ["Task Attachment"],
         "description": "Retrieves the binary content of a task attachment by task id and attachment id.",
         "parameters": [
           {
@@ -12993,9 +12690,7 @@
     "/task/{id}/bpmnError": {
       "post": {
         "operationId": "handleBpmnError",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Reports a business error in the context of a running task by id. The error code must\nbe specified to identify the BPMN error handler. See the documentation for\n[Reporting Bpmn Error](https://docs.camunda.org/manual/7.13/reference/bpmn20/tasks/user-task/#reporting-bpmn-error)\nin User Tasks.",
         "parameters": [
           {
@@ -13067,9 +12762,7 @@
     "/task/{id}/bpmnEscalation": {
       "post": {
         "operationId": "handleEscalation",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Reports an escalation in the context of a running task by id. The escalation code must\nbe specified to identify the escalation handler. See the documentation for\n[Reporting Bpmn Escalation](https://docs.camunda.org/manual/7.13/reference/bpmn20/tasks/user-task/#reporting-bpmn-escalation)\nin User Tasks.",
         "parameters": [
           {
@@ -13140,9 +12833,7 @@
     "/task/{id}/claim": {
       "post": {
         "operationId": "claim",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Claims a task for a specific user.\n\n**Note:** The difference with the\n[Set Assignee](https://docs.camunda.org/manual/7.13/reference/rest/task/post-assignee/)\nmethod is that here a check is performed to see if the task already has a user\nassigned to it.",
         "parameters": [
           {
@@ -13194,9 +12885,7 @@
     "/task/{id}/comment": {
       "get": {
         "operationId": "getComments",
-        "tags": [
-          "Task Comment"
-        ],
+        "tags": ["Task Comment"],
         "description": "Gets the comments for a task by id.",
         "parameters": [
           {
@@ -13273,9 +12962,7 @@
     "/task/{id}/comment/create": {
       "post": {
         "operationId": "createComment",
-        "tags": [
-          "Task Comment"
-        ],
+        "tags": ["Task Comment"],
         "description": "Creates a comment for a task by id.",
         "parameters": [
           {
@@ -13364,9 +13051,7 @@
     "/task/{id}/comment/{commentId}": {
       "get": {
         "operationId": "getComment",
-        "tags": [
-          "Task Comment"
-        ],
+        "tags": ["Task Comment"],
         "description": "Retrieves a task comment by task id and comment id.",
         "parameters": [
           {
@@ -13429,9 +13114,7 @@
     "/task/{id}/complete": {
       "post": {
         "operationId": "complete",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Completes a task and updates process variables.",
         "parameters": [
           {
@@ -13552,9 +13235,7 @@
     "/task/{id}/delegate": {
       "post": {
         "operationId": "delegateTask",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Delegates a task to another user.",
         "parameters": [
           {
@@ -13606,9 +13287,7 @@
     "/task/{id}/deployed-form": {
       "get": {
         "operationId": "getDeployedForm",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Retrieves the deployed form that is referenced from a given task. For further\ninformation please refer to the\n[User Guide](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#embedded-task-forms).",
         "parameters": [
           {
@@ -13677,9 +13356,7 @@
     "/task/{id}/form": {
       "get": {
         "operationId": "getForm",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Retrieves the form key for a task. The form key corresponds to the `FormData#formKey`\nproperty in the engine. This key can be used to do task-specific form rendering in\nclient applications. Additionally, the context path of the containing process\napplication is returned.",
         "parameters": [
           {
@@ -13729,9 +13406,7 @@
     "/task/{id}/form-variables": {
       "get": {
         "operationId": "getFormVariables",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Retrieves the form variables for a task. The form variables take form data specified\non the task into account. If form fields are defined, the variable types and default\nvalues of the form fields are taken into account.",
         "parameters": [
           {
@@ -13809,9 +13484,7 @@
     "/task/{id}/identity-links": {
       "get": {
         "operationId": "getIdentityLinks",
-        "tags": [
-          "Task Identity Link"
-        ],
+        "tags": ["Task Identity Link"],
         "description": "Gets the identity links for a task by id, which are the users and groups that are in\n*some* relation to it (including assignee and owner).",
         "parameters": [
           {
@@ -13882,9 +13555,7 @@
       },
       "post": {
         "operationId": "addIdentityLink",
-        "tags": [
-          "Task Identity Link"
-        ],
+        "tags": ["Task Identity Link"],
         "description": "Adds an identity link to a task by id. Can be used to link any user or group to a task\nand specify a relation.",
         "parameters": [
           {
@@ -13935,9 +13606,7 @@
     "/task/{id}/identity-links/delete": {
       "post": {
         "operationId": "deleteIdentityLink",
-        "tags": [
-          "Task Identity Link"
-        ],
+        "tags": ["Task Identity Link"],
         "description": "Removes an identity link from a task by id",
         "parameters": [
           {
@@ -13988,9 +13657,7 @@
     "/task/{id}/localVariables": {
       "get": {
         "operationId": "getTaskLocalVariables",
-        "tags": [
-          "Task Local Variable"
-        ],
+        "tags": ["Task Local Variable"],
         "description": "Retrieves all variables of a given task by id.",
         "parameters": [
           {
@@ -14071,9 +13738,7 @@
       },
       "post": {
         "operationId": "modifyTaskLocalVariables",
-        "tags": [
-          "Task Local Variable"
-        ],
+        "tags": ["Task Local Variable"],
         "description": "Updates or deletes the variables in the context of a task. Updates precede deletions. So, if a variable is\nupdated AND deleted, the deletion overrides the update.",
         "parameters": [
           {
@@ -14107,10 +13772,7 @@
                         "type": "Integer"
                       }
                     },
-                    "deletions": [
-                      "aThirdVariable",
-                      "FourthVariable"
-                    ]
+                    "deletions": ["aThirdVariable", "FourthVariable"]
                   }
                 }
               }
@@ -14147,9 +13809,7 @@
     "/task/{id}/localVariables/{varName}": {
       "delete": {
         "operationId": "deleteTaskLocalVariable",
-        "tags": [
-          "Task Local Variable"
-        ],
+        "tags": ["Task Local Variable"],
         "description": "Removes a local variable from a task by id.",
         "parameters": [
           {
@@ -14189,9 +13849,7 @@
       },
       "get": {
         "operationId": "getTaskLocalVariable",
-        "tags": [
-          "Task Local Variable"
-        ],
+        "tags": ["Task Local Variable"],
         "description": "Retrieves a variable from the context of a given task by id.",
         "parameters": [
           {
@@ -14284,9 +13942,7 @@
       },
       "put": {
         "operationId": "putTaskLocalVariable",
-        "tags": [
-          "Task Local Variable"
-        ],
+        "tags": ["Task Local Variable"],
         "description": "Sets a variable in the context of a given task.",
         "parameters": [
           {
@@ -14369,9 +14025,7 @@
     "/task/{id}/localVariables/{varName}/data": {
       "get": {
         "operationId": "getTaskLocalVariableBinary",
-        "tags": [
-          "Task Local Variable"
-        ],
+        "tags": ["Task Local Variable"],
         "description": "Retrieves a binary variable from the context of a given task by id. Applicable for byte array and file\nvariables.",
         "parameters": [
           {
@@ -14449,9 +14103,7 @@
       },
       "post": {
         "operationId": "setBinaryTaskLocalVariable",
-        "tags": [
-          "Task Local Variable"
-        ],
+        "tags": ["Task Local Variable"],
         "description": "Sets the serialized value for a binary variable or the binary value for a file variable.",
         "parameters": [
           {
@@ -14530,9 +14182,7 @@
     "/task/{id}/rendered-form": {
       "get": {
         "operationId": "getRenderedForm",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Retrieves the rendered form for a task. This method can be used to get the HTML\nrendering of a\n[Generated Task Form](https://docs.camunda.org/manual/7.13/user-guide/task-forms/#generated-task-forms).",
         "parameters": [
           {
@@ -14581,9 +14231,7 @@
     "/task/{id}/resolve": {
       "post": {
         "operationId": "resolve",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Resolves a task and updates execution variables.\n\nResolving a task marks that the assignee is done with the task delegated to them, and\nthat it can be sent back to the owner. Can only be executed when the task has been\ndelegated. The assignee will be set to the owner, who performed the delegation.",
         "parameters": [
           {
@@ -14654,9 +14302,7 @@
     "/task/{id}/submit-form": {
       "post": {
         "operationId": "submit",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Completes a task and updates process variables using a form submit. There are two\ndifference between this method and the `complete` method:\n\n* If the task is in state `PENDING` - i.e., has been delegated before, it is not\ncompleted but resolved. Otherwise it will be completed.\n* If the task has Form Field Metadata defined, the process engine will perform backend\nvalidation for any form fields which have validators defined.\nSee the\n[Generated Task Forms](https://docs.camunda.org/manual/7.13/user-guide/task-forms/_index/#generated-task-forms)\nsection of the [User Guide](https://docs.camunda.org/manual/7.13/user-guide/) for more information.",
         "parameters": [
           {
@@ -14788,9 +14434,7 @@
     "/task/{id}/unclaim": {
       "post": {
         "operationId": "unclaim",
-        "tags": [
-          "Task"
-        ],
+        "tags": ["Task"],
         "description": "Resets a task\u0027s assignee. If successful, the task is not assigned to a user.",
         "parameters": [
           {
@@ -14823,9 +14467,7 @@
     "/task/{id}/variables": {
       "get": {
         "operationId": "getTaskVariables",
-        "tags": [
-          "Task Variable"
-        ],
+        "tags": ["Task Variable"],
         "description": "Retrieves all variables visible from the task. A variable is visible from the task if it is a local task\nvariable or declared in a parent scope of the task. See documentation on\n[visiblity of variables](https://docs.camunda.org/manual/7.13/user-guide/process-engine/variables/).",
         "parameters": [
           {
@@ -14906,9 +14548,7 @@
       },
       "post": {
         "operationId": "modifyTaskVariables",
-        "tags": [
-          "Task Variable"
-        ],
+        "tags": ["Task Variable"],
         "description": "Updates or deletes the variables visible from the task. Updates precede deletions. So, if a variable is\nupdated AND deleted, the deletion overrides the update. A variable is visible from the task if it is a\nlocal task variable or declared in a parent scope of the task. See documentation on\n[visiblity of variables](https://docs.camunda.org/manual/7.13/user-guide/process-engine/variables/).",
         "parameters": [
           {
@@ -14942,10 +14582,7 @@
                         "type": "Integer"
                       }
                     },
-                    "deletions": [
-                      "aThirdVariable",
-                      "FourthVariable"
-                    ]
+                    "deletions": ["aThirdVariable", "FourthVariable"]
                   }
                 }
               }
@@ -14982,9 +14619,7 @@
     "/task/{id}/variables/{varName}": {
       "delete": {
         "operationId": "deleteTaskVariable",
-        "tags": [
-          "Task Variable"
-        ],
+        "tags": ["Task Variable"],
         "description": "Removes a variable that is visible to a task. A variable is visible to a task if it is a local task\nvariable or declared in a parent scope of the task. See documentation on\n[visiblity of variables](https://docs.camunda.org/manual/7.13/user-guide/process-engine/variables/).",
         "parameters": [
           {
@@ -15024,9 +14659,7 @@
       },
       "get": {
         "operationId": "getTaskVariable",
-        "tags": [
-          "Task Variable"
-        ],
+        "tags": ["Task Variable"],
         "description": "Retrieves a variable from the context of a given task.\nThe variable must be visible from the task. It is visible from the task if it is a local task variable or\ndeclared in a parent scope of the task. See documentation on\n[visiblity of variables](https://docs.camunda.org/manual/7.13/user-guide/process-engine/variables/).",
         "parameters": [
           {
@@ -15119,9 +14752,7 @@
       },
       "put": {
         "operationId": "putTaskVariable",
-        "tags": [
-          "Task Variable"
-        ],
+        "tags": ["Task Variable"],
         "description": "Updates a process variable that is visible from the Task scope. A variable is visible from the task if it\nis a local task variable, or declared in a parent scope of the task. See the documentation on\n[variable scopes and visibility](https://docs.camunda.org/manual/7.13/user-guide/process-engine/variables#variable-scopes-and-variable-visibility).\n\n**Note**: If a variable doesn\u0027t exist, the variable is created in the top-most scope\nvisible from the task.",
         "parameters": [
           {
@@ -15204,9 +14835,7 @@
     "/task/{id}/variables/{varName}/data": {
       "get": {
         "operationId": "getTaskVariableBinary",
-        "tags": [
-          "Task Variable"
-        ],
+        "tags": ["Task Variable"],
         "description": "Retrieves a binary variable from the context of a given task. Applicable for byte array and file\nvariables. The variable must be visible from the task. It is visible from the task if it is a local task\nvariable or declared in a parent scope of the task. See documentation on\n[visiblity of variables](https://docs.camunda.org/manual/7.13/user-guide/process-engine/variables/).",
         "parameters": [
           {
@@ -15284,9 +14913,7 @@
       },
       "post": {
         "operationId": "setBinaryTaskVariable",
-        "tags": [
-          "Task Variable"
-        ],
+        "tags": ["Task Variable"],
         "description": "Sets the serialized value for a binary variable or the binary value for a file variable visible from the\ntask. A variable is visible from the task if it is a local task variable or declared in a parent scope of\nthe task. See documentation on\n[visiblity of variables](https://docs.camunda.org/manual/7.13/user-guide/process-engine/variables/).",
         "parameters": [
           {
@@ -15365,9 +14992,7 @@
     "/version": {
       "get": {
         "operationId": "getRestAPIVersion",
-        "tags": [
-          "Version"
-        ],
+        "tags": ["Version"],
         "description": "Retrieves the version of the Rest API.",
         "responses": {
           "200": {
@@ -16151,84 +15776,6 @@
           }
         }
       },
-      "EventSubscriptionQueryDto": {
-        "type": "object",
-        "description": "A event subscription query which retrieves a list of event subscriptions",
-        "properties": {
-          "eventSubscriptionId": {
-            "type": "string",
-            "description": "The id of the event subscription."
-          },
-          "eventName": {
-            "type": "string",
-            "description": "The name of the event this subscription belongs to as defined in the process model."
-          },
-          "eventType": {
-            "type": "string",
-            "enum": [
-              "message",
-              "signal",
-              "compensate",
-              "conditional"
-            ],
-            "description": "The type of the event subscription."
-          },
-          "executionId": {
-            "type": "string",
-            "description": "The execution that is subscribed on the referenced event."
-          },
-          "processInstanceId": {
-            "type": "string",
-            "description": "The process instance this subscription belongs to."
-          },
-          "activityId": {
-            "type": "string",
-            "description": "The identifier of the activity that this event subscription belongs to.\nThis could for example be the id of a receive task."
-          },
-          "tenantIdIn": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Filter by a comma-separated list of tenant ids.\nOnly select subscriptions that belong to one of the given tenant ids."
-          },
-          "withoutTenantId": {
-            "type": "boolean",
-            "nullable": true,
-            "description": "Only select subscriptions which have no tenant id.\nValue may only be `true`, as `false` is the default behavior."
-          },
-          "includeEventSubscriptionsWithoutTenantId": {
-            "type": "boolean",
-            "nullable": true,
-            "description": "Select event subscriptions which have no tenant id.\nCan be used in combination with tenantIdIn parameter.\nValue may only be `true`, as `false` is the default behavior."
-          },
-          "sorting": {
-            "type": "array",
-            "description": "Apply sorting of the result",
-            "items": {
-              "type": "object",
-              "properties": {
-                "sortBy": {
-                  "type": "string",
-                  "enum": [
-                    "created",
-                    "tenantId"
-                  ],
-                  "description": "Sort the results lexicographically by a given criterion.\nMust be used in conjunction with the sortOrder parameter."
-                },
-                "sortOrder": {
-                  "type": "string",
-                  "enum": [
-                    "asc",
-                    "desc"
-                  ],
-                  "description": "Sort the results in a given order. Values may be `asc` for ascending order or `desc` for\ndescending order. Must be used in conjunction with the sortBy parameter."
-                }
-              }
-            }
-          }
-        }
-      },
       "ExceptionDto": {
         "title": "ExceptionDto",
         "type": "object",
@@ -16539,10 +16086,7 @@
                 },
                 "sortOrder": {
                   "type": "string",
-                  "enum": [
-                    "asc",
-                    "desc"
-                  ],
+                  "enum": ["asc", "desc"],
                   "description": "Sort the results in a given order. Values may be `asc` for ascending order or `desc` for\ndescending order. Must be used in conjunction with the sortBy parameter."
                 }
               }
@@ -16552,10 +16096,7 @@
       },
       "FetchExternalTaskTopicDto": {
         "type": "object",
-        "required": [
-          "topicName",
-          "lockDuration"
-        ],
+        "required": ["topicName", "lockDuration"],
         "properties": {
           "topicName": {
             "type": "string",
@@ -16638,10 +16179,7 @@
       },
       "FetchExternalTasksDto": {
         "type": "object",
-        "required": [
-          "workerId",
-          "maxTasks"
-        ],
+        "required": ["workerId", "maxTasks"],
         "properties": {
           "workerId": {
             "type": "string",
@@ -16775,10 +16313,7 @@
           },
           "incidentStatus": {
             "type": "string",
-            "enum": [
-              "open",
-              "resolved"
-            ],
+            "enum": ["open", "resolved"],
             "description": "Only include process instances which have an incident in status either open or resolved.\nTo get all process instances, use the query parameter withIncidents."
           },
           "incidentMessage": {
@@ -16960,10 +16495,7 @@
                 },
                 "sortOrder": {
                   "type": "string",
-                  "enum": [
-                    "asc",
-                    "desc"
-                  ],
+                  "enum": ["asc", "desc"],
                   "description": "Sort the results in a given order. Values may be `asc` for ascending order or `desc` for\ndescending order. Must be used in conjunction with the sortBy parameter."
                 }
               }
@@ -16985,9 +16517,7 @@
       },
       "IdentityLinkDto": {
         "type": "object",
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "properties": {
           "userId": {
             "type": "string",
@@ -17127,10 +16657,7 @@
         "properties": {
           "resultType": {
             "type": "string",
-            "enum": [
-              "Execution",
-              "ProcessDefinition"
-            ],
+            "enum": ["Execution", "ProcessDefinition"],
             "description": "Indicates if the message was correlated to a message start event or an \nintermediate message catching event. In the first case, the resultType is \n`ProcessDefinition` and otherwise `Execution`."
           },
           "processInstance": {
@@ -17271,10 +16798,7 @@
           },
           "valueType": {
             "type": "string",
-            "enum": [
-              "Bytes",
-              "File"
-            ],
+            "enum": ["Bytes", "File"],
             "description": "The name of the variable type. Either Bytes for a byte array variable or File for a file variable."
           }
         }
@@ -17574,9 +17098,7 @@
       },
       "ProcessInstanceModificationInstructionDto": {
         "type": "object",
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "properties": {
           "type": {
             "type": "string",
@@ -17791,10 +17313,7 @@
                 },
                 "sortOrder": {
                   "type": "string",
-                  "enum": [
-                    "asc",
-                    "desc"
-                  ],
+                  "enum": ["asc", "desc"],
                   "description": "Sort the results in a given order. Values may be `asc` for ascending order or `desc` for\ndescending order. Must be used in conjunction with the sortBy parameter."
                 }
               }
@@ -17972,9 +17491,7 @@
       },
       "RestartProcessInstanceModificationInstructionDto": {
         "type": "object",
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "properties": {
           "type": {
             "type": "string",
@@ -18039,17 +17556,12 @@
               "properties": {
                 "sortBy": {
                   "type": "string",
-                  "enum": [
-                    "timestamp"
-                  ],
+                  "enum": ["timestamp"],
                   "description": "Sort the results lexicographically by a given criterion.\nMust be used in conjunction with the sortOrder parameter."
                 },
                 "sortOrder": {
                   "type": "string",
-                  "enum": [
-                    "asc",
-                    "desc"
-                  ],
+                  "enum": ["asc", "desc"],
                   "description": "Sort the results in a given order. Values may be `asc` for ascending order or `desc` for\ndescending order. Must be used in conjunction with the sortBy parameter."
                 }
               }
@@ -18284,10 +17796,7 @@
           },
           "delegationState": {
             "type": "string",
-            "enum": [
-              "PENDING",
-              "RESOLVED"
-            ],
+            "enum": ["PENDING", "RESOLVED"],
             "description": "The task\u0027s delegation state. Possible values are `PENDING` and `RESOLVED`."
           },
           "description": {
@@ -18710,10 +18219,7 @@
           },
           "delegationState": {
             "type": "string",
-            "enum": [
-              "PENDING",
-              "RESOLVED"
-            ],
+            "enum": ["PENDING", "RESOLVED"],
             "description": "Restrict to tasks that are in the given delegation state. Valid values are\n`PENDING` and `RESOLVED`."
           },
           "candidateGroups": {
@@ -18838,10 +18344,7 @@
                 },
                 "sortOrder": {
                   "type": "string",
-                  "enum": [
-                    "asc",
-                    "desc"
-                  ],
+                  "enum": ["asc", "desc"],
                   "description": "Sort the results in a given order. Values may be `asc` for ascending order or `desc` for\ndescending order. Must be used in conjunction with the sortBy parameter."
                 },
                 "parameters": {
@@ -18939,15 +18442,7 @@
           },
           "operator": {
             "type": "string",
-            "enum": [
-              "eq",
-              "neq",
-              "gt",
-              "gteq",
-              "lt",
-              "lteq",
-              "like"
-            ],
+            "enum": ["eq", "neq", "gt", "gteq", "lt", "lteq", "like"],
             "description": "Comparison operator to be used"
           }
         }
