@@ -1,0 +1,330 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: rlee@163.com
+    name: Ryan Li
+  description: OpenApi Spec for Approval System
+  license:
+    name: MIT
+    url: https://mit-license.org/
+  title: Approval System
+  version: 1.0.0
+servers:
+- url: http://localhost:3001/rest
+paths:
+  /process/start:
+    post:
+      description: 申请人在“申请页面”填写相关信息并提交申请，将调用此 API 来创建一个审批流程实例。
+      operationId: startApplication
+      requestBody:
+        content:
+          application/json:
+            examples:
+              包干修复初审:
+                value:
+                  state: 初审
+                  type: 包干修复
+                  applicant: 定损员A
+                  startDate: 2020-06-30
+                  reportNo: PICC-123456
+                  plateNo: 鄂A-12345
+                  vehicleModel: 奔驰 GLC 260 豪华型
+                  repairPlant: 武汉星隆汽车销售服务有限公司
+                  actualCost: "250000"
+                  evaluationCost: "250000"
+                  purchasePrice: "422800"
+                  agreementAmount: "100000"
+                  investigator: 定损员A
+                  investigateDate: 2020-06-28
+              高价值件初审:
+                value:
+                  state: 初审
+                  type: 高价值件
+                  applicant: 定损员A
+                  startDate: 2020-06-30
+                  reportNo: PICC-123456
+                  plateNo: 鄂A-12345
+                  vehicleModel: 奔驰 GLC 260 豪华型
+                  investigator: 定损员A
+                  investigateLocation: 武汉星隆汽车销售服务有限公司
+                  investigateDate: 2020-06-28
+                  identifier: LBVNPU39008SB69093
+                  insurer: 市人保营业部
+                  insured: 奔驰车主
+                  finalAmount: "50000"
+                  deductible: "10000"
+              总成部件初审:
+                value:
+                  state: 初审
+                  type: 总成部件
+                  applicant: 定损员A
+                  startDate: 2020-06-30
+                  reportNo: PICC-123456
+                  plateNo: 鄂A-12345
+                  vehicleModel: 奔驰 GLC 260 豪华型
+                  investigator: 定损员A
+                  investigateLocation: 武汉星隆汽车销售服务有限公司
+                  investigateDate: 2020-06-28
+                  identifier: LBVNPU39008SB69093
+                  insurer: 市人保营业部
+                  insured: 奔驰车主
+                  finalAmount: "100000"
+                  deductible: "20000"
+              调价申请初审:
+                value:
+                  state: 初审
+                  type: 包干修复
+                  applicant: 定损员A
+                  startDate: 2020-06-30
+                  reportNo: PICC-123456
+                  plateNo: 鄂A-12345
+                  vehicleModel: 奔驰 GLC 260 豪华型
+                  investigator: 定损员A
+                  investigateDate: 2020-06-28
+                  occurredDate: 2020-06-14
+                  quoteDate: 2020-06-25
+                  quoteAmount: "20000"
+                  targetAmount: "25000"
+            schema:
+              $ref: '#/components/schemas/ApplicationDetailsDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: OK
+      summary: 创建流程实例
+      tags:
+      - Process
+      x-eov-operation-handler: controllers/ProcessController
+  /process/task:
+    post:
+      description: |
+        获取和本人相关的待处理任务列表。即：指定给本人的任务，或本人所在组在任务的候选用户组列表中。
+          - 支持分页。
+          - 在获取列表前，可以通过 `POST /task/count` API 来获取结果的总数。
+          - 支持查询其它条件。可查询条件包括：
+            - 申请类型
+            - 案件号
+            - 车牌号
+      operationId: getPendingTaskList
+      parameters:
+      - description: 第一条结果的索引，用于分页。
+        example: 26
+        explode: true
+        in: query
+        name: firstResult
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: 返回结果的最大条数，用于分页。
+        example: 25
+        explode: true
+        in: query
+        name: maxResults
+        required: false
+        schema:
+          type: integer
+        style: form
+      requestBody:
+        content:
+          application/json:
+            example:
+              userId: 定损员A
+              type: 包干修复
+              plateNo: 鄂A-12345
+            schema:
+              $ref: '#/components/schemas/TaskQueryDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                description: 符合条件的任务 id 列表
+                example:
+                - 507f4e4a-baa5-11ea-b3de-0242ac130004
+                - 759a30e6-baa5-11ea-b3de-0242ac130004
+                - 7a54eb30-baa5-11ea-b3de-0242ac130004
+                items:
+                  type: string
+                type: array
+          description: OK
+      summary: 获取未完成的任务列表
+      tags:
+      - Process
+      x-eov-operation-handler: controllers/ProcessController
+components:
+  schemas:
+    ApplicationDetailsDto:
+      example:
+        identifier: identifier
+        agreementAmount: agreementAmount
+        insured: insured
+        plateNo: plateNo
+        targetAmount: targetAmount
+        purchasePrice: purchasePrice
+        type: 包干修复
+        applicant: applicant
+        investigator: investigator
+        insurer: insurer
+        finalAmount: finalAmount
+        evaluationCost: evaluationCost
+        deductible: deductible
+        quoteAmount: quoteAmount
+        vehicleModel: vehicleModel
+        repairPlant: repairPlant
+        state: 初审
+        startDate: startDate
+        reportNo: reportNo
+        investigateLocation: investigateLocation
+        quoteDate: quoteDate
+        actualCost: actualCost
+        investigateDate: investigateDate
+        occurredDate: occurredDate
+      properties:
+        state:
+          description: 审批状态。开始申请时，状态为“初审”。
+          enum:
+          - 初审
+          - 复审
+          type: string
+        type:
+          description: 审批类型。
+          enum:
+          - 包干修复
+          - 高价值件
+          - 总成部件
+          - 调价申请
+          type: string
+        applicant:
+          description: 申请人，也就是定损员。
+          type: string
+        startDate:
+          description: 提交申请的时间。
+          type: string
+        reportNo:
+          description: 报案号
+          type: string
+        plateNo:
+          description: 车牌号
+          type: string
+        vehicleModel:
+          description: 车辆型号
+          type: string
+        repairPlant:
+          description: 修理厂名称
+          type: string
+        actualCost:
+          description: 实际价值
+          type: string
+        evaluationCost:
+          description: 评估价值
+          type: string
+        purchasePrice:
+          description: 新车购置价
+          type: string
+        agreementAmount:
+          description: 一次性协议定损金额
+          type: string
+        investigator:
+          description: 定损员
+          type: string
+        investigateLocation:
+          description: 定损地点
+          type: string
+        investigateDate:
+          description: 定损时间
+          type: string
+        identifier:
+          description: 识别代码
+          type: string
+        insurer:
+          description: 承保公司
+          type: string
+        insured:
+          description: 被保险人姓名
+          type: string
+        finalAmount:
+          description: 最终价格
+          type: string
+        deductible:
+          description: 自付标准
+          type: string
+        occurredDate:
+          description: 出险时间
+          type: string
+        quoteDate:
+          description: 报价时间
+          type: string
+        quoteAmount:
+          description: 报价金额
+          type: string
+        targetAmount:
+          description: 目标金额
+          type: string
+      required:
+      - applicant
+      - startDate
+      - state
+      - type
+      type: object
+    ApprovalDetailsDto:
+      properties:
+        approver:
+          description: 审核人
+          type: string
+        date:
+          description: 审核时间
+          type: string
+        approved:
+          description: 审核结果。true：通过；false：不通过
+          type: boolean
+        comment:
+          description: 审核意见
+          type: string
+      type: object
+    ApprovalHistoryDto:
+      properties:
+        approvalHistory:
+          description: 审核历史记录，按时间倒序排列。
+          items:
+            $ref: '#/components/schemas/ApprovalDetailsDto'
+          type: array
+      type: object
+    TaskQueryDto:
+      example:
+        plateNo: plateNo
+        type: 包干修复
+        userId: userId
+        reportNo: reportNo
+      properties:
+        userId:
+          description: 用户 id
+          type: string
+        type:
+          description: 申请类型
+          enum:
+          - 包干修复
+          - 高价值件
+          - 总成部件
+          - 调价申请
+          type: string
+        reportNo:
+          description: 报案号
+          type: string
+        plateNo:
+          description: 车牌号
+          type: string
+      required:
+      - userId
+      type: object
+    inline_response_200:
+      example: '{"id":"bc8d2f78-ba94-11ea-b3de-0242ac130004"}'
+      properties:
+        id:
+          description: 申请流程实例 id
+          type: string

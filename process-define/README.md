@@ -6,7 +6,7 @@
 
 流程 key：`approval-process`
 
-![上报审批系统流程](approval-process.png)
+![上报审批系统流程](assets/approval-process.png)
 
 
 
