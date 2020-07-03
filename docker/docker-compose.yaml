@@ -1,0 +1,67 @@
+version: "3.7"
+services:
+  camunda-sidecar:
+    image: envoyproxy/envoy-dev
+    container_name: camunda-sidecar
+    restart: unless-stopped
+    volumes:
+      - ./camunda-sidecar.yaml:/etc/envoy/envoy.yaml
+    expose:
+      - 9001
+    ports:
+      - 9001:9001
+
+  camunda-bpm:
+    image: camunda/camunda-bpm-platform:latest
+    container_name: camunda-bpm
+    restart: unless-stopped
+    depends_on:
+      - camunda-db
+    environment:
+      - DB_DRIVER=org.postgresql.Driver
+      - DB_URL=jdbc:postgresql://camunda-db:5432/camunda
+      - DB_USERNAME=camunda
+      - DB_PASSWORD=camunda
+      - WAIT_FOR=camunda-db:5432
+    volumes:
+      - ./web.xml:/camunda/conf/web.xml
+    expose:
+      - 8080
+
+  camunda-db:
+    image: postgres:9.6-alpine
+    container_name: camunda-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=camunda
+      - POSTGRES_USER=camunda
+      - POSTGRES_DB=camunda
+    expose:
+      - 5432
+    volumes:
+      - camunda_pgdata:/var/lib/postgresql/data
+    command: postgres
+
+  camunda-rest-docs:
+    image: swaggerapi/swagger-ui
+    container_name: camunda-rest-docs
+    restart: unless-stopped
+    environment:
+      - 'URLS=[
+        {
+          name: "Camunda BPM REST API",
+          url: "./camunda-engine-rest-openapi-7.13.0.json"
+        },
+        {
+          name: "审批上报系统 API",
+          url: "./approval-system-openapi.yaml"
+        }
+      ]'
+    volumes:
+      - ./camunda-openapi/camunda-engine-rest-openapi-7.13.0.json:/usr/share/nginx/html/camunda-engine-rest-openapi-7.13.0.json
+      - ../api/approval-system-openapi.yaml:/usr/share/nginx/html/approval-system-openapi.yaml
+    expose:
+      - 8080
+
+volumes:
+  camunda_pgdata:

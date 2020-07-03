@@ -8,14 +8,9 @@ services:
         {
           name: "上报审批系统 API",
           url: "./approval-system-openapi.yaml"
-        },
-        {
-          name: "Camunda BPM REST API",
-          url: "./camunda-engine-rest-openapi-7.13.0.json"
         }
       ]'
     volumes:
       - ./approval-system-openapi.yaml:/usr/share/nginx/html/approval-system-openapi.yaml
-      - ../camunda-openapi/camunda-engine-rest-openapi-7.13.0.json:/usr/share/nginx/html/camunda-engine-rest-openapi-7.13.0.json
     ports:
-      - 89:8080
+      - 81:8080

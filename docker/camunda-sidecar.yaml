@@ -11,7 +11,7 @@ static_resources:
       address:
         socket_address:
           address: 0.0.0.0
-          port_value: 18080
+          port_value: 9001
       filter_chains:
         - filters:
             - name: envoy.filters.network.http_connection_manager
@@ -28,26 +28,46 @@ static_resources:
                         - "*"
                       routes:
                         - match:
+                            prefix: "/docs/"
+                            case_sensitive: false
+                          route:
+                            prefix_rewrite: "/"
+                            cluster: camunda-rest-docs
+                        - match:
                             prefix: "/"
                             case_sensitive: false
                           route:
                             timeout:
                               seconds: 0
-                            cluster: flowable-all-in-one
+                            cluster: camunda-bpm
                 http_filters:
                   - name: envoy.filters.http.router
   clusters:
-    - name: flowable-all-in-one
+    - name: camunda-bpm
       connect_timeout: 0.25s
       type: LOGICAL_DNS
       dns_lookup_family: V4_ONLY
       lb_policy: ROUND_ROBIN
       load_assignment:
-        cluster_name: flowable-all-in-one
+        cluster_name: camunda-bpm
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: flowable-all-in-one-app
+                      address: camunda-bpm
+                      port_value: 8080
+    - name: camunda-rest-docs
+      connect_timeout: 0.25s
+      type: LOGICAL_DNS
+      dns_lookup_family: V4_ONLY
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: camunda-rest-docs
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: camunda-rest-docs
                       port_value: 8080
