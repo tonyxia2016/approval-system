@@ -1,8 +1,8 @@
 {
-  "name": "vue-admin-template",
-  "version": "4.2.1",
-  "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
-  "author": "Pan <panfree23@gmail.com>",
+  "name": "approval-system",
+  "version": "1.0.0",
+  "description": "上报审批系统客户端",
+  "author": "Ryan Li <rlee@163.com>",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
