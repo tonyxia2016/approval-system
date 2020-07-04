@@ -12,24 +12,24 @@ services:
       - 9001:9001
 
   camunda-bpm:
-    image: camunda/camunda-bpm-platform:latest
+    image: camunda/camunda-bpm-platform:run-latest
     container_name: camunda-bpm
     restart: unless-stopped
     depends_on:
       - camunda-db
     environment:
-      - DB_DRIVER=org.postgresql.Driver
-      - DB_URL=jdbc:postgresql://camunda-db:5432/camunda
-      - DB_USERNAME=camunda
-      - DB_PASSWORD=camunda
-      - WAIT_FOR=camunda-db:5432
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://camunda-db:5432/camunda
+      - SPRING_DATASOURCE_USERNAME=camunda
+      - SPRING_DATASOURCE_PASSWORD=camunda
+      - CAMUNDA_BPM_RUN_CORS_ENABLED=true
     volumes:
-      - ./web.xml:/camunda/conf/web.xml
+      - ../process-definition:/camunda/configuration/resources
     expose:
       - 8080
 
   camunda-db:
-    image: postgres:9.6-alpine
+    image: postgres:12
     container_name: camunda-db
     restart: unless-stopped
     environment:

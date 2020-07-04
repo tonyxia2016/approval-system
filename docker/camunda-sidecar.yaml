@@ -28,10 +28,13 @@ static_resources:
                         - "*"
                       routes:
                         - match:
-                            prefix: "/docs/"
-                            case_sensitive: false
+                            prefix: "/docs"
                           route:
-                            prefix_rewrite: "/"
+                            regex_rewrite:
+                              pattern:
+                                google_re2: {}
+                                regex: "^/docs"
+                              substitution: "/"
                             cluster: camunda-rest-docs
                         - match:
                             prefix: "/"
