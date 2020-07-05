@@ -1,10 +1,4 @@
 const tokens = {
-  // admin: {
-  //   token: 'admin-token'
-  // },
-  // editor: {
-  //   token: 'editor-token'
-  // },
   dingsun: {
     token: 'dingsun-token'
   },
@@ -29,20 +23,6 @@ const tokens = {
 }
 
 const users = {
-  // 'admin-token': {
-  //   roles: ['admin'],
-  //   introduction: 'I am a super administrator',
-  //   avatar:
-  //     'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-  //   name: 'Super Admin'
-  // },
-  // 'editor-token': {
-  //   roles: ['editor'],
-  //   introduction: 'I am an editor',
-  //   avatar:
-  //     'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-  //   name: 'Normal Editor'
-  // },
   'dingsun-token': {
     roles: ['定损员'],
     introduction: '定损员可以提交审核申请',

@@ -2,5 +2,6 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true // eslint --fix:保存自动修复fix
-  }
+  },
+  "vetur.format.defaultFormatter.js": "prettier-eslint",
 }
