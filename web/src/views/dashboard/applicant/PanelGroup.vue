@@ -1,56 +1,65 @@
 <template>
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
-        <div class="card-panel-icon-wrapper icon-people">
-          <svg-icon icon-class="peoples" class-name="card-panel-icon" />
-        </div>
+      <div class="card-panel" @click="handleQueryApplication('pedding')">
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            New Visits
-          </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
+          <div class="card-panel-text">正在处理的申请</div>
+          <count-to
+            :start-val="0"
+            :end-val="peddingApplicationCount"
+            :duration="2000"
+            class="card-panel-num"
+          />
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('messages')">
-        <div class="card-panel-icon-wrapper icon-message">
-          <svg-icon icon-class="message" class-name="card-panel-icon" />
-        </div>
+      <div class="card-panel" @click="handleQueryApplication('rejected')">
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Messages
-          </div>
-          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
+          <div class="card-panel-text">被驳回的申请</div>
+          <count-to
+            :start-val="0"
+            :end-val="rejectedApplicationCount"
+            :duration="2000"
+            class="card-panel-num"
+          />
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('purchases')">
-        <div class="card-panel-icon-wrapper icon-money">
-          <svg-icon icon-class="money" class-name="card-panel-icon" />
-        </div>
+      <div class="card-panel" @click="handleQueryApplication('approved')">
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Purchases
-          </div>
-          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
+          <div class="card-panel-text">近7天批准的申请</div>
+          <count-to
+            :start-val="0"
+            :end-val="approvedApplicationCount"
+            :duration="2000"
+            class="card-panel-num"
+          />
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('shoppings')">
-        <div class="card-panel-icon-wrapper icon-shopping">
-          <svg-icon icon-class="shopping" class-name="card-panel-icon" />
+      <el-dropdown trigger="click" style="width: 100%;">
+        <div class="card-panel">
+          <el-col :span="8">
+            <div class="card-panel-icon-wrapper icon-add">
+              <svg-icon icon-class="add" class-name="card-panel-icon" />
+            </div>
+          </el-col>
+          <el-col :span="16">
+            <div class="card-panel-description" style="margin-top: 45px;">
+              <div class="card-panel-text">提交新申请</div>
+            </div>
+          </el-col>
         </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            Shoppings
-          </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
-        </div>
-      </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>包干修复</el-dropdown-item>
+          <el-dropdown-item>高价值件</el-dropdown-item>
+          <el-dropdown-item>总成部件</el-dropdown-item>
+          <el-dropdown-item>调价申请</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </el-col>
   </el-row>
 </template>
@@ -62,9 +71,32 @@ export default {
   components: {
     CountTo
   },
+  data() {
+    return {
+      peddingApplicationCount: 20,
+      rejectedApplicationCount: 8,
+      approvedApplicationCount: 30
+    }
+  },
   methods: {
-    handleSetLineChartData(type) {
-      this.$emit('handleSetLineChartData', type)
+    handleQueryApplication(type) {
+      switch (type) {
+        case 'pendding': // 正在处理的申请
+          break
+        case 'rejected': // 被驳回的申请
+          break
+        case 'approved': // 已批准的申请
+          break
+      }
+    },
+    queryPenddingApplicationCount() {
+      // 查询正在处理的申请总数
+    },
+    queryRejectedApplicationCount() {
+      // 查询被驳回的申请总数
+    },
+    queryApprovedApplicationCount() {
+      // 查询已批准的申请总数
     }
   }
 }
@@ -86,45 +118,29 @@ export default {
     overflow: hidden;
     color: #666;
     background: #fff;
-    box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-    border-color: rgba(0, 0, 0, .05);
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.05);
 
     &:hover {
       .card-panel-icon-wrapper {
         color: #fff;
       }
 
-      .icon-people {
-        background: #40c9c6;
-      }
-
-      .icon-message {
+      .icon-add {
         background: #36a3f7;
       }
 
-      .icon-money {
-        background: #f4516c;
+      .card-panel-text {
+        color: #36a3f7;
       }
 
-      .icon-shopping {
-        background: #34bfa3
+      .card-panel-num {
+        color: #36a3f7;
       }
     }
 
-    .icon-people {
-      color: #40c9c6;
-    }
-
-    .icon-message {
+    .icon-add {
       color: #36a3f7;
-    }
-
-    .icon-money {
-      color: #f4516c;
-    }
-
-    .icon-shopping {
-      color: #34bfa3
     }
 
     .card-panel-icon-wrapper {
@@ -141,26 +157,25 @@ export default {
     }
 
     .card-panel-description {
-      float: right;
+      text-align: center;
       font-weight: bold;
       margin: 26px;
-      margin-left: 0px;
+      color: rgba(0, 0, 0, 0.45);
 
       .card-panel-text {
         line-height: 18px;
-        color: rgba(0, 0, 0, 0.45);
         font-size: 16px;
         margin-bottom: 12px;
       }
 
       .card-panel-num {
-        font-size: 20px;
+        font-size: 26px;
       }
     }
   }
 }
 
-@media (max-width:550px) {
+@media (max-width: 550px) {
   .card-panel-description {
     display: none;
   }

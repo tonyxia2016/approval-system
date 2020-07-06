@@ -22,6 +22,9 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   &-container {
+    padding: 32px;
+    background-color: rgb(240, 242, 245);
+    position: relative;
     margin: 30px;
   }
   &-text {
