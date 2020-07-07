@@ -1,33 +1,69 @@
 const tokens = {
-  dingsun: {
-    token: 'dingsun-token'
+  'xiawei': {
+    token: 'xiawei-token'
   },
-  reviewer1: {
-    token: 'reviewer1-token'
+  'guoping': {
+    token: 'guoping-token'
   },
-  reviewer2: {
-    token: 'reviewer2-token'
+  'zhangyang': {
+    token: 'zhangyang-token'
   },
-  reviewer3: {
-    token: 'reviewer3-token'
+  'lijie': {
+    token: 'lijie-token'
   },
-  reviewer4: {
-    token: 'reviewer4-token'
+  'fengming': {
+    token: 'fengming-token'
   },
-  leader: {
-    token: 'leader-token'
+  'wuchao': {
+    token: 'wuchao-token'
   },
-  director: {
-    token: 'director-token'
+  'yuyong': {
+    token: 'yuyong-token'
   }
 }
 
 const users = {
-  'dingsun-token': {
+  'xiawei-token': {
     roles: ['定损员'],
     introduction: '定损员可以提交审核申请',
     avatar: '/avatar/employee.svg',
-    name: '定损员'
+    name: '夏伟'
+  },
+  'guoping-token': {
+    roles: ['定损员'],
+    introduction: '定损员可以提交审核申请',
+    avatar: '/avatar/employee.svg',
+    name: '郭平'
+  },
+  'zhangyang-token': {
+    roles: ['组长', '包干修复初审'],
+    introduction: '',
+    avatar: '/avatar/employee.svg',
+    name: '张洋'
+  },
+  'lijie-token': {
+    roles: ['组长', '高价值件初审'],
+    introduction: '',
+    avatar: '/avatar/employee.svg',
+    name: '李捷'
+  },
+  'fengming-token': {
+    roles: ['组长', '总成部件初审'],
+    introduction: '',
+    avatar: '/avatar/employee.svg',
+    name: '冯明'
+  },
+  'wuchao-token': {
+    roles: ['组长', '调价申请初审'],
+    introduction: '',
+    avatar: '/avatar/employee.svg',
+    name: '吴超'
+  },
+  'yuyong-token': {
+    roles: ['主任'],
+    introduction: '',
+    avatar: '/avatar/employee.svg',
+    name: '于勇'
   }
 }
 
@@ -37,11 +73,12 @@ export default [
     url: '/users/login',
     type: 'post',
     response: config => {
-      const { username, password } = config.body
+      const { username } = config.body
       const token = tokens[username]
 
       // mock error
-      if (!token || password !== '123') {
+      // 存在 token，说明用户存在；不校验密码（密码任意）
+      if (!token) {
         return {
           code: 60204,
           message: '不正确的用户名或密码'
