@@ -43,9 +43,7 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon
-            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
-          />
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
@@ -54,22 +52,10 @@
         type="primary"
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
-      >
-        Login
-      </el-button>
+      >Login</el-button>
 
       <div class="tips">
-        <pre style="margin-right:20px;">
-用户名:
-    dingsun:   定损员
-    reviewer1: 包干修复审批
-    reviewer2: 高价值件审批
-    reviewer3: 总成部件审批
-    reviewer4: 调价审批
-    leader:    普通组长
-    director:  主任
-        </pre>
-        <span> 密码: 123 </span>
+        <span>密码: 任意</span>
       </div>
     </el-form>
   </div>

@@ -54,15 +54,13 @@ import Mock from 'mockjs'
 const applications = Mock.mock({
   'items|30': [{
     'id': '@id',
-    'type': ['包干修复', '高价值件', '总成部件', '调价申请'],
-    'caseNo|8': '12345678',
+    'type|1': ['包干修复', '高价值件', '总成部件', '调价申请'],
+    'caseNo': '@string("number", 8, 8)',
     'palteNo': /(鄂A-)([0-9]|[A-Z]){5}/,
-    'applicant|1': ['夏伟', '郭平'],
-    'startDate': function () {
-      return '2019' + Mock.Random.date('MM-dd')
-    },
-    'approver|1': ['张洋', '李捷', '冯明', '吴超', '于勇'],
-    'approvalDate': '@now',
+    'applicant|1': ['xiawei', 'guoping'],
+    'startDate|1': ['2020-06-03', '2020-06-15', '2020-06-25', '2020-07-01'],
+    'approver|1': ['zhangyang', 'lijie', 'fengming', 'wuchao', 'yuyong'],
+    'approvalDate|1': ['2020-07-03', '2020-07-05', '@now'],
     'state|1': ['审批中', '同意', '驳回']
   }]
 })
@@ -72,7 +70,26 @@ export default [
     url: '/query/application',
     type: 'post',
     response: config => {
+      const { userid, roles } = config.body
 
+      const res = []
+
+      for (const item of applications.items) {
+        if (roles.indexOf('定损员') > -1) { // 是定损员，则匹配 applicant 字段
+          if (item.applicant === userid) {
+            res.push(item)
+          }
+        } else { // 匹配 approver 字段
+          if (item.approver === userid) {
+            res.push(item)
+          }
+        }
+      }
+
+      return {
+        code: 20000,
+        data: res
+      }
     }
   }
 ]

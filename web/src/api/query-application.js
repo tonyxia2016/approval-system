@@ -32,8 +32,8 @@ import request from '@/utils/request'
  */
 export function queryApplication(data) {
   return request({
-    url: '/rest/queryApplication',
+    url: '/query/application',
     method: 'post',
-    data: data
+    data
   })
 }
