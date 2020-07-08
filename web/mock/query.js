@@ -56,12 +56,12 @@ const applications = Mock.mock({
     'id': '@id',
     'type|1': ['包干修复', '高价值件', '总成部件', '调价申请'],
     'caseNo': '@string("number", 8, 8)',
-    'palteNo': /(鄂A-)([0-9]|[A-Z]){5}/,
+    'plateNo': /(鄂A-)([0-9]|[A-Z]){5}/,
     'applicant|1': ['xiawei', 'guoping'],
     'startDate|1': ['2020-06-03', '2020-06-15', '2020-06-25', '2020-07-01'],
     'approver|1': ['zhangyang', 'lijie', 'fengming', 'wuchao', 'yuyong'],
-    'approvalDate|1': ['2020-07-03', '2020-07-05', '@now'],
-    'state|1': ['审批中', '同意', '驳回']
+    'approvalDate|1': '@now("yyyy-MM-dd")',
+    'status|1': ['审批中', '同意', '驳回']
   }]
 })
 
@@ -70,25 +70,19 @@ export default [
     url: '/query/application',
     type: 'post',
     response: config => {
-      const { userid, roles } = config.body
+      const { userid, role, firstResult, maxResults } = config.body
 
       const res = []
 
       for (const item of applications.items) {
-        if (roles.indexOf('定损员') > -1) { // 是定损员，则匹配 applicant 字段
-          if (item.applicant === userid) {
-            res.push(item)
-          }
-        } else { // 匹配 approver 字段
-          if (item.approver === userid) {
-            res.push(item)
-          }
+        if (item[role] === userid) {
+          res.push(item)
         }
       }
 
       return {
         code: 20000,
-        data: res
+        data: res.slice(firstResult - 1, maxResults + firstResult - 1)
       }
     }
   }

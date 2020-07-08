@@ -2,6 +2,9 @@
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleQueryApplication('pedding')">
+        <div class="card-panel-icon-wrapper icon-pedding">
+          <svg-icon icon-class="pedding" class-name="card-panel-icon" />
+        </div>
         <div class="card-panel-description">
           <div class="card-panel-text">正在处理的申请</div>
           <count-to
@@ -15,6 +18,9 @@
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleQueryApplication('rejected')">
+        <div class="card-panel-icon-wrapper icon-rejected">
+          <svg-icon icon-class="rejected" class-name="card-panel-icon" />
+        </div>
         <div class="card-panel-description">
           <div class="card-panel-text">被驳回的申请</div>
           <count-to
@@ -28,6 +34,9 @@
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleQueryApplication('approved')">
+        <div class="card-panel-icon-wrapper icon-approved">
+          <svg-icon icon-class="approved" class-name="card-panel-icon" />
+        </div>
         <div class="card-panel-description">
           <div class="card-panel-text">近7天批准的申请</div>
           <count-to
@@ -43,8 +52,8 @@
       <el-dropdown trigger="click" style="width: 100%;">
         <div class="card-panel">
           <el-col :span="8">
-            <div class="card-panel-icon-wrapper icon-add">
-              <svg-icon icon-class="add" class-name="card-panel-icon" />
+            <div class="card-panel-icon-wrapper icon-new">
+              <svg-icon icon-class="new" class-name="card-panel-icon" />
             </div>
           </el-col>
           <el-col :span="16">
@@ -126,7 +135,16 @@ export default {
         color: #fff;
       }
 
-      .icon-add {
+      .icon-pedding {
+        background: #e9c811;
+      }
+      .icon-rejected {
+        background: #e01414;
+      }
+      .icon-approved {
+        background: #15d515;
+      }
+      .icon-new {
         background: #36a3f7;
       }
 
@@ -139,7 +157,16 @@ export default {
       }
     }
 
-    .icon-add {
+    .icon-pedding {
+      color: #e9c911;
+    }
+    .icon-rejected {
+      color: #e01414;
+    }
+    .icon-approved {
+      color: #15d515;
+    }
+    .icon-new {
       color: #36a3f7;
     }
 
@@ -164,12 +191,12 @@ export default {
 
       .card-panel-text {
         line-height: 18px;
-        font-size: 16px;
+        font-size: 18px;
         margin-bottom: 12px;
       }
 
       .card-panel-num {
-        font-size: 26px;
+        font-size: 30px;
       }
     }
   }

@@ -1,20 +1,20 @@
 <template>
   <div class="dashboard-container">
     <panel-group />
-    <application-state-table />
+    <application-status-table />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import PanelGroup from './applicant/PanelGroup'
-import ApplicationStateTable from './applicant/ApplicationStateTable'
+import ApplicationStatusTable from './applicant/ApplicationStatusTable'
 
 export default {
   name: 'Dashboard',
   components: {
     PanelGroup,
-    ApplicationStateTable
+    ApplicationStatusTable
   },
   computed: {
     ...mapGetters(['name', 'userid', 'roles'])

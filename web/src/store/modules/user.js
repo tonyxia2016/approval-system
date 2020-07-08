@@ -7,6 +7,7 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
+    userid: '',
     roles: []
   }
 }

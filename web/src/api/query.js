@@ -5,14 +5,14 @@
 import request from '@/utils/request'
 
 /**
- * @typedef queryCondition
+ * @typedef QueryCondition
  * @type {Object}
- * @property {String} applicant - 申请人（定损员）的用户名
- * @property {String} approver - 审批人（组长/主任）的用户名
+ * @property {String} userid - 查询人的用户名
+ * @property {String[]} roles - 查询人的角色
  */
 
 /**
- * @typedef queryResult
+ * @typedef QueryResult
  * @type {Object}
  * @property {String} id - 系统分配的申请 id，唯一确定一个申请流程实例
  * @property {String} type - 申请类型：enum[ "包干修复", "高价值件", "总成部件", "调价申请" ]
@@ -27,8 +27,8 @@ import request from '@/utils/request'
 
 /**
  * 查询申请列表
- * @param {queryCondition} data - 查询条件
- * @returns {queryResult[]} 符合搜索条件的申请列表
+ * @param {QueryCondition} data - 查询条件
+ * @returns {QueryResult[]} 符合搜索条件的申请列表
  */
 export function queryApplication(data) {
   return request({
