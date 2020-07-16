@@ -70,19 +70,23 @@ export default [
     url: '/query/application',
     type: 'post',
     response: config => {
-      const { userid, role, firstResult, maxResults } = config.body
+      // const { userid, role, firstResult, maxResults } = config.body
 
-      const res = []
+      // const res = []
 
-      for (const item of applications.items) {
-        if (item[role] === userid) {
-          res.push(item)
-        }
-      }
+      // for (const item of applications.items) {
+      //   if (item[role] === userid) {
+      //     res.push(item)
+      //   }
+      // }
 
+      // return {
+      //   code: 20000,
+      //   data: res.slice(firstResult - 1, maxResults + firstResult - 1)
+      // }
       return {
         code: 20000,
-        data: res.slice(firstResult - 1, maxResults + firstResult - 1)
+        data: applications.items
       }
     }
   }
