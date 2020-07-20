@@ -24,7 +24,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=camunda
       - CAMUNDA_BPM_RUN_CORS_ENABLED=true
     volumes:
-      - ../process-definition:/camunda/configuration/resources
+      - ../../process-definition:/camunda/configuration/resources
     expose:
       - 8080
 
@@ -51,15 +51,21 @@ services:
         {
           name: "Camunda BPM REST API",
           url: "./camunda-engine-rest-openapi-7.13.0.json"
-        },
-        {
-          name: "审批上报系统 API",
-          url: "./approval-system-openapi.yaml"
         }
       ]'
+      # - 'URLS=[
+      #   {
+      #     name: "Camunda BPM REST API",
+      #     url: "./camunda-engine-rest-openapi-7.13.0.json"
+      #   },
+      #   {
+      #     name: "审批上报系统 API",
+      #     url: "./approval-system-openapi.yaml"
+      #   }
+      # ]'
     volumes:
       - ./camunda-openapi/camunda-engine-rest-openapi-7.13.0.json:/usr/share/nginx/html/camunda-engine-rest-openapi-7.13.0.json
-      - ../api/approval-system-openapi.yaml:/usr/share/nginx/html/approval-system-openapi.yaml
+      # - ../api/approval-system-openapi.yaml:/usr/share/nginx/html/approval-system-openapi.yaml
     expose:
       - 8080
 
