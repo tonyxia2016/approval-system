@@ -22,8 +22,6 @@ const tokens = {
   }
 }
 
-// const av = require('./1.png')
-
 const users = {
   'xiawei-token': {
     roles: ['定损员'],
