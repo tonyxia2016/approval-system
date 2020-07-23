@@ -3,16 +3,20 @@ version: "3.8"
 services:
   ums-service:
     build:
-      context: build
-
-    image: keymetrics/pm2:latest-stretch
+      context: .
+      dockerfile: Dockerfile-ums
     container_name: ums-service
+    restart: unless-stopped
+    environment:
+      - LDAP_HOST=ums-openldap
+      - REDIS_HOST=ums-redis
     ports:
       - 9002:3000
 
   openldap:
     image: osixia/openldap:latest
     container_name: ums-openldap
+    restart: unless-stopped
     environment:
       - LDAP_ORGANISATION=User Managment System # 组织的名字
       - LDAP_DOMAIN=ums # 公司域名，用于 BASE_DN，不可修改，否则数据库无法启动
@@ -28,25 +32,32 @@ services:
   phpldapadmin:
     image: osixia/phpldapadmin:latest
     container_name: ums-phpldapadmin
+    restart: unless-stopped
     environment:
       - PHPLDAPADMIN_HTTPS=false # 关闭HTTPS，开启HTTP。（HTTPS和HTTP只能开启一个）
-      - PHPLDAPADMIN_LDAP_HOSTS=openldap # 连接的OpenLDAP服务器
+      - PHPLDAPADMIN_LDAP_HOSTS=ums-openldap # 连接的OpenLDAP服务器
     expose:
       - 80
+    ports:
+      - 8082:80
 
   redis:
     image: redis
     container_name: ums-redis
+    restart: unless-stopped
     expose:
       - 6379
 
   redis-commander:
     image: rediscommander/redis-commander:latest
     container_name: ums-redis-commander
+    restart: unless-stopped
     environment:
-      - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOSTS=ums-redis:ums-redis:6379
     expose:
       - 8081
+    ports:
+      - 8081:8081
 
 volumes:
   openldap-db:
