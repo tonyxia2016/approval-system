@@ -1,7 +1,6 @@
 FROM node:latest
 LABEL maintainer="Ryan Li <rlee@163.com>"
 
-
 # 拷贝源码
 COPY ums/server /src
 

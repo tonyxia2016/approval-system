@@ -1,6 +1,16 @@
 version: "3.8"
 
 services:
+  ums-sidecar:
+    image: envoyproxy/envoy:v1.14.3
+    container_name: ums-sidecar
+    volumes:
+      - ./config/ums-sidecar.yaml:/etc/envoy/envoy.yaml
+    expose:
+      - 9001
+    ports:
+      - 9002:9001
+
   ums-service:
     build:
       context: .
@@ -10,8 +20,8 @@ services:
     environment:
       - LDAP_HOST=ums-openldap
       - REDIS_HOST=ums-redis
-    ports:
-      - 9002:3000
+    expose:
+      - 3000
 
   openldap:
     image: osixia/openldap:latest
@@ -38,8 +48,6 @@ services:
       - PHPLDAPADMIN_LDAP_HOSTS=ums-openldap # 连接的OpenLDAP服务器
     expose:
       - 80
-    ports:
-      - 8082:80
 
   redis:
     image: redis
@@ -56,8 +64,6 @@ services:
       - REDIS_HOSTS=ums-redis:ums-redis:6379
     expose:
       - 8081
-    ports:
-      - 8081:8081
 
 volumes:
   openldap-db:

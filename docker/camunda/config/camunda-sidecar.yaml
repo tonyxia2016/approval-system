@@ -7,7 +7,7 @@ admin:
 
 static_resources:
   listeners:
-    - name: ingress_designer
+    - name: ingress_camunda
       address:
         socket_address:
           address: 0.0.0.0
@@ -17,13 +17,13 @@ static_resources:
             - name: envoy.filters.network.http_connection_manager
               typed_config:
                 "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
-                stat_prefix: ingress_designer
+                stat_prefix: ingress_camunda
                 codec_type: AUTO
                 use_remote_address: true
                 route_config:
                   name: local_route
                   virtual_hosts:
-                    - name: ingress_designer
+                    - name: ingress_camunda
                       domains:
                         - "*"
                       routes:

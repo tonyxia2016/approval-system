@@ -1,11 +1,11 @@
-version: "3.7"
+version: "3.8"
 services:
   camunda-sidecar:
     image: envoyproxy/envoy:v1.14.3
     container_name: camunda-sidecar
     restart: unless-stopped
     volumes:
-      - ./camunda-sidecar.yaml:/etc/envoy/envoy.yaml
+      - ./config/camunda-sidecar.yaml:/etc/envoy/envoy.yaml
     expose:
       - 9001
     ports:
