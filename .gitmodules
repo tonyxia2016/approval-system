@@ -1,0 +1,3 @@
+[submodule "docker/ums/build/ums"]
+	path = docker/ums/build/ums
+	url = git@github.com:hustrlee/ums.git

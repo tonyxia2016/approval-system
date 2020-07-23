@@ -2,6 +2,9 @@ version: "3.8"
 
 services:
   ums-service:
+    build:
+      context: build
+
     image: keymetrics/pm2:latest-stretch
     container_name: ums-service
     ports:

@@ -2,7 +2,7 @@ apps:
   - name: "ums-service"
     script: "index.js"
     cwd: "/src"
-    watch: true
+    watch: false
     ignore_watch:
       - "node_modules"
     watch_options:
