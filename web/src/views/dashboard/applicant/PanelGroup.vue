@@ -63,10 +63,18 @@
           </el-col>
         </div>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>包干修复</el-dropdown-item>
-          <el-dropdown-item>高价值件</el-dropdown-item>
-          <el-dropdown-item>总成部件</el-dropdown-item>
-          <el-dropdown-item>调价申请</el-dropdown-item>
+          <router-link to="/apply/single-lump-sum">
+            <el-dropdown-item command="包干修复">包干修复</el-dropdown-item>
+          </router-link>
+          <router-link to="/apply/high-value">
+            <el-dropdown-item command="高价值件">高价值件</el-dropdown-item>
+          </router-link>
+          <router-link to="/apply/assembly-parts">
+            <el-dropdown-item command="总成部件">总成部件</el-dropdown-item>
+          </router-link>
+          <router-link to="/apply/cost-adjust">
+            <el-dropdown-item command="调价申请">调价申请</el-dropdown-item>
+          </router-link>
         </el-dropdown-menu>
       </el-dropdown>
     </el-col>

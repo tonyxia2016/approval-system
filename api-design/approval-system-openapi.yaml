@@ -12,7 +12,15 @@ info:
     email: rlee@163.com
 
 servers:
-  - url: http://localhost:3001/rest
+  - url: http://localhost:3000/rest
+  - url: http://{host}:{port}/{contextPath}
+    variables:
+      host:
+        default: localhost
+      port:
+        default: "9003"
+      contextPath:
+        default: rest
 
 paths:
   /process/start:
