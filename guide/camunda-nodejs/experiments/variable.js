@@ -2,7 +2,7 @@ const axios = require("axios");
 
 (async () => {
   const startProcess = axios.create({
-    baseURL: "http://localhost:8080/engine-rest",
+    baseURL: "http://localhost:9001/engine-rest",
     headers: { "Content-Type": "application/json" }
   });
 
@@ -20,9 +20,11 @@ const axios = require("axios");
           }
         },
         address3: {
-          value: {
-            data: ["China", "武汉"]
-          }
+          type: "Json",
+          value: JSON.stringify({ data: ["China", "武汉"] })
+        },
+        address4: {
+          value: ["China", "武汉"]
         }
       }
     })
