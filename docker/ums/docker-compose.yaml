@@ -21,6 +21,8 @@ services:
     environment:
       - LDAP_HOST=ums-openldap
       - REDIS_HOST=ums-redis
+    volumes:
+      - ./ums/server:/src
     expose:
       - 3000
 

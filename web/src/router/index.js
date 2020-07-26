@@ -58,6 +58,36 @@ export const constantRoutes = [
   },
 
   {
+    path: '/query',
+    component: Layout,
+    redirect: '/query',
+    children: [
+      {
+        path: '',
+        name: 'Query',
+        component: () => import('@/views/query/index'),
+        meta: { title: '查询', icon: 'query' }
+        // hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/approve',
+    component: Layout,
+    redirect: '/approve',
+    children: [
+      {
+        path: '',
+        name: 'Approve',
+        component: () => import('@/views/approve/index'),
+        meta: { title: '审批', icon: 'table' }
+        // hidden: true
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
@@ -112,6 +142,20 @@ export const constantRoutes = [
       }
     ]
   },
+
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/approve',
+  //   children: [
+  //     {
+  //       path: 'approve',
+  //       name: 'Approve',
+  //       component: () => import('@/views/approve/index'),
+  //       meta: { title: '审批', icon: 'table' }
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

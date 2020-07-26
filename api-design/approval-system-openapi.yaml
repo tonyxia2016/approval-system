@@ -42,8 +42,8 @@ paths:
                   state: 初审
                   type: 包干修复
                   applicant: 定损员A
-                  startDate: 2020-06-30
-                  reportNo: PICC-123456
+                  startDate: "2020-06-30T14:10:20.391"
+                  caseNo: PICC-123456
                   plateNo: 鄂A-12345
                   vehicleModel: 奔驰 GLC 260 豪华型
                   repairPlant: 武汉星隆汽车销售服务有限公司
@@ -58,8 +58,8 @@ paths:
                   state: 初审
                   type: 高价值件
                   applicant: 定损员A
-                  startDate: 2020-06-30
-                  reportNo: PICC-123456
+                  startDate: "2020-06-30T14:10:20.391"
+                  caseNo: PICC-123456
                   plateNo: 鄂A-12345
                   vehicleModel: 奔驰 GLC 260 豪华型
                   investigator: 定损员A
@@ -75,8 +75,8 @@ paths:
                   state: 初审
                   type: 总成部件
                   applicant: 定损员A
-                  startDate: 2020-06-30
-                  reportNo: PICC-123456
+                  startDate: "2020-06-30T14:10:20.391"
+                  caseNo: PICC-123456
                   plateNo: 鄂A-12345
                   vehicleModel: 奔驰 GLC 260 豪华型
                   investigator: 定损员A
@@ -92,8 +92,8 @@ paths:
                   state: 初审
                   type: 包干修复
                   applicant: 定损员A
-                  startDate: 2020-06-30
-                  reportNo: PICC-123456
+                  startDate: "2020-06-30T14:10:20.391"
+                  caseNo: PICC-123456
                   plateNo: 鄂A-12345
                   vehicleModel: 奔驰 GLC 260 豪华型
                   investigator: 定损员A
@@ -146,11 +146,11 @@ components:
           enum: [包干修复, 高价值件, 总成部件, 调价申请]
         applicant:
           type: string
-          description: 申请人，通常是定损员本人。
+          description: 申请人用户名（username）。
         startDate:
           type: string
-          description: 提交申请的时间。
-        reportNo:
+          description: 提交申请的时间，格式为`ISO8601_FORMAT`。
+        caseNo:
           type: string
           description: 报案号
         plateNo:
@@ -176,7 +176,7 @@ components:
           description: 一次性协议定损金额
         investigator:
           type: string
-          description: 定损员
+          description: 定损员真实姓名（name）。
         investigateLocation:
           type: string
           description: 定损地点
@@ -245,7 +245,7 @@ components:
     #       type: string
     #       description: 申请类型
     #       enum: [包干修复, 高价值件, 总成部件, 调价申请]
-    #     reportNo:
+    #     caseNo:
     #       type: string
     #       description: 报案号
     #     plateNo:

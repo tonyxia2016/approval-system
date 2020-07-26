@@ -66,7 +66,7 @@
           <router-link to="/apply/single-lump-sum">
             <el-dropdown-item command="包干修复">包干修复</el-dropdown-item>
           </router-link>
-          <router-link to="/apply/high-value">
+          <router-link to="/approve">
             <el-dropdown-item command="高价值件">高价值件</el-dropdown-item>
           </router-link>
           <router-link to="/apply/assembly-parts">

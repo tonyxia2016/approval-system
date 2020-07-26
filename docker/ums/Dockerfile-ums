@@ -1,19 +1,18 @@
 FROM node:latest
 LABEL maintainer="Ryan Li <rlee@163.com>"
 
-# 拷贝源码
-COPY ums/server /src
-
 # 安装pm2
 RUN npm --registry https://registry.npm.taobao.org --global install pm2
 
-WORKDIR /src
-
-# 安装node_modules
-RUN npm install --registry https://registry.npm.taobao.org
 # 拷贝配置文件
-COPY config/ums-pm2.yaml ums-pm2.yaml
+COPY config/ums-pm2.yaml /ums-pm2.yaml
 
 EXPOSE 3000/tcp
 
-CMD ["pm2-runtime", "ums-pm2.yaml"]
+# 拷贝源码
+COPY ums/server /src
+
+WORKDIR /src
+
+# 采用源码镜像方式启动，可实时更新代码
+CMD npm install --registry https://registry.npm.taobao.org && pm2-runtime /ums-pm2.yaml

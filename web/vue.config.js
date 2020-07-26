@@ -45,6 +45,13 @@ module.exports = {
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API + '/user']: '/ums'
         }
+      },
+      [process.env.VUE_APP_BASE_API + '/application']: {
+        target: `http://localhost:3000`,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API + '/application']: '/rest/application'
+        }
       }
     },
     after: require('./mock/mock-server.js')

@@ -30,10 +30,10 @@ const jsonToTypeValue = json => {
         };
         break;
       case "[object Date]":
-        // 是日期
+        // 是 Date
         res[key] = {
           type: "Date",
-          value: dateFormat(dateFormat.ISO8601_WITH_TZ_OFFSET_FORMAT, res[key])
+          value: dateFormat(dateFormat.ISO8601_WITH_TZ_OFFSET_FORMAT, json[key])
         };
         break;
       default:
