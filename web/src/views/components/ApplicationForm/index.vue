@@ -1,5 +1,5 @@
 <!--
- * 申请单
+ * 申请单控件
  *
  * @description “申请人”、“审批人”共用申请单控件。对“审批人”该表单只读。
  * @description 该表单同时用于”初审“和”复审“，界面提示略有不同
@@ -215,20 +215,12 @@
           <span style="color: darkgrey;">{{ formatAmount(applicationDetail.targetAmount) }}</span>
         </div>
       </el-form-item>
-
-      <!-- <el-form-item>
-        <el-button
-          type="primary"
-          @click="onSubmit"
-        >{{ `${this.$route.meta.mode === 'create' ? '提出申请' : '修改申请'}` }}</el-button>
-        <el-button @click="onCancel">取消</el-button>
-      </el-form-item>-->
     </el-form>
   </div>
 </template>
 
 <script>
-import { createApplication } from '@/api/application'
+import { getName } from '@/api/user'
 import moment from 'moment'
 
 export default {
@@ -246,9 +238,9 @@ export default {
       default: () => {
         return {
           state: '初审',
-          type: '调价申请',
+          type: '包干修复',
           applicant: 'xiawei',
-          startDate: '2020-7-11',
+          startDate: '',
           caseNo: '',
           plateNo: '',
           vehicleModel: '',
@@ -275,6 +267,7 @@ export default {
   },
   data() {
     return {
+      applicantName: '',
       loading: false
     }
   },
@@ -288,17 +281,11 @@ export default {
         return true
       }
     },
-    applicantName() {
-      // TODO: 通过用户名获取用户的真实姓名
-      return '夏伟'
-    },
     formatDate() {
       return date => {
-        return moment(date || moment()).format()
-        // .toString()
-        // return moment(date || moment())
-        //   .format('YYYY 年 MM 月 DD 日')
-        //   .toString()
+        return moment(date || moment())
+          .format('YYYY 年 MM 月 DD 日')
+          .toString()
       }
     },
     formatAmount() {
@@ -309,51 +296,18 @@ export default {
       }
     }
   },
-  methods: {
-    onSubmit() {
-      const _this = this
-      this.loading = true
+  created() {
+    // 通过用户名获取用户的真实姓名
+    const _this = this
 
-      const applicationDetails = {
-        state: `${this.$route.meta.mode === 'create' ? '初审' : '复审'}`,
-        type: '包干修复',
-        applicant: this.$store.state.user.username,
-        startDate: new Date(),
-        ...this.form
-      }
-
-      createApplication(applicationDetails)
-        .then(() => {
-          this.$message({
-            message: '提交成功',
-            type: 'success'
-          })
-          Object.assign(_this.form, {
-            caseNo: '',
-            plateNo: '',
-            vehicleModel: '',
-            repairePlant: '',
-            actualCost: '',
-            evaluationCost: '',
-            purchasePrice: '',
-            agreementAmount: '',
-            investigator: this.$store.state.user.name,
-            investigateDate: new Date()
-          })
-        })
-        .catch(() => {
-          this.$message({
-            message: '提交失败',
-            type: 'error'
-          })
-        })
-        .finally(() => {
-          _this.loading = false
-        })
-    },
-    onCancel() {
-      this.$router.push('/')
-    }
+    getName(this.applicationDetail.applicant)
+      .then(res => {
+        _this.applicantName = res.data
+      })
+      .catch(() => {
+        _this.applicantName =
+          _this.applicationDetail.applicant + '（没有找到申请人真实姓名）'
+      })
   }
 }
 </script>

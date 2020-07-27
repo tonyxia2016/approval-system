@@ -22,3 +22,11 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function getName(username) {
+  return request({
+    url: '/user/name',
+    method: 'get',
+    params: { username }
+  })
+}

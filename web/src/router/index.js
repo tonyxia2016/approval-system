@@ -126,50 +126,15 @@ export const constantRoutes = [
   {
     path: '/apply',
     component: Layout,
-    redirect: '/apply/single-lump-sum',
-    name: 'Apply',
-    meta: { title: '申请', icon: 'form' },
     children: [
       {
-        path: 'single-lump-sum',
-        name: 'SingleLumpSum',
-        component: () => import('@/views/apply/single-lump-sum/index'),
-        meta: { title: '包干修复申请', icon: 'form', mode: 'create' }
-      },
-      {
-        path: 'high-value',
-        name: 'HighValue',
-        component: () => import('@/views/apply/high-value/index'),
-        meta: { title: '高价值件申请', icon: 'form' }
-      },
-      {
-        path: 'assembly-parts',
-        name: 'AssemblyParts',
-        component: () => import('@/views/apply/assembly-parts/index'),
-        meta: { title: '总成部件申请', icon: 'form' }
-      },
-      {
-        path: 'cost-adjust',
-        name: 'CostAdjust',
-        component: () => import('@/views/apply/cost-adjust/index'),
-        meta: { title: '调价申请', icon: 'form' }
+        path: 'index',
+        name: 'Apply',
+        component: () => import('@/views/apply'),
+        meta: { title: '提交申请', icon: 'form' }
       }
     ]
   },
-
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   redirect: '/approve',
-  //   children: [
-  //     {
-  //       path: 'approve',
-  //       name: 'Approve',
-  //       component: () => import('@/views/approve/index'),
-  //       meta: { title: '审批', icon: 'table' }
-  //     }
-  //   ]
-  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
