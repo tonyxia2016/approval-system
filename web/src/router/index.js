@@ -88,6 +88,20 @@ export const constantRoutes = [
   },
 
   {
+    path: '/layout-test',
+    component: Layout,
+    redirect: '/layout-test',
+    children: [
+      {
+        path: '',
+        name: 'Layout-test',
+        component: () => import('@/views/components/ApplicationForm'),
+        meta: { title: 'Layout Test', icon: 'example' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

@@ -201,10 +201,10 @@ components:
         occurredDate:
           type: string
           description: 出险时间
-        quoteDate:
+        offerDate:
           type: string
           description: 报价时间
-        quoteAmount:
+        quotedAmount:
           type: string
           description: 报价金额
         targetAmount:
