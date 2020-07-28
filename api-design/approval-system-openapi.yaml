@@ -109,25 +109,48 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    description: 返回码。`20000`：成功。
-                  data:
-                    type: object
-                    description: 返回的数据。
-                    properties:
-                      id:
-                        type: string
-                        description: 申请id
-                example:
-                  code: 20000
-                  data:
-                    id: bc8d2f78-ba94-11ea-b3de-0242ac130004
+                $ref: "#/components/schemas/ApplicationCreateResDto"
+              example:
+                code: 20000
+                data:
+                  id: bc8d2f78-ba94-11ea-b3de-0242ac130004
+
+  /task:
+    post:
+      tags:
+        - Task
+      summary: 查询用户任务
+      description: 通过用户名和用户角色来查询相关的用户任务
+      operationId: getTask
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskQueryDto"
+            example:
+              username: 张三
+              roles: ["组长", "包干修复初审"]
+
+      responses:
+        "200":
+          description: OK
 
 components:
   schemas:
+    ResponseCode:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: >
+            `20000`: 操作成功 <br>
+            `60204`: 不正确的用户名或密码 <br>
+            `50008`: 无效的 token <br>
+            `50012`: 已在其它客户端登录 <br>
+            `50014`: 过期的 token
+
     ApplicationDetailsDto:
       required:
         - state
@@ -210,6 +233,40 @@ components:
         targetAmount:
           type: string
           description: 目标金额
+
+    ApplicationCreateResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Application id
+
+    TaskQueryDto:
+      type: object
+      properties:
+        username:
+          type: string
+          description: 用户名
+        roles:
+          type: array
+          description: 用户角色
+          items:
+            type: string
+
+    TaskQueryResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/ApplicationDetailsDto"
     # ApprovalDetailsDto:
     #   type: object
     #   properties:
@@ -233,21 +290,3 @@ components:
     #       description: 审核历史记录，按时间倒序排列。
     #       items:
     #         $ref: "#/components/schemas/ApprovalDetailsDto"
-    # TaskQueryDto:
-    #   type: object
-    #   required:
-    #     - userId
-    #   properties:
-    #     userId:
-    #       type: string
-    #       description: 用户 id
-    #     type:
-    #       type: string
-    #       description: 申请类型
-    #       enum: [包干修复, 高价值件, 总成部件, 调价申请]
-    #     caseNo:
-    #       type: string
-    #       description: 报案号
-    #     plateNo:
-    #       type: string
-    #       description: 车牌号

@@ -49,34 +49,16 @@
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <el-dropdown trigger="click" style="width: 100%;">
+      <router-link to="/apply">
         <div class="card-panel">
-          <el-col :span="8">
-            <div class="card-panel-icon-wrapper icon-new">
-              <svg-icon icon-class="new" class-name="card-panel-icon" />
-            </div>
-          </el-col>
-          <el-col :span="16">
-            <div class="card-panel-description" style="margin-top: 45px;">
-              <div class="card-panel-text">提交新申请</div>
-            </div>
-          </el-col>
+          <div class="card-panel-icon-wrapper icon-new">
+            <svg-icon icon-class="new" class-name="card-panel-icon" />
+          </div>
+          <div class="card-panel-description" style="margin-top: 45px;">
+            <div class="card-panel-text">提交新申请</div>
+          </div>
         </div>
-        <el-dropdown-menu slot="dropdown">
-          <router-link to="/apply/single-lump-sum">
-            <el-dropdown-item command="包干修复">包干修复</el-dropdown-item>
-          </router-link>
-          <router-link to="/approve">
-            <el-dropdown-item command="高价值件">高价值件</el-dropdown-item>
-          </router-link>
-          <router-link to="/apply/assembly-parts">
-            <el-dropdown-item command="总成部件">总成部件</el-dropdown-item>
-          </router-link>
-          <router-link to="/apply/cost-adjust">
-            <el-dropdown-item command="调价申请">调价申请</el-dropdown-item>
-          </router-link>
-        </el-dropdown-menu>
-      </el-dropdown>
+      </router-link>
     </el-col>
   </el-row>
 </template>
@@ -96,6 +78,10 @@ export default {
     }
   },
   methods: {
+    createApplication() {
+      // this.$router.push('Apply')
+      this.$message('OK')
+    },
     handleQueryApplication(type) {
       switch (type) {
         case 'pendding': // 正在处理的申请

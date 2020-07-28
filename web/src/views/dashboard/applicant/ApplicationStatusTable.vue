@@ -63,7 +63,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userid', 'roles']),
+    ...mapGetters(['username', 'roles']),
     elapseDays() {
       return function(startDate, endDate) {
         const start = new Date(startDate)
@@ -87,7 +87,7 @@ export default {
       }
 
       queryApplication({
-        userid: this.userid,
+        username: this.username,
         role,
         firstResult: 1,
         maxResults: 10

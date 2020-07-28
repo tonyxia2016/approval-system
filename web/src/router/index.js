@@ -95,7 +95,7 @@ export const constantRoutes = [
       {
         path: '',
         name: 'Layout-test',
-        component: () => import('@/views/components/ApplicationForm'),
+        component: () => import('@/views/dashboard/components/ApproverShortcutTable'),
         meta: { title: 'Layout Test', icon: 'example' }
       }
     ]
@@ -128,7 +128,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: '',
         name: 'Apply',
         component: () => import('@/views/apply'),
         meta: { title: '提交申请', icon: 'form' }

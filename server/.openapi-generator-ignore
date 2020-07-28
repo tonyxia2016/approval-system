@@ -23,4 +23,5 @@
 #!docs/README.md
 
 services/ApplicationService.js
+services/TaskService.js
 package.json

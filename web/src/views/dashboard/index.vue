@@ -1,23 +1,32 @@
 <template>
   <div class="dashboard-container">
-    <panel-group />
-    <application-status-table />
+    <approver-panel-group v-if="isApprover" />
+    <panel-group v-else />
+    <approver-shortcut-table v-if="isApprover" :username="username" :roles="roles" />
+    <application-status-table v-else />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import ApproverPanelGroup from './components/ApproverPanelGroup'
+import ApproverShortcutTable from './components/ApproverShortcutTable'
 import PanelGroup from './applicant/PanelGroup'
 import ApplicationStatusTable from './applicant/ApplicationStatusTable'
 
 export default {
   name: 'Dashboard',
   components: {
+    ApproverPanelGroup,
+    ApproverShortcutTable,
     PanelGroup,
     ApplicationStatusTable
   },
   computed: {
-    ...mapGetters(['name', 'userid', 'roles'])
+    ...mapGetters(['name', 'username', 'roles']),
+    isApprover() {
+      return this.roles.indexOf('定损员') === -1
+    }
   }
 }
 </script>

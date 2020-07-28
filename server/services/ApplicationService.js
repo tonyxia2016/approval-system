@@ -2,7 +2,7 @@
 const Service = require("./Service");
 const bpmClient = require("../camunda-utils/CamundaUtils");
 
-const dateFormat = require("date-format");
+const moment = require("moment");
 
 /**
  * 创建一个申请
@@ -14,11 +14,18 @@ const dateFormat = require("date-format");
 const createApplication = ({ applicationDetailsDto }) =>
   new Promise(async (resolve, reject) => {
     try {
-      // 将 startDate 转换为 Date Object
-      applicationDetailsDto.startDate = dateFormat.parse(
-        dateFormat.ISO8601_FORMAT,
-        applicationDetailsDto.startDate
-      );
+      for (const key in applicationDetailsDto) {
+        // 将所有具有'Date'后缀的，且不为空的字段转换成 Date 类型
+        if (/Date$/.test(key) && applicationDetailsDto[key]) {
+          applicationDetailsDto[key] = moment(
+            applicationDetailsDto[key]
+          ).toDate();
+        }
+        // 将所有具有'Cost'、'Amount'或'Price'后缀，且不为空的字段转换成 Number 类型
+        if (/(Cost|Amount|Price)$/.test(key) && applicationDetailsDto[key]) {
+          applicationDetailsDto[key] = Number(applicationDetailsDto[key]);
+        }
+      }
 
       const id = await bpmClient.createApplication(applicationDetailsDto);
 

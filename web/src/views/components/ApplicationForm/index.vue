@@ -1,14 +1,16 @@
-<!--
+!--
  * 申请单控件
  *
  * @description “申请人”、“审批人”共用申请单控件。对“审批人”该表单只读。
  * @description 该表单同时用于”初审“和”复审“，界面提示略有不同
  * @description 该表单同时用于4种单据的提交和审批，显示的字段略有不同
+ * @param {Boolean} isReadonly - 是否只读
+ * @param {ApplicationDetail[]} applicationDetail - 申请的详细数据
 -->
 
 <template>
   <div>
-    <el-form v-loading="loading" :model="applicationDetail" label-width="150px">
+    <el-form :model="applicationDetail" label-width="150px">
       <el-form-item label="申请类型" :class="isReadonly ? 'is-readonly' : ''">
         <span v-if="isReadonly">{{ applicationDetail.type }}</span>
         <el-select v-else v-model="applicationDetail.type">
@@ -225,21 +227,19 @@ import moment from 'moment'
 
 export default {
   props: {
-    roles: {
-      type: Array,
-      required: false,
-      default: () => {
-        return ['定损员']
-      }
+    isReadonly: {
+      type: Boolean,
+      required: true,
+      default: false
     },
     applicationDetail: {
       type: Object,
-      required: false,
+      required: true,
       default: () => {
         return {
-          state: '初审',
-          type: '包干修复',
-          applicant: 'xiawei',
+          state: '',
+          type: '',
+          applicant: '',
           startDate: '',
           caseNo: '',
           plateNo: '',
@@ -267,20 +267,10 @@ export default {
   },
   data() {
     return {
-      applicantName: '',
-      loading: false
+      applicantName: ''
     }
   },
   computed: {
-    isReadonly() {
-      // 判断是否可以修改申请
-      if (this.roles.indexOf('定损员') > -1) {
-        // 定损员可以修改申请
-        return false
-      } else {
-        return true
-      }
-    },
     formatDate() {
       return date => {
         return moment(date || moment())
@@ -297,6 +287,14 @@ export default {
     }
   },
   created() {
+    // 设置默认值
+    this.applicationDetail.state = this.applicationDetail.state || '初审'
+    this.applicationDetail.type = this.applicationDetail.type || '包干修复'
+    this.applicationDetail.applicant =
+      this.applicationDetail.applicant || 'nobody'
+    this.applicationDetail.startDate =
+      this.applicationDetail.startDate || moment()
+
     // 通过用户名获取用户的真实姓名
     const _this = this
 

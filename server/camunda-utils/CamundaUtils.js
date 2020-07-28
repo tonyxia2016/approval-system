@@ -66,6 +66,16 @@ const createApplication = applicationDetails => {
   });
 };
 
+const getTask = (username, roles) => {
+  return new Promise((resolve, reject) => {
+    // TODO: 完成此API
+    const opt = {
+      url: "/task",
+      method: "post"
+    };
+  });
+};
+
 module.exports = {
   createApplication
 };

@@ -7,7 +7,7 @@ import request from '@/utils/request'
 /**
  * @typedef QueryCondition
  * @type {Object}
- * @property {String} userid - 查询人的用户名
+ * @property {String} username - 查询人的用户名
  * @property {String[]} roles - 查询人的角色
  */
 
