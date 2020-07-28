@@ -5,7 +5,7 @@ const client = axios.create({
   baseURL: "http://localhost:3000/rest",
   headers: { "Content-Type": "application/json" }
 });
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 10; i++) {
   let applicationDetail = Mock.mock({
     state: "初审",
     "type|1": ["包干修复", "高价值件", "总成部件", "调价申请"],

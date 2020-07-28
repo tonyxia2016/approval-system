@@ -66,16 +66,84 @@ const createApplication = applicationDetails => {
   });
 };
 
-const getTask = (username, roles) => {
+const getTask = id => {
   return new Promise((resolve, reject) => {
-    // TODO: 完成此API
+    const opt = {
+      url: `/task/${id}/variables`,
+      method: "get"
+    };
+
+    bpmClient
+      .request(opt)
+      .then(res => {
+        resolve({ _id: id, ...res.data });
+      })
+      .catch(err => {
+        reject(err.message);
+      });
+  });
+};
+
+const getTaskListCount = (username, roles) => {};
+
+const getTaskList = (username, roles) => {
+  return new Promise((resolve, reject) => {
     const opt = {
       url: "/task",
-      method: "post"
+      method: "post",
+      data: {
+        orQueries: [
+          {
+            includeAssignedTasks: true,
+            candidateGroups: roles,
+            assignee: username
+          }
+        ],
+        sorting: [
+          {
+            sortBy: "processVariable",
+            sortOrder: "desc",
+            parameters: {
+              variable: "startDate",
+              type: "Date"
+            }
+          }
+        ]
+      }
     };
+
+    bpmClient
+      .request(opt)
+      .then(res => {
+        if (res.data) {
+          // 获取 Task ID 列表，按提交的时间倒序排序
+          let taskList = res.data.map(item => {
+            return { id: item.id };
+          });
+
+          // TODO: 按照列表获取 Task 详情，并返回。
+          let queryTasks = taskList.map(item => {
+            return getTask(item.id);
+          });
+
+          Promise.all(queryTasks)
+            .then(res => {
+              resolve(res);
+            })
+            .catch(err => {
+              reject(err.message);
+            });
+        } else {
+          resolve([]);
+        }
+      })
+      .catch(err => {
+        reject(err.message);
+      });
   });
 };
 
 module.exports = {
-  createApplication
+  createApplication,
+  getTaskList
 };

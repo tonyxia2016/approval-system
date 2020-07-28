@@ -8,7 +8,7 @@ const Service = require("./Service");
  * taskQueryDto TaskQueryDto
  * no response value expected for this operation
  * */
-const getTask = ({ taskQueryDto }) =>
+const getTaskList = ({ taskQueryDto }) =>
   new Promise(async (resolve, reject) => {
     try {
       resolve(
@@ -24,5 +24,7 @@ const getTask = ({ taskQueryDto }) =>
   });
 
 module.exports = {
-  getTask
+  getTaskList
 };
+
+// TODO: 修改 API 定义：getTask -> getTaskList

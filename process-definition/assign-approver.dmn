@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_15hqply" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
   <decision id="assign-approver" name="选择审批人">
-    <decisionTable id="DecisionTable_1v32blv">
+    <decisionTable id="DecisionTable_1v32blv" hitPolicy="FIRST">
       <input id="Input_1" label="审核状态">
         <inputExpression id="InputExpression_1" typeRef="string">
           <text>state</text>
