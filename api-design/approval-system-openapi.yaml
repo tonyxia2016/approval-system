@@ -121,7 +121,7 @@ paths:
         - Task
       summary: 查询用户任务
       description: 通过用户名和用户角色来查询相关的用户任务
-      operationId: getTask
+      operationId: getTaskList
 
       requestBody:
         required: true

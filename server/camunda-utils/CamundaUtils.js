@@ -1,6 +1,6 @@
 "use strict";
 
-const dateFormat = require("date-format");
+const moment = require("moment");
 
 const axios = require("axios");
 // 通过环境变量设置 Camunda BPM 的 host:port
@@ -33,7 +33,9 @@ const jsonToTypeValue = json => {
         // 是 Date
         res[key] = {
           type: "Date",
-          value: dateFormat(dateFormat.ISO8601_WITH_TZ_OFFSET_FORMAT, json[key])
+          value: moment(json[key])
+            .format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
+            .toString()
         };
         break;
       default:
@@ -46,13 +48,43 @@ const jsonToTypeValue = json => {
   return res;
 };
 
-const createApplication = applicationDetails => {
+/**
+ * 将 Value_Type 格式数据转换成 JSON 格式数据
+ *
+ * @param {Object} typeValue - Value_Type 格式数据
+ * @returns {Object} - JSON 格式数据
+ */
+const typeValueToJson = typeValue => {
+  let res = {};
+
+  for (const key in typeValue) {
+    switch (typeValue[key].type) {
+      case "Date":
+        res[key] = moment(typeValue[key].value).toDate();
+        break;
+      default:
+        // 其它类型，直接转换为 Javascript 类型
+        res[key] = typeValue[key].value;
+        break;
+    }
+  }
+
+  return res;
+};
+
+/**
+ * 创建一个新的申请流程
+ *
+ * @param {*} applicationDetail - 申请的详情
+ * @returns {Promise.<string>} - 创建申请成功，则返回该申请流程的 ID
+ */
+const createApplication = applicationDetail => {
   return new Promise((resolve, reject) => {
     const opt = {
       url: "/process-definition/key/approval-process/start",
       method: "post",
       data: {
-        variables: jsonToTypeValue(applicationDetails)
+        variables: jsonToTypeValue(applicationDetail)
       }
     };
     bpmClient
@@ -66,7 +98,13 @@ const createApplication = applicationDetails => {
   });
 };
 
-const getTask = id => {
+/**
+ * 获取申请的详情
+ *
+ * @description 通过任务 ID 获取申请的详情（流程变量）
+ * @param {string} id
+ */
+const getApplicationDetail = id => {
   return new Promise((resolve, reject) => {
     const opt = {
       url: `/task/${id}/variables`,
@@ -76,7 +114,8 @@ const getTask = id => {
     bpmClient
       .request(opt)
       .then(res => {
-        resolve({ _id: id, ...res.data });
+        const variables = typeValueToJson(res.data);
+        resolve({ _id: id, ...variables });
       })
       .catch(err => {
         reject(err.message);
@@ -84,8 +123,25 @@ const getTask = id => {
   });
 };
 
+/**
+ * 获取用户相关的任务数
+ *
+ * @description 与 getTaskList 类似，只是返回总数而不是详情
+ * @description 暂时没有用到
+ * @param {string} username - 用户名
+ * @param {Array.<string>} roles - 用户的角色列表
+ * @returns {Object} - 符合条件的任务数
+ */
 const getTaskListCount = (username, roles) => {};
 
+/**
+ * 获取用户相关的任务详情列表
+ *
+ * @description 用户相关任务是指：已经指定给 username 的任务，或者候选组包含任意一个 roles 的任务。
+ * @param {string} username - 用户名
+ * @param {string[]} roles - 用户的角色列表
+ * @returns {Array.<Object>} - 返回和用户相关的任务详情列表，按照申请时间倒序排列。
+ */
 const getTaskList = (username, roles) => {
   return new Promise((resolve, reject) => {
     const opt = {
@@ -112,23 +168,29 @@ const getTaskList = (username, roles) => {
       }
     };
 
+    // 获取 Task ID 列表，按提交的时间倒序排序
     bpmClient
       .request(opt)
       .then(res => {
         if (res.data) {
-          // 获取 Task ID 列表，按提交的时间倒序排序
+          // 如果查询结果不为空，则生成 taskList 数组
           let taskList = res.data.map(item => {
-            return { id: item.id };
+            return { _id: item.id };
           });
 
-          // TODO: 按照列表获取 Task 详情，并返回。
+          // 按照 taskList 获取申请详情，并返回。
           let queryTasks = taskList.map(item => {
-            return getTask(item.id);
+            return getApplicationDetail(item._id);
           });
 
           Promise.all(queryTasks)
             .then(res => {
-              resolve(res);
+              // 异步查询不能保证返回的申请详情按照申请时间排序，需按照原排序进行排序
+              resolve(
+                taskList.map(item =>
+                  res.find(element => element._id === item._id)
+                )
+              );
             })
             .catch(err => {
               reject(err.message);

@@ -18,7 +18,6 @@
     "camelcase": "^5.3.1",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
-    "date-format": "^3.0.0",
     "express": "^4.16.4",
     "express-openapi-validator": "^3.9.1",
     "js-yaml": "^3.3.0",

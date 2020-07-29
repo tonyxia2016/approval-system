@@ -53,6 +53,10 @@ for (let i = 0; i < 10; i++) {
 
   client
     .request(opt)
-    .then(res => {})
-    .catch(err => {});
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
 }

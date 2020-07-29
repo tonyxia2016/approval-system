@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const Service = require("./Service");
+const camunda = require("../camunda-utils/CamundaUtils");
 
 /**
  * 查询用户任务
@@ -11,9 +12,14 @@ const Service = require("./Service");
 const getTaskList = ({ taskQueryDto }) =>
   new Promise(async (resolve, reject) => {
     try {
+      const taskList = await camunda.getTaskList(
+        taskQueryDto.username,
+        taskQueryDto.roles
+      );
       resolve(
         Service.successResponse({
-          taskQueryDto
+          code: 20000,
+          data: taskList
         })
       );
     } catch (e) {
@@ -26,5 +32,3 @@ const getTaskList = ({ taskQueryDto }) =>
 module.exports = {
   getTaskList
 };
-
-// TODO: 修改 API 定义：getTask -> getTaskList

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const Service = require("./Service");
-const bpmClient = require("../camunda-utils/CamundaUtils");
+const camunda = require("../camunda-utils/CamundaUtils");
 
 const moment = require("moment");
 
@@ -27,7 +27,7 @@ const createApplication = ({ applicationDetailsDto }) =>
         }
       }
 
-      const id = await bpmClient.createApplication(applicationDetailsDto);
+      const id = await camunda.createApplication(applicationDetailsDto);
 
       resolve(
         Service.successResponse({
