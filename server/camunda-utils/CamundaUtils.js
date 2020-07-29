@@ -207,5 +207,6 @@ const getTaskList = (username, roles) => {
 
 module.exports = {
   createApplication,
-  getTaskList
+  getTaskList,
+  getApplicationDetail
 };

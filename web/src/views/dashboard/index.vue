@@ -9,12 +9,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { getTaskList } from '@/api/application'
+import { getName } from '@/api/user'
 import ApproverPanelGroup from './components/ApproverPanelGroup'
 import ApproverShortcutTable from './components/ApproverShortcutTable'
 import PanelGroup from './applicant/PanelGroup'
 import ApplicationStatusTable from './applicant/ApplicationStatusTable'
-import { getTaskList } from '@/api/application'
-import { getName } from '@/api/user'
 
 export default {
   name: 'Dashboard',
@@ -37,20 +37,22 @@ export default {
   },
   created() {
     const _this = this
-
-    // 根据用户名和用户角色来查询相关的审批案件
-    getTaskList({
-      username: this.username,
-      roles: this.roles
-    }).then(res => {
-      // 在详情中添加 applicant 的真实姓名
-      _this.applications = []
-      for (const item of res.data) {
-        getName(item.applicant).then(name => {
-          _this.applications.push({ ...item, applicantName: name.data })
-        })
-      }
-    })
+    if (this.isApprover) {
+      // 是审批人
+      // 根据用户名和用户角色来查询相关的审批案件
+      getTaskList({
+        username: this.username,
+        roles: this.roles
+      }).then(res => {
+        // 在详情中添加 applicant 的真实姓名
+        _this.applications = []
+        for (const item of res.data) {
+          getName(item.applicant).then(name => {
+            _this.applications.push({ ...item, applicantName: name.data })
+          })
+        }
+      })
+    }
   }
 }
 </script>

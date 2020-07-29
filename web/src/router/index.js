@@ -53,6 +53,14 @@ export const constantRoutes = [
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index'),
         meta: { title: '主页', icon: 'dashboard' }
+      },
+      {
+        path: 'approve/:id',
+        name: '审批',
+        component: () => import('@/views/approve/index'),
+        props: true,
+        meta: { title: '审批', icon: 'table' },
+        hidden: true
       }
     ]
   },
@@ -67,21 +75,6 @@ export const constantRoutes = [
         name: 'Query',
         component: () => import('@/views/query/index'),
         meta: { title: '查询', icon: 'query' }
-        // hidden: true
-      }
-    ]
-  },
-
-  {
-    path: '/approve',
-    component: Layout,
-    redirect: '/approve',
-    children: [
-      {
-        path: '',
-        name: 'Approve',
-        component: () => import('@/views/approve/index'),
-        meta: { title: '审批', icon: 'table' }
         // hidden: true
       }
     ]
@@ -129,7 +122,7 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        name: 'Apply',
+        name: '提交申请',
         component: () => import('@/views/apply'),
         meta: { title: '提交申请', icon: 'form' }
       }

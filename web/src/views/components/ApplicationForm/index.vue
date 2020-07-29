@@ -1,4 +1,4 @@
-!--
+<!--
  * 申请单控件
  *
  * @description “申请人”、“审批人”共用申请单控件。对“审批人”该表单只读。
@@ -286,26 +286,28 @@ export default {
       }
     }
   },
-  created() {
-    // 设置默认值
-    this.applicationDetail.state = this.applicationDetail.state || '初审'
-    this.applicationDetail.type = this.applicationDetail.type || '包干修复'
-    this.applicationDetail.applicant =
-      this.applicationDetail.applicant || 'nobody'
-    this.applicationDetail.startDate =
-      this.applicationDetail.startDate || moment()
+  watch: {
+    applicationDetail() {
+      // 设置默认值
+      // this.applicationDetail.state = this.applicationDetail.state || '初审'
+      // this.applicationDetail.type = this.applicationDetail.type || '包干修复'
+      // this.applicationDetail.applicant =
+      //   this.applicationDetail.applicant || 'nobody'
+      // this.applicationDetail.startDate =
+      //   this.applicationDetail.startDate || moment()
 
-    // 通过用户名获取用户的真实姓名
-    const _this = this
+      // 通过用户名获取用户的真实姓名
+      const _this = this
 
-    getName(this.applicationDetail.applicant)
-      .then(res => {
-        _this.applicantName = res.data
-      })
-      .catch(() => {
-        _this.applicantName =
-          _this.applicationDetail.applicant + '（没有找到申请人真实姓名）'
-      })
+      getName(this.applicationDetail.applicant)
+        .then(res => {
+          _this.applicantName = res.data
+        })
+        .catch(() => {
+          _this.applicantName =
+            _this.applicationDetail.applicant + '（没有找到申请人真实姓名）'
+        })
+    }
   }
 }
 </script>

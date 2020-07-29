@@ -11,8 +11,8 @@
     </el-table-column>
     <el-table-column label="车牌号" prop="plateNo" sortable width="200px" />
     <el-table-column label="操作" align="left">
-      <template>
-        <el-button type="primary" plain>审核</el-button>
+      <template slot-scope="scope">
+        <el-button type="primary" plain @click="startApproval(scope.row._id)">审批</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -35,6 +35,12 @@ export default {
           .format('YYYY 年 MM 月 DD 日')
           .toString()
       }
+    }
+  },
+  methods: {
+    startApproval(id) {
+      /* eslint-disable */
+      this.$router.push({ name: '审批', params: { id } })
     }
   }
 }

@@ -15,3 +15,11 @@ export function getTaskList(data) {
     data
   })
 }
+
+export function getApplicationDetail(id) {
+  return request({
+    url: '/task',
+    method: 'get',
+    params: { id }
+  })
+}

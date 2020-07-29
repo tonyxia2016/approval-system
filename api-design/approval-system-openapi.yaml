@@ -35,7 +35,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ApplicationDetailsDto"
+              $ref: "#/components/schemas/ApplicationDetailDto"
             examples:
               包干修复初审:
                 value:
@@ -112,15 +112,14 @@ paths:
                 $ref: "#/components/schemas/ApplicationCreateResDto"
               example:
                 code: 20000
-                data:
-                  id: bc8d2f78-ba94-11ea-b3de-0242ac130004
+                data: "bc8d2f78-ba94-11ea-b3de-0242ac130004"
 
   /task:
     post:
       tags:
         - Task
-      summary: 查询用户任务
-      description: 通过用户名和用户角色来查询相关的用户任务
+      summary: 查询用户任务详情列表
+      description: 通过用户名和用户角色来查询相关的用户任务详情列表
       operationId: getTaskList
 
       requestBody:
@@ -128,14 +127,60 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TaskQueryDto"
+              $ref: "#/components/schemas/TaskListQueryDto"
             example:
               username: 张三
-              roles: ["组长", "包干修复初审"]
+              roles:
+                - "组长"
+                - "包干修复初审"
 
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskListQueryResDto"
+              example:
+                code: 20000
+                data:
+                  - state: 初审
+                    type: 包干修复
+                    applicant: lisi
+                    startDate: 2020-07-28
+                  - state: 初审
+                    type: 包干修复
+                    applicant: wangwu
+                    startDate: 2020-07-25
+
+    get:
+      tags:
+        - Task
+      summary: 查询用户任务详情
+      description: 通过 Task ID 查询申请的详情
+      operationId: getApplicationDetail
+
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: 任务 ID
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationDetailResDto"
+              example:
+                code: 20000
+                data:
+                  state: 初审
+                  type: 包干修复
+                  applicant: lisi
+                  startDate: 2020-07-28
 
 components:
   schemas:
@@ -151,7 +196,7 @@ components:
             `50012`: 已在其它客户端登录 <br>
             `50014`: 过期的 token
 
-    ApplicationDetailsDto:
+    ApplicationDetailDto:
       required:
         - state
         - type
@@ -240,13 +285,10 @@ components:
         - type: object
           properties:
             data:
-              type: object
-              properties:
-                id:
-                  type: string
-                  description: Application id
+              type: string
+              description: 申请流程ID
 
-    TaskQueryDto:
+    TaskListQueryDto:
       type: object
       properties:
         username:
@@ -254,11 +296,11 @@ components:
           description: 用户名
         roles:
           type: array
-          description: 用户角色
           items:
             type: string
+            description: 用户角色
 
-    TaskQueryResDto:
+    TaskListQueryResDto:
       allOf:
         - $ref: "#/components/schemas/ResponseCode"
         - type: object
@@ -266,7 +308,15 @@ components:
             data:
               type: array
               items:
-                $ref: "#/components/schemas/ApplicationDetailsDto"
+                $ref: "#/components/schemas/ApplicationDetailDto"
+
+    ApplicationDetailResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/ApplicationDetailDto"
     # ApprovalDetailsDto:
     #   type: object
     #   properties:

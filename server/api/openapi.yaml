@@ -93,7 +93,7 @@ paths:
                   quoteAmount: "20000"
                   targetAmount: "25000"
             schema:
-              $ref: "#/components/schemas/ApplicationDetailsDto"
+              $ref: "#/components/schemas/ApplicationDetailDto"
         required: true
       responses:
         "200":
@@ -101,8 +101,7 @@ paths:
             application/json:
               example:
                 code: 20000
-                data:
-                  id: bc8d2f78-ba94-11ea-b3de-0242ac130004
+                data: bc8d2f78-ba94-11ea-b3de-0242ac130004
               schema:
                 $ref: "#/components/schemas/ApplicationCreateResDto"
           description: OK
@@ -111,8 +110,38 @@ paths:
         - Application
       x-eov-operation-handler: controllers/ApplicationController
   /task:
+    get:
+      description: 通过 Task ID 查询申请的详情
+      operationId: getApplicationDetail
+      parameters:
+        - description: 任务 ID
+          explode: true
+          in: query
+          name: id
+          required: false
+          schema:
+            type: string
+          style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                code: 20000
+                data:
+                  state: 初审
+                  type: 包干修复
+                  applicant: lisi
+                  startDate: 2020-07-28
+              schema:
+                $ref: "#/components/schemas/ApplicationDetailResDto"
+          description: OK
+      summary: 查询用户任务详情
+      tags:
+        - Task
+      x-eov-operation-handler: controllers/TaskController
     post:
-      description: 通过用户名和用户角色来查询相关的用户任务
+      description: 通过用户名和用户角色来查询相关的用户任务详情列表
       operationId: getTaskList
       requestBody:
         content:
@@ -123,12 +152,27 @@ paths:
                 - 组长
                 - 包干修复初审
             schema:
-              $ref: "#/components/schemas/TaskQueryDto"
+              $ref: "#/components/schemas/TaskListQueryDto"
         required: true
       responses:
         "200":
+          content:
+            application/json:
+              example:
+                code: 20000
+                data:
+                  - state: 初审
+                    type: 包干修复
+                    applicant: lisi
+                    startDate: 2020-07-28
+                  - state: 初审
+                    type: 包干修复
+                    applicant: wangwu
+                    startDate: 2020-07-25
+              schema:
+                $ref: "#/components/schemas/TaskListQueryResDto"
           description: OK
-      summary: 查询用户任务
+      summary: 查询用户任务详情列表
       tags:
         - Task
       x-eov-operation-handler: controllers/TaskController
@@ -141,7 +185,7 @@ components:
             `20000`: 操作成功 <br> `60204`: 不正确的用户名或密码 <br> `50008`: 无效的 token <br> `50012`: 已在其它客户端登录 <br> `50014`: 过期的 token
           type: integer
       type: object
-    ApplicationDetailsDto:
+    ApplicationDetailDto:
       example:
         identifier: identifier
         agreementAmount: agreementAmount
@@ -258,7 +302,7 @@ components:
       allOf:
         - $ref: "#/components/schemas/ResponseCode"
         - $ref: "#/components/schemas/ApplicationCreateResDto_allOf"
-    TaskQueryDto:
+    TaskListQueryDto:
       example:
         roles:
           - roles
@@ -269,27 +313,31 @@ components:
           description: 用户名
           type: string
         roles:
-          description: 用户角色
           items:
+            description: 用户角色
             type: string
           type: array
       type: object
-    TaskQueryResDto:
+    TaskListQueryResDto:
       allOf:
         - $ref: "#/components/schemas/ResponseCode"
-        - $ref: "#/components/schemas/TaskQueryResDto_allOf"
-    ApplicationCreateResDto_allOf_data:
-      properties:
-        id:
-          description: Application id
-          type: string
+        - $ref: "#/components/schemas/TaskListQueryResDto_allOf"
+    ApplicationDetailResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - $ref: "#/components/schemas/ApplicationDetailResDto_allOf"
     ApplicationCreateResDto_allOf:
       properties:
         data:
-          $ref: "#/components/schemas/ApplicationCreateResDto_allOf_data"
-    TaskQueryResDto_allOf:
+          description: 申请流程ID
+          type: string
+    TaskListQueryResDto_allOf:
       properties:
         data:
           items:
-            $ref: "#/components/schemas/ApplicationDetailsDto"
+            $ref: "#/components/schemas/ApplicationDetailDto"
           type: array
+    ApplicationDetailResDto_allOf:
+      properties:
+        data:
+          $ref: "#/components/schemas/ApplicationDetailDto"

@@ -8,10 +8,19 @@
 
 const Controller = require("./Controller");
 const service = require("../services/TaskService");
+const getApplicationDetail = async (request, response) => {
+  await Controller.handleRequest(
+    request,
+    response,
+    service.getApplicationDetail
+  );
+};
+
 const getTaskList = async (request, response) => {
   await Controller.handleRequest(request, response, service.getTaskList);
 };
 
 module.exports = {
+  getApplicationDetail,
   getTaskList
 };
