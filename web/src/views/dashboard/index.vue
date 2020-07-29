@@ -1,8 +1,8 @@
 <template>
   <div class="dashboard-container">
-    <approver-panel-group v-if="isApprover" />
+    <approver-panel-group v-if="isApprover" :pending-application-count="applications.length" />
     <panel-group v-else />
-    <approver-shortcut-table v-if="isApprover" :username="username" :roles="roles" />
+    <approver-shortcut-table v-if="isApprover" :applications="applications" />
     <application-status-table v-else />
   </div>
 </template>
@@ -13,6 +13,8 @@ import ApproverPanelGroup from './components/ApproverPanelGroup'
 import ApproverShortcutTable from './components/ApproverShortcutTable'
 import PanelGroup from './applicant/PanelGroup'
 import ApplicationStatusTable from './applicant/ApplicationStatusTable'
+import { getTaskList } from '@/api/application'
+import { getName } from '@/api/user'
 
 export default {
   name: 'Dashboard',
@@ -22,11 +24,33 @@ export default {
     PanelGroup,
     ApplicationStatusTable
   },
+  data() {
+    return {
+      applications: []
+    }
+  },
   computed: {
     ...mapGetters(['name', 'username', 'roles']),
     isApprover() {
       return this.roles.indexOf('定损员') === -1
     }
+  },
+  created() {
+    const _this = this
+
+    // 根据用户名和用户角色来查询相关的审批案件
+    getTaskList({
+      username: this.username,
+      roles: this.roles
+    }).then(res => {
+      // 在详情中添加 applicant 的真实姓名
+      _this.applications = []
+      for (const item of res.data) {
+        getName(item.applicant).then(name => {
+          _this.applications.push({ ...item, applicantName: name.data })
+        })
+      }
+    })
   }
 }
 </script>

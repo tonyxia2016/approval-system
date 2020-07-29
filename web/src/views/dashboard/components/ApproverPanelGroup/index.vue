@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="40" class="panel-group">
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+    <el-col :xs="12" :sm="12" :lg="8" :xl="5" class="card-panel-col">
       <div class="card-panel">
         <div class="card-panel-icon-wrapper icon-pending">
           <svg-icon icon-class="pending" class-name="card-panel-icon" />
@@ -10,28 +10,12 @@
           <count-to
             :start-val="0"
             :end-val="pendingApplicationCount"
-            :duration="2000"
+            :duration="1000"
             class="card-panel-num"
           />
         </div>
       </div>
     </el-col>
-    <!-- <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper icon-processing">
-          <svg-icon icon-class="processing" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">正在审批的申请</div>
-          <count-to
-            :start-val="0"
-            :end-val="processingApplicationCount"
-            :duration="2000"
-            class="card-panel-num"
-          />
-        </div>
-      </div>
-    </el-col>-->
   </el-row>
 </template>
 
@@ -42,10 +26,11 @@ export default {
   components: {
     CountTo
   },
-  data() {
-    return {
-      pendingApplicationCount: 20,
-      processingApplicationCount: 8
+  props: {
+    pendingApplicationCount: {
+      type: Number,
+      required: true,
+      default: 0
     }
   }
 }

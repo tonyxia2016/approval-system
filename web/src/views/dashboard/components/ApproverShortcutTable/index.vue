@@ -1,12 +1,16 @@
 <template>
-  <el-table :data="applications" stripe>
-    <el-table-column label="序号" type="index" />
-    <el-table-column label="申请类型" prop="type" />
-    <el-table-column label="申请人" prop="applicant" align="center" />
-    <el-table-column label="申请时间" prop="startDate" sortable align="center" />
-    <el-table-column label="报案号（后8位）" prop="caseNo" sortable />
-    <el-table-column label="车牌号" prop="plateNo" sortable />
-    <el-table-column label="操作">
+  <el-table :data="applications" stripe :default-sort="{ prop: 'startDate', order: 'descending'}">
+    <el-table-column label="序号" type="index" align="center" />
+    <el-table-column label="申请类型" prop="type" align="center" width="100px" />
+    <el-table-column label="申请人" prop="applicantName" align="center" width="100px" />
+    <el-table-column label="申请时间" prop="startDate" sortable align="center" width="200px">
+      <template slot-scope="scope">{{ formatDate(scope.row.startDate) }}</template>
+    </el-table-column>
+    <el-table-column label="报案号（后8位）" prop="caseNo" align="center" width="200px">
+      <template slot-scope="scope">{{ scope.row.caseNo.slice(-8) }}</template>
+    </el-table-column>
+    <el-table-column label="车牌号" prop="plateNo" sortable width="200px" />
+    <el-table-column label="操作" align="left">
       <template>
         <el-button type="primary" plain>审核</el-button>
       </template>
@@ -15,24 +19,23 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   props: {
-    username: {
-      type: String,
-      required: true
-    },
-    roles: {
+    applications: {
       type: Array,
       required: true
     }
   },
-  data() {
-    return {
-      applications: []
+  computed: {
+    formatDate() {
+      return date => {
+        return moment(date || moment())
+          .format('YYYY 年 MM 月 DD 日')
+          .toString()
+      }
     }
-  },
-  created() {
-    // TODO: 根据用户名和用户角色来查询相关的审批案件
   }
 }
 </script>

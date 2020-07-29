@@ -7,3 +7,11 @@ export function createApplication(data) {
     data
   })
 }
+
+export function getTaskList(data) {
+  return request({
+    url: '/task',
+    method: 'post',
+    data
+  })
+}

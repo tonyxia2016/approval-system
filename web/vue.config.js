@@ -52,6 +52,13 @@ module.exports = {
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API + '/application']: '/rest/application'
         }
+      },
+      [process.env.VUE_APP_BASE_API + '/task']: {
+        target: `http://localhost:3000`,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API + '/task']: '/rest/task'
+        }
       }
     },
     after: require('./mock/mock-server.js')
@@ -67,8 +74,8 @@ module.exports = {
     }
   },
   chainWebpack(config) {
-    config.plugins.delete('preload') // TODO: need test
-    config.plugins.delete('prefetch') // TODO: need test
+    config.plugins.delete('preload') // need test
+    config.plugins.delete('prefetch') // need test
 
     // set svg-sprite-loader
     config.module
