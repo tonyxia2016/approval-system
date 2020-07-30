@@ -22,7 +22,7 @@
       </el-form-item>
 
       <el-form-item label="申请人" :class="isReadonly ? 'is-readonly' : ''">
-        <span>{{ applicantName }}</span>
+        <span>{{ applicationDetail.applicantName }}</span>
       </el-form-item>
 
       <el-form-item label="申请日期" :class="isReadonly ? 'is-readonly' : ''">
@@ -222,7 +222,6 @@
 </template>
 
 <script>
-import { getName } from '@/api/user'
 import moment from 'moment'
 
 export default {
@@ -234,40 +233,7 @@ export default {
     },
     applicationDetail: {
       type: Object,
-      required: true,
-      default: () => {
-        return {
-          state: '',
-          type: '',
-          applicant: '',
-          startDate: '',
-          caseNo: '',
-          plateNo: '',
-          vehicleModel: '',
-          repairePlant: '',
-          actualCost: '',
-          evaluationCost: '',
-          purchasePrice: '',
-          agreementAmount: '',
-          investigator: '',
-          investigateLocation: '',
-          investigateDate: '',
-          identifier: '',
-          insurer: '',
-          insured: '',
-          finalAmount: '',
-          deductible: '',
-          occurredDate: '',
-          offerDate: '',
-          quotedAmount: '',
-          targetAmount: ''
-        }
-      }
-    }
-  },
-  data() {
-    return {
-      applicantName: ''
+      required: true
     }
   },
   computed: {
@@ -284,29 +250,6 @@ export default {
           minimumFractionDigits: 2
         })
       }
-    }
-  },
-  watch: {
-    applicationDetail() {
-      // 设置默认值
-      // this.applicationDetail.state = this.applicationDetail.state || '初审'
-      // this.applicationDetail.type = this.applicationDetail.type || '包干修复'
-      // this.applicationDetail.applicant =
-      //   this.applicationDetail.applicant || 'nobody'
-      // this.applicationDetail.startDate =
-      //   this.applicationDetail.startDate || moment()
-
-      // 通过用户名获取用户的真实姓名
-      const _this = this
-
-      getName(this.applicationDetail.applicant)
-        .then(res => {
-          _this.applicantName = res.data
-        })
-        .catch(() => {
-          _this.applicantName =
-            _this.applicationDetail.applicant + '（没有找到申请人真实姓名）'
-        })
     }
   }
 }

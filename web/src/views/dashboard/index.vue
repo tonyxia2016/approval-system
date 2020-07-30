@@ -10,7 +10,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getTaskList } from '@/api/application'
-import { getName } from '@/api/user'
 import ApproverPanelGroup from './components/ApproverPanelGroup'
 import ApproverShortcutTable from './components/ApproverShortcutTable'
 import PanelGroup from './applicant/PanelGroup'
@@ -44,13 +43,7 @@ export default {
         username: this.username,
         roles: this.roles
       }).then(res => {
-        // 在详情中添加 applicant 的真实姓名
-        _this.applications = []
-        for (const item of res.data) {
-          getName(item.applicant).then(name => {
-            _this.applications.push({ ...item, applicantName: name.data })
-          })
-        }
+        _this.applications = res.data
       })
     }
   }

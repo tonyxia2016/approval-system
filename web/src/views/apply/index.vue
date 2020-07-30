@@ -34,6 +34,7 @@ export default {
         state: '初审',
         type: '包干修复',
         applicant: store.getters.username,
+        applicantName: store.getters.name,
         startDate: moment(),
         caseNo: '',
         plateNo: '',

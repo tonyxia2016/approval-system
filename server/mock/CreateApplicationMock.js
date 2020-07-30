@@ -5,6 +5,11 @@ const client = axios.create({
   baseURL: "http://localhost:3000/rest",
   headers: { "Content-Type": "application/json" }
 });
+const applicantName = {
+  xiawei: "夏伟",
+  guoping: "郭平"
+};
+
 for (let i = 0; i < 10; i++) {
   let applicationDetail = Mock.mock({
     state: "初审",
@@ -44,6 +49,7 @@ for (let i = 0; i < 10; i++) {
     quotedAmount: "@natural(1000, 1500000)",
     targetAmount: "@natural(1000, 1500000)"
   });
+  applicationDetail.applicantName = applicantName[applicationDetail.applicant];
 
   let opt = {
     url: "/application/create",
@@ -51,6 +57,7 @@ for (let i = 0; i < 10; i++) {
     data: applicationDetail
   };
 
+  // console.log(applicationDetail);
   client
     .request(opt)
     .then(res => {

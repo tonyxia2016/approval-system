@@ -23,10 +23,10 @@ export function logout() {
   })
 }
 
-export function getName(username) {
+export function getRoleMember(role) {
   return request({
-    url: '/user/name',
+    url: '/user/group',
     method: 'get',
-    params: { username }
+    params: { groupKey: role }
   })
 }

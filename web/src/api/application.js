@@ -23,3 +23,12 @@ export function getApplicationDetail(id) {
     params: { id }
   })
 }
+
+export function handleApplication(data) {
+  return request({
+    url: '/task/complete',
+    method: 'post',
+    data
+  })
+}
+
