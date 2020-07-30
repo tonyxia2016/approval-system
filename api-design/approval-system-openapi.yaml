@@ -201,6 +201,7 @@ components:
         - state
         - type
         - applicant
+        - applicantName
         - startDate
       type: object
       properties:
@@ -215,9 +216,13 @@ components:
         applicant:
           type: string
           description: 申请人用户名（username）。
+        applicantName:
+          type: string
+          description: 申请人的真实姓名。
         startDate:
           type: string
-          description: 提交申请的时间，格式为`ISO8601_FORMAT`。
+          description: >
+            提交申请的时间，格式为`YYYY-MM-DDTHH:mm:ss.SSSZZ`（[moment.js](http://momentjs.cn/docs/#/displaying/format/)）
         caseNo:
           type: string
           description: 报案号
@@ -250,7 +255,8 @@ components:
           description: 定损地点
         investigateDate:
           type: string
-          description: 定损时间
+          description: >
+            定损时间，，格式为`YYYY-MM-DDTHH:mm:ss.SSSZZ`（[moment.js](http://momentjs.cn/docs/#/displaying/format/)）
         identifier:
           type: string
           description: 识别代码
@@ -268,10 +274,12 @@ components:
           description: 自付标准
         occurredDate:
           type: string
-          description: 出险时间
+          description: >
+            出险时间，，格式为`YYYY-MM-DDTHH:mm:ss.SSSZZ`（[moment.js](http://momentjs.cn/docs/#/displaying/format/)）
         offerDate:
           type: string
-          description: 报价时间
+          description: >
+            报价时间，，格式为`YYYY-MM-DDTHH:mm:ss.SSSZZ`（[moment.js](http://momentjs.cn/docs/#/displaying/format/)）
         quotedAmount:
           type: string
           description: 报价金额

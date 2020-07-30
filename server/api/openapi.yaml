@@ -187,30 +187,31 @@ components:
       type: object
     ApplicationDetailDto:
       example:
-        identifier: identifier
         agreementAmount: agreementAmount
         insured: insured
-        plateNo: plateNo
-        targetAmount: targetAmount
         purchasePrice: purchasePrice
         type: 包干修复
-        caseNo: caseNo
-        applicant: applicant
         quotedAmount: quotedAmount
         investigator: investigator
-        offerDate: offerDate
         insurer: insurer
         finalAmount: finalAmount
         evaluationCost: evaluationCost
-        deductible: deductible
         vehicleModel: vehicleModel
-        repairPlant: repairPlant
         state: 初审
+        actualCost: actualCost
+        occurredDate: occurredDate
+        identifier: identifier
+        plateNo: plateNo
+        targetAmount: targetAmount
+        applicantName: applicantName
+        caseNo: caseNo
+        applicant: applicant
+        offerDate: offerDate
+        deductible: deductible
+        repairPlant: repairPlant
         startDate: startDate
         investigateLocation: investigateLocation
-        actualCost: actualCost
         investigateDate: investigateDate
-        occurredDate: occurredDate
       properties:
         state:
           description: 审批状态。开始申请时，状态为“初审”。
@@ -229,8 +230,12 @@ components:
         applicant:
           description: 申请人用户名（username）。
           type: string
+        applicantName:
+          description: 申请人的真实姓名。
+          type: string
         startDate:
-          description: 提交申请的时间，格式为`ISO8601_FORMAT`。
+          description: |
+            提交申请的时间，格式为`YYYY-MM-DDTHH:mm:ss.SSSZZ`（[moment.js](http://momentjs.cn/docs/#/displaying/format/)）
           type: string
         caseNo:
           description: 报案号
@@ -263,7 +268,8 @@ components:
           description: 定损地点
           type: string
         investigateDate:
-          description: 定损时间
+          description: |
+            定损时间，，格式为`YYYY-MM-DDTHH:mm:ss.SSSZZ`（[moment.js](http://momentjs.cn/docs/#/displaying/format/)）
           type: string
         identifier:
           description: 识别代码
@@ -281,10 +287,12 @@ components:
           description: 自付标准
           type: string
         occurredDate:
-          description: 出险时间
+          description: |
+            出险时间，，格式为`YYYY-MM-DDTHH:mm:ss.SSSZZ`（[moment.js](http://momentjs.cn/docs/#/displaying/format/)）
           type: string
         offerDate:
-          description: 报价时间
+          description: |
+            报价时间，，格式为`YYYY-MM-DDTHH:mm:ss.SSSZZ`（[moment.js](http://momentjs.cn/docs/#/displaying/format/)）
           type: string
         quotedAmount:
           description: 报价金额
@@ -294,6 +302,7 @@ components:
           type: string
       required:
         - applicant
+        - applicantName
         - startDate
         - state
         - type
