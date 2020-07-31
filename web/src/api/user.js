@@ -25,8 +25,7 @@ export function logout() {
 
 export function getRoleMember(role) {
   return request({
-    url: '/user/group',
-    method: 'get',
-    params: { groupKey: role }
+    url: `/user/role/${role}`,
+    method: 'get'
   })
 }

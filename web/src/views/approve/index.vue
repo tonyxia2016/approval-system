@@ -21,6 +21,8 @@
 import ApplicationForm from '../components/ApplicationForm'
 import SelectLeader from './components/SelectLeader'
 import { getApplicationDetail, handleApplication } from '@/api/application'
+import { getRoleMember } from '@/api/user'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -37,6 +39,9 @@ export default {
       applicationDetail: {},
       approvalComment: ''
     }
+  },
+  computed: {
+    ...mapGetters(['username', 'roles'])
   },
   created() {
     const _this = this
@@ -55,28 +60,25 @@ export default {
         this.$router.push({ name: 'Dashboard' })
       })
     },
-    handOver() {
+    async handOver() {
       // 获取组长名单
+      const res = await getRoleMember('组长')
+      // 去除自己
+      const leaderList = []
+      for (const item of res.data.members) {
+        if (item.username !== this.username) {
+          leaderList.push(item)
+        }
+      }
+
       const selectLeader = this.$createElement(SelectLeader, {
         ref: 'sl',
-        props: {
-          leaderList: [
-            {
-              username: 'zhangyang',
-              name: '张洋'
-            },
-            {
-              username: 'lijie',
-              name: '李捷'
-            }
-          ]
-        }
+        props: { leaderList: leaderList }
       })
 
       this.$msgbox({
         title: '选择组长',
-        message: selectLeader,
-        data: 'abc'
+        message: selectLeader
       })
         .then(action => {
           this.$message({
