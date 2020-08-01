@@ -10,7 +10,7 @@ COPY config/ums-pm2.yaml /ums-pm2.yaml
 EXPOSE 3000/tcp
 
 # 拷贝源码
-COPY ums/server /src
+#COPY ums/server /src
 
 WORKDIR /src
 
