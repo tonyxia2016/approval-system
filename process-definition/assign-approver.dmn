@@ -70,20 +70,6 @@
           <text>"调价申请初审"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1ysy8hi">
-        <inputEntry id="UnaryTests_0jmq0hx">
-          <text>"复审"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1o866rp">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0lcb9na" expressionLanguage="feel">
-          <text>approverUser</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_16ltbyh">
-          <text>approverGroup</text>
-        </outputEntry>
-      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>

@@ -9,42 +9,15 @@
         <bpmn:flowNodeRef>Activity_1y2xt2u</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_0wp7lqx" name="组长 / 主任">
-        <bpmn:flowNodeRef>Activity_10sw7br</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1e4g4oj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1lxlub7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1rh6cwj</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0ymj57o</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_10sw7br</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:businessRuleTask id="Activity_10sw7br" name="选择审批人" camunda:resultVariable="approver" camunda:decisionRef="assign-approver" camunda:mapDecisionResult="singleResult">
-      <bpmn:incoming>Flow_0h38ira</bpmn:incoming>
-      <bpmn:incoming>Flow_1o6jx18</bpmn:incoming>
-      <bpmn:outgoing>Flow_17fpxb9</bpmn:outgoing>
-    </bpmn:businessRuleTask>
-    <bpmn:userTask id="Activity_1e4g4oj" name="审核" camunda:assignee="${approver.user}" camunda:candidateGroups="${approver.group}">
-      <bpmn:incoming>Flow_17fpxb9</bpmn:incoming>
-      <bpmn:incoming>Flow_02henpl</bpmn:incoming>
-      <bpmn:outgoing>Flow_1ttxsfd</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:boundaryEvent id="Event_0ymj57o" name="重新指定审核人" attachedToRef="Activity_1e4g4oj">
-      <bpmn:outgoing>Flow_1o6jx18</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1xh9jgw" messageRef="Message_1ctqxcj" />
-    </bpmn:boundaryEvent>
-    <bpmn:exclusiveGateway id="Gateway_1lxlub7">
-      <bpmn:incoming>Flow_1ttxsfd</bpmn:incoming>
-      <bpmn:outgoing>Flow_1jy9pml</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1bybdgt</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="Event_1rh6cwj" name="审核结束">
-      <bpmn:incoming>Flow_1jy9pml</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:userTask id="Activity_1y2xt2u" name="更新申请内容" camunda:assignee="${applicant}">
-      <bpmn:incoming>Flow_1bybdgt</bpmn:incoming>
-      <bpmn:outgoing>Flow_02henpl</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_0h38ira" sourceRef="StartEvent_1" targetRef="Activity_10sw7br" />
-    <bpmn:sequenceFlow id="Flow_1o6jx18" sourceRef="Event_0ymj57o" targetRef="Activity_10sw7br" />
+    <bpmn:sequenceFlow id="Flow_1o6jx18" sourceRef="Event_0ymj57o" targetRef="Activity_1e4g4oj" />
     <bpmn:sequenceFlow id="Flow_17fpxb9" sourceRef="Activity_10sw7br" targetRef="Activity_1e4g4oj" />
     <bpmn:sequenceFlow id="Flow_02henpl" sourceRef="Activity_1y2xt2u" targetRef="Activity_1e4g4oj" />
     <bpmn:sequenceFlow id="Flow_1ttxsfd" sourceRef="Activity_1e4g4oj" targetRef="Gateway_1lxlub7" />
@@ -54,6 +27,33 @@
     <bpmn:sequenceFlow id="Flow_1bybdgt" name="不同意" sourceRef="Gateway_1lxlub7" targetRef="Activity_1y2xt2u">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!approved}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:boundaryEvent id="Event_0ymj57o" name="重新指定审核人" attachedToRef="Activity_1e4g4oj">
+      <bpmn:outgoing>Flow_1o6jx18</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1xh9jgw" messageRef="Message_1ctqxcj" />
+    </bpmn:boundaryEvent>
+    <bpmn:userTask id="Activity_1y2xt2u" name="更新申请内容" camunda:assignee="${applicant}">
+      <bpmn:incoming>Flow_1bybdgt</bpmn:incoming>
+      <bpmn:outgoing>Flow_02henpl</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1rh6cwj" name="审核结束">
+      <bpmn:incoming>Flow_1jy9pml</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="Gateway_1lxlub7">
+      <bpmn:incoming>Flow_1ttxsfd</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jy9pml</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1bybdgt</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Activity_1e4g4oj" name="审核" camunda:assignee="${approver.user}" camunda:candidateGroups="${approver.group}">
+      <bpmn:incoming>Flow_17fpxb9</bpmn:incoming>
+      <bpmn:incoming>Flow_02henpl</bpmn:incoming>
+      <bpmn:incoming>Flow_1o6jx18</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ttxsfd</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0h38ira" sourceRef="StartEvent_1" targetRef="Activity_10sw7br" />
+    <bpmn:businessRuleTask id="Activity_10sw7br" name="选择审批人" camunda:resultVariable="approver" camunda:decisionRef="assign-approver" camunda:mapDecisionResult="singleResult">
+      <bpmn:incoming>Flow_0h38ira</bpmn:incoming>
+      <bpmn:outgoing>Flow_17fpxb9</bpmn:outgoing>
+    </bpmn:businessRuleTask>
     <bpmn:startEvent id="StartEvent_1" name="开始上报">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -108,8 +108,8 @@
       <bpmndi:BPMNEdge id="Flow_1o6jx18_di" bpmnElement="Flow_1o6jx18">
         <di:waypoint x="620" y="428" />
         <di:waypoint x="620" y="460" />
-        <di:waypoint x="400" y="460" />
-        <di:waypoint x="400" y="410" />
+        <di:waypoint x="570" y="460" />
+        <di:waypoint x="570" y="410" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0h38ira_di" bpmnElement="Flow_0h38ira">
         <di:waypoint x="258" y="370" />
@@ -142,7 +142,7 @@
       <bpmndi:BPMNShape id="Event_10icze0_di" bpmnElement="Event_0ymj57o">
         <dc:Bounds x="602" y="392" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="531" y="443" width="77" height="14" />
+          <dc:Bounds x="631" y="433" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
