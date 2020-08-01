@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1i9exwm" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <bpmn:process id="Process_1kfo1o2" name="通过消息改变执行人实验" isExecutable="true">
+    <bpmn:userTask id="Activity_0kpnuhm" name="检查执行人" camunda:assignee="${assignee.user}" camunda:candidateGroups="${assignee.group}">
+      <bpmn:incoming>Flow_13wp7ez</bpmn:incoming>
+      <bpmn:incoming>Flow_1r4noxx</bpmn:incoming>
+      <bpmn:outgoing>Flow_124jvy9</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_179ri68">
+      <bpmn:incoming>Flow_124jvy9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_124jvy9" sourceRef="Activity_0kpnuhm" targetRef="Event_179ri68" />
+    <bpmn:sequenceFlow id="Flow_13wp7ez" sourceRef="StartEvent_1" targetRef="Activity_0kpnuhm" />
+    <bpmn:startEvent id="StartEvent_1" name="开始消息">
+      <bpmn:outgoing>Flow_13wp7ez</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0q1mcez" messageRef="Message_16aekkr" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1r4noxx" sourceRef="Event_0399d3t" targetRef="Activity_0kpnuhm" />
+    <bpmn:boundaryEvent id="Event_0399d3t" name="重新指定执行人" attachedToRef="Activity_0kpnuhm">
+      <bpmn:outgoing>Flow_1r4noxx</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_13m9y7e" messageRef="Message_0g9miuk" />
+    </bpmn:boundaryEvent>
+  </bpmn:process>
+  <bpmn:message id="Message_16aekkr" name="startMessage" />
+  <bpmn:message id="Message_1m9hxup" name="reassigneeMessage" />
+  <bpmn:message id="Message_1a2077p" name="reassigneeMessage" />
+  <bpmn:message id="Message_1wzx966" name="reassignee" />
+  <bpmn:message id="Message_0t2nozz" name="reassignee" />
+  <bpmn:message id="Message_0g9miuk" name="reassignee" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1kfo1o2">
+      <bpmndi:BPMNEdge id="Flow_1r4noxx_di" bpmnElement="Flow_1r4noxx">
+        <di:waypoint x="410" y="175" />
+        <di:waypoint x="410" y="195" />
+        <di:waypoint x="320" y="195" />
+        <di:waypoint x="320" y="147" />
+        <di:waypoint x="340" y="147" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13wp7ez_di" bpmnElement="Flow_13wp7ez">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="340" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_124jvy9_di" bpmnElement="Flow_124jvy9">
+        <di:waypoint x="440" y="117" />
+        <di:waypoint x="552" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1gbrztf_di" bpmnElement="Activity_0kpnuhm">
+        <dc:Bounds x="340" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_179ri68_di" bpmnElement="Event_179ri68">
+        <dc:Bounds x="552" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0besjoy_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="175" y="142" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_13lqsz1_di" bpmnElement="Event_0399d3t">
+        <dc:Bounds x="392" y="139" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="371" y="203" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
