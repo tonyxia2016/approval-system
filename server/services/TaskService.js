@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const Service = require("./Service");
-const camunda = require("../camunda-utils/CamundaUtils");
+const camunda = require("./camunda-utils");
 
 /**
  * 查询用户任务
@@ -12,10 +12,7 @@ const camunda = require("../camunda-utils/CamundaUtils");
 const getTaskList = ({ taskListQueryDto }) =>
   new Promise(async (resolve, reject) => {
     try {
-      const taskList = await camunda.getTaskList(
-        taskListQueryDto.username,
-        taskListQueryDto.roles
-      );
+      const taskList = await camunda.getTaskList(taskListQueryDto);
       resolve(
         Service.successResponse({
           code: 20000,
@@ -46,7 +43,26 @@ const getApplicationDetail = ({ id }) =>
     }
   });
 
+const completeApproval = ({ approvalCompleteDto }) =>
+  new Promise(async (resolve, reject) => {
+    await camunda.completeApproval(approvalCompleteDto);
+
+    try {
+      resolve(
+        Service.successResponse({
+          code: 20000,
+          data: "Success"
+        })
+      );
+    } catch (e) {
+      reject(
+        Service.rejectResponse(e.message || "Invalid input", e.status || 405)
+      );
+    }
+  });
+
 module.exports = {
+  completeApproval,
   getTaskList,
   getApplicationDetail
 };

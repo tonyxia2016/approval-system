@@ -128,21 +128,21 @@ const getApplicationDetail = id => {
  *
  * @description 与 getTaskList 类似，只是返回总数而不是详情
  * @description 暂时没有用到
- * @param {string} username - 用户名
+ * @param {string} userid - 用户名
  * @param {Array.<string>} roles - 用户的角色列表
  * @returns {Object} - 符合条件的任务数
  */
-const getTaskListCount = (username, roles) => {};
+const getTaskListCount = ({ userid, roles }) => {};
 
 /**
  * 获取用户相关的任务详情列表
  *
- * @description 用户相关任务是指：已经指定给 username 的任务，或者候选组包含任意一个 roles 的任务。
- * @param {string} username - 用户名
+ * @description 用户相关任务是指：已经指定给 userid 的任务，或者候选组包含任意一个 roles 的任务。
+ * @param {string} userid - 用户名
  * @param {string[]} roles - 用户的角色列表
  * @returns {Array.<Object>} - 返回和用户相关的任务详情列表，按照申请时间倒序排列。
  */
-const getTaskList = (username, roles) => {
+const getTaskList = ({ userid, roles }) => {
   return new Promise((resolve, reject) => {
     const opt = {
       url: "/task",
@@ -152,7 +152,7 @@ const getTaskList = (username, roles) => {
           {
             includeAssignedTasks: true,
             candidateGroups: roles,
-            assignee: username
+            assignee: userid
           }
         ],
         sorting: [
@@ -205,8 +205,96 @@ const getTaskList = (username, roles) => {
   });
 };
 
+/**
+ * 通过 Task ID 来完成一个申请
+ *
+ * @returns {Promise}
+ */
+const completeApproval = ({
+  id,
+  approver,
+  approvalDate,
+  approvalConclusion,
+  approvalComment,
+  nextApprover
+}) => {
+  return new Promise(async (resolve, reject) => {
+    // 获取申请详情，包括历史审批信息
+    const applicationDetail = await getApplicationDetail(id);
+    // 添加本次的审批信息到历史审批信息
+    const approvalHistory = applicationDetail.applicationHistory || [];
+    approvalHistory.push({
+      approver,
+      approvalDate,
+      approvalConclusion,
+      approvalComment
+    });
+
+    let opt;
+    switch (approvalConclusion) {
+      case "同意":
+      case "驳回":
+        opt = {
+          url: `/task/${id}/complete`,
+          method: "post",
+          data: {
+            variables: {
+              approvalHistory: {
+                value: approvalHistory
+              },
+              approved: {
+                value: approvalConclusion === "同意"
+              }
+            }
+          }
+        };
+
+        await bpmClient.request(opt);
+        resolve({ code: 20000, data: "Success" });
+        break;
+      case "上报":
+      case "移交":
+        // 通过 Task ID 获取 Process ID
+        opt = {
+          url: `/task/${id}`,
+          method: "get"
+        };
+        const taskInfo = (await bpmClient.request(opt)).data;
+        const processInstanceId = taskInfo.processInstanceId;
+        // 发送 "reassign-approver" 消息来重新指定审批人
+        opt = {
+          url: `/message`,
+          method: "post",
+          data: {
+            messageName: "reassign-approver",
+            processInstanceId: processInstanceId,
+            processVariables: {
+              approvalHistory: {
+                value: approvalHistory
+              },
+              approver: {
+                value: nextApprover
+              }
+            }
+          }
+        };
+
+        await bpmClient.request(opt);
+        resolve({ code: 20000, data: "Success" });
+        break;
+      default:
+        reject({
+          code: 70000,
+          message: "审批结论不正确，必须为['同意','驳回','上报','移交']之一."
+        });
+        break;
+    }
+  });
+};
+
 module.exports = {
   createApplication,
+  completeApproval,
   getTaskList,
   getApplicationDetail
 };

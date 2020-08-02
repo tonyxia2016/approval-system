@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const Service = require("./Service");
-const camunda = require("../camunda-utils/CamundaUtils");
+const camunda = require("./camunda-utils");
 
 const moment = require("moment");
 

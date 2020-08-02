@@ -8,6 +8,14 @@
 
 const Controller = require("./Controller");
 const service = require("../services/TaskService");
+const claimApproval = async (request, response) => {
+  await Controller.handleRequest(request, response, service.claimApproval);
+};
+
+const completeApproval = async (request, response) => {
+  await Controller.handleRequest(request, response, service.completeApproval);
+};
+
 const getApplicationDetail = async (request, response) => {
   await Controller.handleRequest(
     request,
@@ -21,6 +29,8 @@ const getTaskList = async (request, response) => {
 };
 
 module.exports = {
+  claimApproval,
+  completeApproval,
   getApplicationDetail,
   getTaskList
 };

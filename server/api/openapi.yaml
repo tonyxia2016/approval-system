@@ -147,7 +147,7 @@ paths:
         content:
           application/json:
             example:
-              username: 张三
+              userid: 张三
               roles:
                 - 组长
                 - 包干修复初审
@@ -173,6 +173,95 @@ paths:
                 $ref: "#/components/schemas/TaskListQueryResDto"
           description: OK
       summary: 查询用户任务详情列表
+      tags:
+        - Task
+      x-eov-operation-handler: controllers/TaskController
+  /task/claim:
+    post:
+      description: |
+        审批任务有时会只指定了候选组，而没有指定审批人。通过这个 API 可以指定审批人，并清空候选组。
+      operationId: claimApproval
+      requestBody:
+        content:
+          application/json:
+            example:
+              id: task-id
+              userid: zhangsan
+            schema:
+              $ref: "#/components/schemas/ApprovalClaimDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                code: 20000
+                data: Success
+              schema:
+                $ref: "#/components/schemas/SimpleSuccessResDto"
+          description: OK
+      summary: 认领一个审批任务
+      tags:
+        - Task
+      x-eov-operation-handler: controllers/TaskController
+  /task/complete:
+    post:
+      description: |
+        审批人在“审批页面”填写审批意见，并签署审批结果：
+        - “同意”，申请流程将结束。 - “驳回”，要求申请人补充材料。 - “上报“（仅”组长“角色可以上报给主任），上报给主任审批。 - ”移交“（仅”组长“角色可移交给其他组长），移交给其他组长审批。
+      operationId: completeApproval
+      requestBody:
+        content:
+          application/json:
+            examples:
+              同意:
+                value:
+                  id: task-id
+                  approver: zhangyang
+                  approvalDate: 2020-08-01
+                  approvalConclusion: 同意
+                  approvalComment: 同意本次申请。
+              驳回:
+                value:
+                  id: task-id
+                  approver: zhangyang
+                  approvalDate: 2020-08-01
+                  approvalConclusion: 驳回
+                  approvalComment: 驳回的理由。
+              上报:
+                value:
+                  id: task-id
+                  approver: zhangyang
+                  approvalDate: 2020-08-01
+                  approvalConclusion: 上报
+                  approvalComment: 上报的理由。
+                  nextApprover:
+                    user: ""
+                    group: 主任
+              移交:
+                value:
+                  id: task-id
+                  approver: zhangyang
+                  approvalDate: 2020-08-01
+                  approvalConclusion: 移交
+                  approvalComment: 移交的理由。
+                  nextApprover:
+                    user: lijie
+                    group: ""
+            schema:
+              $ref: "#/components/schemas/ApprovalCompleteDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                code: 20000
+                data: Success
+              schema:
+                $ref: "#/components/schemas/SimpleSuccessResDto"
+          description: OK
+      summary: 完成一个申请的审批
       tags:
         - Task
       x-eov-operation-handler: controllers/TaskController
@@ -228,7 +317,7 @@ components:
             - 调价申请
           type: string
         applicant:
-          description: 申请人用户名（username）。
+          description: 申请人用户ID（userid）。
           type: string
         applicantName:
           description: 申请人的真实姓名。
@@ -316,9 +405,9 @@ components:
         roles:
           - roles
           - roles
-        username: username
+        userid: userid
       properties:
-        username:
+        userid:
           description: 用户名
           type: string
         roles:
@@ -335,6 +424,53 @@ components:
       allOf:
         - $ref: "#/components/schemas/ResponseCode"
         - $ref: "#/components/schemas/ApplicationDetailResDto_allOf"
+    ApprovalDetailDto:
+      properties:
+        approver:
+          description: 审批人
+          type: string
+        approvalDate:
+          description: 审批时间
+          type: string
+        approvalConclusion:
+          description: 审批
+          enum:
+            - 同意
+            - 驳回
+            - 上报
+            - 移交
+          type: string
+        approvalComment:
+          description: 审批意见
+          type: string
+      required:
+        - approvalConclusion
+        - approvalDate
+        - approver
+      type: object
+    ApprovalCompleteDto:
+      allOf:
+        - $ref: "#/components/schemas/ApprovalCompleteDto_allOf"
+        - $ref: "#/components/schemas/ApprovalDetailDto"
+    ApprovalClaimDto:
+      example:
+        id: id
+        userid: userid
+      properties:
+        id:
+          description: 审批任务ID
+          type: string
+        userid:
+          description: 审批人用户ID
+          type: string
+      required:
+        - id
+        - userid
+      type: object
+    SimpleSuccessResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - $ref: "#/components/schemas/SimpleSuccessResDto_allOf"
     ApplicationCreateResDto_allOf:
       properties:
         data:
@@ -350,3 +486,24 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/ApplicationDetailDto"
+    ApprovalCompleteDto_allOf_nextApprover:
+      description: 指定下一个审批人
+      properties:
+        user:
+          type: string
+        group:
+          type: string
+    ApprovalCompleteDto_allOf:
+      properties:
+        id:
+          description: 审批任务 ID
+          type: string
+        nextApprover:
+          $ref: "#/components/schemas/ApprovalCompleteDto_allOf_nextApprover"
+      required:
+        - id
+    SimpleSuccessResDto_allOf:
+      properties:
+        data:
+          description: 总是 "Success"
+          type: string

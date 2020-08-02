@@ -24,11 +24,11 @@ servers:
 paths:
   /application/create:
     post:
-      tags:
-        - Application
       summary: 创建一个申请
       description: 申请人在“申请页面”填写相关信息并提交申请，将调用此 API 来创建一个新申请。
       operationId: createApplication
+      tags:
+        - Application
 
       requestBody:
         required: true
@@ -129,7 +129,7 @@ paths:
             schema:
               $ref: "#/components/schemas/TaskListQueryDto"
             example:
-              username: 张三
+              userid: 张三
               roles:
                 - "组长"
                 - "包干修复初审"
@@ -182,6 +182,103 @@ paths:
                   applicant: lisi
                   startDate: 2020-07-28
 
+  /task/claim:
+    post:
+      summary: 认领一个审批任务
+      description: >
+        审批任务有时会只指定了候选组，而没有指定审批人。通过这个 API 可以指定审批人，并清空候选组。
+      operationId: claimApproval
+      tags:
+        - Task
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApprovalClaimDto"
+            example:
+              id: task-id
+              userid: zhangsan
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimpleSuccessResDto"
+              example:
+                code: 20000
+                data: Success
+
+  /task/complete:
+    post:
+      summary: 完成一个申请的审批
+      description: >
+        审批人在“审批页面”填写审批意见，并签署审批结果：
+
+        - “同意”，申请流程将结束。
+        - “驳回”，要求申请人补充材料。
+        - “上报“（仅”组长“角色可以上报给主任），上报给主任审批。
+        - ”移交“（仅”组长“角色可移交给其他组长），移交给其他组长审批。
+      operationId: completeApproval
+      tags:
+        - Task
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApprovalCompleteDto"
+            examples:
+              同意:
+                value:
+                  id: task-id
+                  approver: zhangyang
+                  approvalDate: 2020-08-01
+                  approvalConclusion: 同意
+                  approvalComment: 同意本次申请。
+              驳回:
+                value:
+                  id: task-id
+                  approver: zhangyang
+                  approvalDate: 2020-08-01
+                  approvalConclusion: 驳回
+                  approvalComment: 驳回的理由。
+              上报:
+                value:
+                  id: task-id
+                  approver: zhangyang
+                  approvalDate: 2020-08-01
+                  approvalConclusion: 上报
+                  approvalComment: 上报的理由。
+                  nextApprover:
+                    user: ""
+                    group: "主任"
+              移交:
+                value:
+                  id: task-id
+                  approver: zhangyang
+                  approvalDate: 2020-08-01
+                  approvalConclusion: 移交
+                  approvalComment: 移交的理由。
+                  nextApprover:
+                    user: "lijie"
+                    group: ""
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimpleSuccessResDto"
+              example:
+                code: 20000
+                data: Success
+
 components:
   schemas:
     ResponseCode:
@@ -215,7 +312,7 @@ components:
           enum: [包干修复, 高价值件, 总成部件, 调价申请]
         applicant:
           type: string
-          description: 申请人用户名（username）。
+          description: 申请人用户ID（userid）。
         applicantName:
           type: string
           description: 申请人的真实姓名。
@@ -299,7 +396,7 @@ components:
     TaskListQueryDto:
       type: object
       properties:
-        username:
+        userid:
           type: string
           description: 用户名
         roles:
@@ -325,21 +422,68 @@ components:
           properties:
             data:
               $ref: "#/components/schemas/ApplicationDetailDto"
-    # ApprovalDetailsDto:
-    #   type: object
-    #   properties:
-    #     approver:
-    #       type: string
-    #       description: 审核人
-    #     date:
-    #       type: string
-    #       description: 审核时间
-    #     approved:
-    #       type: boolean
-    #       description: 审核结果。true：通过；false：不通过
-    #     comment:
-    #       type: string
-    #       description: 审核意见
+
+    ApprovalDetailDto:
+      type: object
+      required:
+        - approver
+        - approvalDate
+        - approvalConclusion
+      properties:
+        approver:
+          type: string
+          description: 审批人
+        approvalDate:
+          type: string
+          description: 审批时间
+        approvalConclusion:
+          type: string
+          enum: ["同意", "驳回", "上报", "移交"]
+          description: 审批
+        approvalComment:
+          type: string
+          description: 审批意见
+
+    ApprovalCompleteDto:
+      allOf:
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              description: 审批任务 ID
+            nextApprover:
+              type: object
+              description: 指定下一个审批人
+              properties:
+                user:
+                  type: string
+                group:
+                  type: string
+        - $ref: "#/components/schemas/ApprovalDetailDto"
+
+    ApprovalClaimDto:
+      type: object
+      required:
+        - id
+        - userid
+      properties:
+        id:
+          type: string
+          description: 审批任务ID
+        userid:
+          type: string
+          description: 审批人用户ID
+
+    SimpleSuccessResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - type: object
+          properties:
+            data:
+              type: string
+              description: 总是 "Success"
     # ApprovalHistoryDto:
     #   type: object
     #   properties:
