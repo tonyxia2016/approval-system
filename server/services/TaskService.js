@@ -61,7 +61,26 @@ const completeApproval = ({ approvalCompleteDto }) =>
     }
   });
 
+const claimApproval = ({ approvalClaimDto }) =>
+  new Promise(async (resolve, reject) => {
+    await camunda.claimApproval(approvalClaimDto);
+
+    try {
+      resolve(
+        Service.successResponse({
+          code: 20000,
+          data: "Success"
+        })
+      );
+    } catch (e) {
+      reject(
+        Service.rejectResponse(e.message || "Invalid input", e.status || 405)
+      );
+    }
+  });
+
 module.exports = {
+  claimApproval,
   completeApproval,
   getTaskList,
   getApplicationDetail

@@ -292,8 +292,50 @@ const completeApproval = ({
   });
 };
 
+/**
+ * 指定审批任务的审批人，并清空候选组
+ *
+ * @param {string} id - 审批任务ID
+ * @param {string} username - 审批人的用户ID
+ * @returns {Promise.<Object>}
+ */
+const claimApproval = ({ id, username }) => {
+  return new Promise(async (resolve, reject) => {
+    // 获取 Identity Link
+    let opt = {
+      url: `/task/${id}/identity-links`,
+      method: "get"
+    };
+    const allLinks = (await bpmClient.request(opt)).data;
+
+    // 删除所有的 Identity Link
+    for (const link of allLinks) {
+      opt = {
+        url: `/task/${id}/identity-links/delete`,
+        method: "post",
+        data: link
+      };
+      await bpmClient.request(opt);
+    }
+
+    // 指定 username 为审批人
+    opt = {
+      url: `/task/${id}/identity-links`,
+      method: "post",
+      data: {
+        userId: username,
+        type: "assignee"
+      }
+    };
+    await bpmClient.request(opt);
+
+    resolve({ code: 20000, data: "Success" });
+  });
+};
+
 module.exports = {
   createApplication,
+  claimApproval,
   completeApproval,
   getTaskList,
   getApplicationDetail
