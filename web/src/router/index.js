@@ -88,7 +88,7 @@ export const constantRoutes = [
       {
         path: '',
         name: 'Layout-test',
-        component: () => import('@/views/dashboard/components/ApproverShortcutTable'),
+        component: () => import('@/views/dashboard/Approver/ShortcutTable'),
         meta: { title: 'Layout Test', icon: 'example' }
       }
     ]

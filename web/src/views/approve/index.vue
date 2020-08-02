@@ -10,8 +10,8 @@
       <el-form-item>
         <el-button type="primary" plain @click="conclusion('同意')">同意</el-button>
         <el-button type="danger" plain @click="conclusion('驳回')">驳回</el-button>
-        <el-button type="warning" plain @click="conclusion('上报')">上报</el-button>
-        <el-button type="info" plain @click="handOver">移交</el-button>
+        <el-button v-if="roles.indexOf('组长') > -1" type="warning" plain @click="conclusion('上报')">上报</el-button>
+        <el-button v-if="roles.indexOf('组长') > -1" type="info" plain @click="handOver">移交</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -47,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['username'])
+    ...mapGetters(['username', 'roles'])
   },
   created() {
     const _this = this
@@ -102,7 +102,6 @@ export default {
 
       // const h = this.$createElement
       const selectLeader = this.$createElement(SelectLeader, {
-        ref: 'slll-lll',
         props: { leaderList }
       })
 

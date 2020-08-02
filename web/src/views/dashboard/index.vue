@@ -1,31 +1,43 @@
 <template>
   <div class="dashboard-container">
     <approver-panel-group v-if="isApprover" :pending-application-count="applications.length" />
-    <panel-group v-else />
+    <applicant-panel-group
+      v-else
+      :rejected-application-count="rejectedList.length"
+      :approved-application-count="approvedList.length"
+    />
     <approver-shortcut-table v-if="isApprover" :applications="applications" />
-    <application-status-table v-else />
+    <applicant-shortcut-table v-else :rejected-list="rejectedList" :approved-list="approvedList" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { getTaskList } from '@/api/application'
-import ApproverPanelGroup from './components/ApproverPanelGroup'
-import ApproverShortcutTable from './components/ApproverShortcutTable'
-import PanelGroup from './applicant/PanelGroup'
-import ApplicationStatusTable from './applicant/ApplicationStatusTable'
+import ApproverPanelGroup from './Approver/PanelGroup'
+import ApproverShortcutTable from './Approver/ShortcutTable'
+import ApplicantPanelGroup from './Applicant/PanelGroup'
+import ApplicantShortcutTable from './Applicant/ShortcutTable'
 
 export default {
   name: 'Dashboard',
   components: {
     ApproverPanelGroup,
     ApproverShortcutTable,
-    PanelGroup,
-    ApplicationStatusTable
+    ApplicantPanelGroup,
+    ApplicantShortcutTable
   },
   data() {
     return {
-      applications: []
+      applications: [],
+      rejectedList: [
+        {
+          type: '包干修复',
+          caseNo: 'PICC-0987654321',
+          plateNo: '鄂A-98765'
+        }
+      ],
+      approvedList: []
     }
   },
   computed: {
