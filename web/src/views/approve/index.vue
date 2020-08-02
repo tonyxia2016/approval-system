@@ -20,9 +20,14 @@
 <script>
 import ApplicationForm from '../components/ApplicationForm'
 import SelectLeader from './components/SelectLeader'
-import { getApplicationDetail, handleApplication } from '@/api/application'
+import {
+  getApplicationDetail,
+  completeApproval,
+  claimApproval
+} from '@/api/application'
 import { getRoleMember } from '@/api/user'
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
   components: {
@@ -37,26 +42,50 @@ export default {
   data() {
     return {
       applicationDetail: {},
-      approvalComment: ''
+      approvalComment: '',
+      nextApprover: null
     }
   },
   computed: {
-    ...mapGetters(['username', 'roles'])
+    ...mapGetters(['username'])
   },
   created() {
     const _this = this
-    getApplicationDetail(this.id).then(res => {
-      _this.applicationDetail = res.data
-    })
+    getApplicationDetail(this.id)
+      .then(res => {
+        _this.applicationDetail = res.data
+        return claimApproval({ id: this.id, username: this.username })
+      })
+      .then(() => {
+        return
+      })
   },
   methods: {
     conclusion(conclusion) {
       const opt = {
         id: this.id,
-        conclusion
+        approver: this.username,
+        approvalDate: moment(),
+        approvalConclusion: conclusion,
+        approvalComment: this.approvalComment
       }
 
-      handleApplication(opt).then(() => {
+      switch (conclusion) {
+        case '上报':
+          opt.nextApprover = {
+            user: '',
+            group: '主任'
+          }
+          break
+        case '移交':
+          opt.nextApprover = {
+            user: this.nextApprover.username,
+            group: '主任'
+          }
+          break
+      }
+
+      completeApproval(opt).then(() => {
         this.$router.push({ name: 'Dashboard' })
       })
     },
@@ -71,31 +100,37 @@ export default {
         }
       }
 
+      // const h = this.$createElement
       const selectLeader = this.$createElement(SelectLeader, {
-        ref: 'sl',
-        props: { leaderList: leaderList }
+        ref: 'slll-lll',
+        props: { leaderList }
       })
 
-      this.$msgbox({
-        title: '选择组长',
-        message: selectLeader
-      })
-        .then(action => {
-          this.$message({
-            type: 'success',
-            message: '移交给：' + this.$refs.sl.leader
-          })
-
-          this.$refs.sl.leader = ''
+      try {
+        await this.$msgbox({
+          title: '选择组长',
+          message: selectLeader,
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              this.nextApprover = leaderList.filter(
+                item => item.username === selectLeader.componentInstance.leader
+              )[0]
+            }
+            done()
+          }
         })
-        .catch(msg => {
-          this.$message({
-            type: 'info',
-            message: '取消移交！'
-          })
-
-          this.$refs.sl.leader = ''
+        this.$message({
+          type: 'success',
+          message: '移交给：' + this.nextApprover.name
         })
+        selectLeader.componentInstance.leader = ''
+        this.conclusion('移交')
+      } catch (err) {
+        this.$message({
+          type: 'info',
+          message: '取消移交！'
+        })
+      }
     }
   }
 }

@@ -24,7 +24,7 @@ export function getApplicationDetail(id) {
   })
 }
 
-export function handleApplication(data) {
+export function completeApproval(data) {
   return request({
     url: '/task/complete',
     method: 'post',
@@ -32,3 +32,10 @@ export function handleApplication(data) {
   })
 }
 
+export function claimApproval(data) {
+  return request({
+    url: '/task/claim',
+    method: 'post',
+    data
+  })
+}
