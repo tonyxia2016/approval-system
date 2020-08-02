@@ -129,7 +129,7 @@ paths:
             schema:
               $ref: "#/components/schemas/TaskListQueryDto"
             example:
-              userid: 张三
+              username: 张三
               roles:
                 - "组长"
                 - "包干修复初审"
@@ -199,7 +199,7 @@ paths:
               $ref: "#/components/schemas/ApprovalClaimDto"
             example:
               id: task-id
-              userid: zhangsan
+              username: zhangsan
 
       responses:
         "200":
@@ -312,7 +312,7 @@ components:
           enum: [包干修复, 高价值件, 总成部件, 调价申请]
         applicant:
           type: string
-          description: 申请人用户ID（userid）。
+          description: 申请人用户ID（username）。
         applicantName:
           type: string
           description: 申请人的真实姓名。
@@ -396,7 +396,7 @@ components:
     TaskListQueryDto:
       type: object
       properties:
-        userid:
+        username:
           type: string
           description: 用户名
         roles:
@@ -467,12 +467,12 @@ components:
       type: object
       required:
         - id
-        - userid
+        - username
       properties:
         id:
           type: string
           description: 审批任务ID
-        userid:
+        username:
           type: string
           description: 审批人用户ID
 

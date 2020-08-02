@@ -147,7 +147,7 @@ paths:
         content:
           application/json:
             example:
-              userid: 张三
+              username: 张三
               roles:
                 - 组长
                 - 包干修复初审
@@ -186,7 +186,7 @@ paths:
           application/json:
             example:
               id: task-id
-              userid: zhangsan
+              username: zhangsan
             schema:
               $ref: "#/components/schemas/ApprovalClaimDto"
         required: true
@@ -317,7 +317,7 @@ components:
             - 调价申请
           type: string
         applicant:
-          description: 申请人用户ID（userid）。
+          description: 申请人用户ID（username）。
           type: string
         applicantName:
           description: 申请人的真实姓名。
@@ -405,9 +405,9 @@ components:
         roles:
           - roles
           - roles
-        userid: userid
+        username: username
       properties:
-        userid:
+        username:
           description: 用户名
           type: string
         roles:
@@ -455,17 +455,17 @@ components:
     ApprovalClaimDto:
       example:
         id: id
-        userid: userid
+        username: username
       properties:
         id:
           description: 审批任务ID
           type: string
-        userid:
+        username:
           description: 审批人用户ID
           type: string
       required:
         - id
-        - userid
+        - username
       type: object
     SimpleSuccessResDto:
       allOf:

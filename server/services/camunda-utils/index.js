@@ -128,21 +128,21 @@ const getApplicationDetail = id => {
  *
  * @description 与 getTaskList 类似，只是返回总数而不是详情
  * @description 暂时没有用到
- * @param {string} userid - 用户名
+ * @param {string} username - 用户名
  * @param {Array.<string>} roles - 用户的角色列表
  * @returns {Object} - 符合条件的任务数
  */
-const getTaskListCount = ({ userid, roles }) => {};
+const getTaskListCount = ({ username, roles }) => {};
 
 /**
  * 获取用户相关的任务详情列表
  *
- * @description 用户相关任务是指：已经指定给 userid 的任务，或者候选组包含任意一个 roles 的任务。
- * @param {string} userid - 用户名
+ * @description 用户相关任务是指：已经指定给 username 的任务，或者候选组包含任意一个 roles 的任务。
+ * @param {string} username - 用户名
  * @param {string[]} roles - 用户的角色列表
  * @returns {Array.<Object>} - 返回和用户相关的任务详情列表，按照申请时间倒序排列。
  */
-const getTaskList = ({ userid, roles }) => {
+const getTaskList = ({ username, roles }) => {
   return new Promise((resolve, reject) => {
     const opt = {
       url: "/task",
@@ -152,7 +152,7 @@ const getTaskList = ({ userid, roles }) => {
           {
             includeAssignedTasks: true,
             candidateGroups: roles,
-            assignee: userid
+            assignee: username
           }
         ],
         sorting: [
