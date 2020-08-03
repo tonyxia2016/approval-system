@@ -116,7 +116,7 @@ const getApplicationDetail = id => {
       .request(opt)
       .then(res => {
         const variables = typeValueToJson(res.data);
-        resolve({ id: id, ...variables });
+        resolve({ ...variables, id });
       })
       .catch(err => {
         reject(err.message);
@@ -247,6 +247,12 @@ const completeApproval = ({
               },
               approved: {
                 value: approvalConclusion === "同意"
+              },
+              approver: {
+                value: {
+                  user: approver,
+                  group: ""
+                }
               }
             }
           }
@@ -336,6 +342,31 @@ const claimApproval = ({ id, username }) => {
   });
 };
 
+const getHistory = id => {
+  return new Promise(async (resolve, reject) => {
+    const opt = {
+      url: `/history/variable-instance`,
+      method: "post",
+      data: {
+        processInstanceId: `${id}`
+      }
+    };
+
+    try {
+      const queryRes = await bpmClient.request(opt);
+      // 将结果转换成 JSON
+      let applicationDetail = {};
+      for (const item of queryRes.data) {
+        applicationDetail[item.name] = item.value;
+      }
+      applicationDetail.id = id;
+
+      resolve(applicationDetail);
+    } catch (err) {
+      reject(err.message);
+    }
+  });
+};
 /**
  * 查询已完成的申请列表
  *
@@ -390,12 +421,12 @@ const getHistoryList = ({ username, roles, queryStartDate }) => {
           try {
             const queryRes = await bpmClient.request(item);
             // 将结果转换成 JSON
-            let applicationDetail = {
-              id: queryRes.data[0].processInstanceId
-            };
+            let applicationDetail = {};
             for (const item of queryRes.data) {
               applicationDetail[item.name] = item.value;
             }
+            applicationDetail.id = item.data.processInstanceId;
+
             resolve(applicationDetail);
           } catch (err) {
             reject(err.message);
@@ -447,6 +478,7 @@ module.exports = {
   completeApproval,
   getTaskList,
   getApplicationDetail,
+  getHistory,
   getHistoryList,
   updateApplication
 };

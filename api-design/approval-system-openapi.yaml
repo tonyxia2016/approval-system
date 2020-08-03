@@ -208,6 +208,35 @@ paths:
                     applicantName: 王五
                     startDate: 2020-07-25
 
+    get:
+      summary: 查询历史申请详情
+      description: 通过 Process ID 查询历史申请详情
+      operationId: getHistory
+      tags:
+        - Application
+
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          description: 申请流程ID
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HistoryQueryResDto"
+              example:
+                code: 20000
+                data:
+                  type: 包干修复
+                  applicant: lisi
+                  applicantName: 李四
+                  startDate: 2020-07-28
+
   /task:
     post:
       tags:
@@ -609,3 +638,11 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/ApplicationDetailDto"
+
+    HistoryQueryResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/ApplicationDetailDto"

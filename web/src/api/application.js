@@ -48,6 +48,14 @@ export function claimApproval(data) {
   })
 }
 
+export function getHistory(id) {
+  return request({
+    url: '/application/history',
+    method: 'get',
+    params: { id }
+  })
+}
+
 export function getHistoryList(data) {
   return request({
     url: '/application/history',

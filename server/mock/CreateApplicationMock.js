@@ -10,7 +10,7 @@ const applicantName = {
   guoping: "郭平"
 };
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 40; i++) {
   let applicationDetail = Mock.mock({
     "type|1": ["包干修复", "高价值件", "总成部件", "调价申请"],
     "applicant|1": ["xiawei", "guoping"],

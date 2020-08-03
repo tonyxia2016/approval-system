@@ -92,7 +92,6 @@ export default {
         approvalConclusion: conclusion,
         approvalComment: this.approvalComment
       }
-      console.log(opt)
 
       switch (conclusion) {
         case '上报':

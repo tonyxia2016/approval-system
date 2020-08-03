@@ -69,6 +69,14 @@ export const constantRoutes = [
         props: true,
         meta: { title: '修改申请', icon: 'form' },
         hidden: true
+      },
+      {
+        path: 'approval-detail/:id',
+        name: '审批详情',
+        component: () => import('@/views/approval-detail'),
+        props: true,
+        meta: { title: '审批详情', icon: 'table' },
+        hidden: true
       }
     ]
   },

@@ -42,6 +42,24 @@ const createApplication = ({ applicationDetailDto }) =>
     }
   });
 
+const getHistory = ({ id }) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const history = await camunda.getHistory(id);
+
+      resolve(
+        Service.successResponse({
+          code: 20000,
+          data: history
+        })
+      );
+    } catch (e) {
+      reject(
+        Service.rejectResponse(e.message || "Invalid input", e.status || 405)
+      );
+    }
+  });
+
 const getHistoryList = ({ historyListQueryDto }) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -80,6 +98,7 @@ const updateApplication = ({ applicationDetailDto }) =>
 
 module.exports = {
   createApplication,
+  getHistory,
   getHistoryList,
   updateApplication
 };
