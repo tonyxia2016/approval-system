@@ -12,8 +12,9 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mapGetters } from 'vuex'
-import { getTaskList } from '@/api/application'
+import { getTaskList, getHistoryList } from '@/api/application'
 import ApproverPanelGroup from './Approver/PanelGroup'
 import ApproverShortcutTable from './Approver/ShortcutTable'
 import ApplicantPanelGroup from './Applicant/PanelGroup'
@@ -56,6 +57,23 @@ export default {
         roles: this.roles
       }).then(res => {
         _this.applications = res.data
+      })
+    } else {
+      // 是申请人
+      // 根据用户名和用户角色来查询相关的驳回案件
+      getTaskList({
+        username: this.username,
+        roles: this.roles
+      }).then(res => {
+        _this.rejectedList = res.data
+      })
+      // 根据用户名和用户角色来查询最近7天已批准的申请
+      getHistoryList({
+        username: this.username,
+        roles: this.roles,
+        queryStartDate: moment().subtract(7, 'days')
+      }).then(res => {
+        _this.approvedList = res.data
       })
     }
   }

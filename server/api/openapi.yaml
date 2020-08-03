@@ -29,9 +29,9 @@ paths:
             examples:
               包干修复初审:
                 value:
-                  state: 初审
                   type: 包干修复
-                  applicant: 定损员A
+                  applicant: 定损员用户ID
+                  applicantName: 定损员真实姓名
                   startDate: 2020-06-30T14:10:20.391
                   caseNo: PICC-123456
                   plateNo: 鄂A-12345
@@ -45,9 +45,9 @@ paths:
                   investigateDate: 2020-06-28
               高价值件初审:
                 value:
-                  state: 初审
                   type: 高价值件
-                  applicant: 定损员A
+                  applicant: 定损员用户ID
+                  applicantName: 定损员真实姓名
                   startDate: 2020-06-30T14:10:20.391
                   caseNo: PICC-123456
                   plateNo: 鄂A-12345
@@ -62,9 +62,9 @@ paths:
                   deductible: "10000"
               总成部件初审:
                 value:
-                  state: 初审
                   type: 总成部件
-                  applicant: 定损员A
+                  applicant: 定损员用户ID
+                  applicantName: 定损员真实姓名
                   startDate: 2020-06-30T14:10:20.391
                   caseNo: PICC-123456
                   plateNo: 鄂A-12345
@@ -79,9 +79,9 @@ paths:
                   deductible: "20000"
               调价申请初审:
                 value:
-                  state: 初审
                   type: 包干修复
-                  applicant: 定损员A
+                  applicant: 定损员用户ID
+                  applicantName: 定损员真实姓名
                   startDate: 2020-06-30T14:10:20.391
                   caseNo: PICC-123456
                   plateNo: 鄂A-12345
@@ -109,6 +109,96 @@ paths:
       tags:
         - Application
       x-eov-operation-handler: controllers/ApplicationController
+  /application/update:
+    post:
+      description: 通过任务ID来更新一个申请的内容（流程变量）
+      operationId: updateApplication
+      requestBody:
+        content:
+          application/json:
+            example:
+              type: 包干修复
+              applicant: 定损员用户ID
+              applicantName: 定损员真实姓名
+              startDate: 2020-06-30T14:10:20.391
+              caseNo: PICC-123456
+              plateNo: 鄂A-12345
+              vehicleModel: 奔驰 GLC 260 豪华型
+              repairPlant: 武汉星隆汽车销售服务有限公司
+              actualCost: "250000"
+              evaluationCost: "250000"
+              purchasePrice: "422800"
+              agreementAmount: "100000"
+              investigator: 定损员A
+              investigateDate: 2020-06-28
+              approved: false
+              approvalHistory:
+                - approver: zhangyang
+                  approverName: 张洋
+                  approvalDate: 2020-08-03T08:12:27.976Z
+                  approvalConclusion: 移交
+                  approvalComment: 移交给李捷组长。
+                - approver: lijie,
+                  approverName: 李捷
+                  approvalDate: 2020-08-03T08:13:08.442Z
+                  approvalConclusion: 移交
+                  approvalComment: 移交给冯明组长。
+                - approver: fengming
+                  approverName: 冯明
+                  approvalDate: 2020-08-03T08:13:57.948Z
+                  approvalConclusion: 驳回
+                  approvalComment: 不同意评估底价。
+            schema:
+              $ref: "#/components/schemas/ApplicationDetailDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimpleSuccessResDto"
+          description: OK
+      summary: 更新一个申请的内容
+      tags:
+        - Application
+      x-eov-operation-handler: controllers/ApplicationController
+  /application/history:
+    post:
+      description: 通过用户名、用户角色、时间段来查询和用户相关的，已完成的申请详情
+      operationId: getHistoryList
+      requestBody:
+        content:
+          application/json:
+            example:
+              username: zhangsan
+              roles:
+                - 定损员
+              queryStatDate: 2020-07-15
+            schema:
+              $ref: "#/components/schemas/HistoryListQueryDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                code: 20000
+                data:
+                  - type: 包干修复
+                    applicant: lisi
+                    applicantName: 李四
+                    startDate: 2020-07-28
+                  - type: 包干修复
+                    applicant: wangwu
+                    applicantName: 王五
+                    startDate: 2020-07-25
+              schema:
+                $ref: "#/components/schemas/HistoryListQueryResDto"
+          description: OK
+      summary: 查询已完成的历史申请详情
+      tags:
+        - Application
+      x-eov-operation-handler: controllers/ApplicationController
   /task:
     get:
       description: 通过 Task ID 查询申请的详情
@@ -129,9 +219,9 @@ paths:
               example:
                 code: 20000
                 data:
-                  state: 初审
                   type: 包干修复
                   applicant: lisi
+                  applicantName: 李四
                   startDate: 2020-07-28
               schema:
                 $ref: "#/components/schemas/ApplicationDetailResDto"
@@ -161,13 +251,13 @@ paths:
               example:
                 code: 20000
                 data:
-                  - state: 初审
-                    type: 包干修复
+                  - type: 包干修复
                     applicant: lisi
+                    applicantName: 李四
                     startDate: 2020-07-28
-                  - state: 初审
-                    type: 包干修复
+                  - type: 包干修复
                     applicant: wangwu
+                    applicantName: 王五
                     startDate: 2020-07-25
               schema:
                 $ref: "#/components/schemas/TaskListQueryResDto"
@@ -194,9 +284,6 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                code: 20000
-                data: Success
               schema:
                 $ref: "#/components/schemas/SimpleSuccessResDto"
           description: OK
@@ -255,9 +342,6 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                code: 20000
-                data: Success
               schema:
                 $ref: "#/components/schemas/SimpleSuccessResDto"
           description: OK
@@ -274,6 +358,13 @@ components:
             `20000`: 操作成功 <br> `60204`: 不正确的用户名或密码 <br> `50008`: 无效的 token <br> `50012`: 已在其它客户端登录 <br> `50014`: 过期的 token
           type: integer
       type: object
+    SimpleSuccessResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - $ref: "#/components/schemas/SimpleSuccessResDto_allOf"
+      example:
+        code: 20000
+        data: Success
     ApplicationDetailDto:
       example:
         agreementAmount: agreementAmount
@@ -282,11 +373,23 @@ components:
         type: 包干修复
         quotedAmount: quotedAmount
         investigator: investigator
+        approved: true
+        approvalHistory:
+          - approver: approver
+            approvalDate: approvalDate
+            approvalComment: approvalComment
+            approvalConclusion: 同意
+            approverName: approverName
+          - approver: approver
+            approvalDate: approvalDate
+            approvalComment: approvalComment
+            approvalConclusion: 同意
+            approverName: approverName
         insurer: insurer
         finalAmount: finalAmount
         evaluationCost: evaluationCost
         vehicleModel: vehicleModel
-        state: 初审
+        id: id
         actualCost: actualCost
         occurredDate: occurredDate
         identifier: identifier
@@ -302,12 +405,6 @@ components:
         investigateLocation: investigateLocation
         investigateDate: investigateDate
       properties:
-        state:
-          description: 审批状态。开始申请时，状态为“初审”。
-          enum:
-            - 初审
-            - 复审
-          type: string
         type:
           description: 审批类型。
           enum:
@@ -389,11 +486,20 @@ components:
         targetAmount:
           description: 目标金额
           type: string
+        approved:
+          description: 是否同意。`true`，同意；`false`，驳回
+          type: boolean
+        approvalHistory:
+          items:
+            $ref: "#/components/schemas/ApprovalDetailDto"
+          type: array
+        id:
+          description: 当前任务ID
+          type: string
       required:
         - applicant
         - applicantName
         - startDate
-        - state
         - type
       type: object
     ApplicationCreateResDto:
@@ -425,9 +531,18 @@ components:
         - $ref: "#/components/schemas/ResponseCode"
         - $ref: "#/components/schemas/ApplicationDetailResDto_allOf"
     ApprovalDetailDto:
+      example:
+        approver: approver
+        approvalDate: approvalDate
+        approvalComment: approvalComment
+        approvalConclusion: 同意
+        approverName: approverName
       properties:
         approver:
-          description: 审批人
+          description: 审批人用户ID
+          type: string
+        approverName:
+          description: 审批人真实姓名
           type: string
         approvalDate:
           description: 审批时间
@@ -447,6 +562,7 @@ components:
         - approvalConclusion
         - approvalDate
         - approver
+        - approverName
       type: object
     ApprovalCompleteDto:
       allOf:
@@ -467,10 +583,35 @@ components:
         - id
         - username
       type: object
-    SimpleSuccessResDto:
+    HistoryListQueryDto:
+      example:
+        queryStatDate: queryStatDate
+        roles:
+          - roles
+          - roles
+        username: username
+      properties:
+        username:
+          description: 用户名
+          type: string
+        roles:
+          items:
+            description: 用户角色
+            type: string
+          type: array
+        queryStatDate:
+          description: 查询的起始日期
+          type: string
+      type: object
+    HistoryListQueryResDto:
       allOf:
         - $ref: "#/components/schemas/ResponseCode"
-        - $ref: "#/components/schemas/SimpleSuccessResDto_allOf"
+        - $ref: "#/components/schemas/TaskListQueryResDto_allOf"
+    SimpleSuccessResDto_allOf:
+      properties:
+        data:
+          description: 总是 "Success"
+          type: string
     ApplicationCreateResDto_allOf:
       properties:
         data:
@@ -502,8 +643,3 @@ components:
           $ref: "#/components/schemas/ApprovalCompleteDto_allOf_nextApprover"
       required:
         - id
-    SimpleSuccessResDto_allOf:
-      properties:
-        data:
-          description: 总是 "Success"
-          type: string

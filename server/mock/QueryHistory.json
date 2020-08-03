@@ -1,4 +1,5 @@
 {
-  "processDefinitionKey": "approval-process",
-  "completed": true
+  "username": "xiawei",
+  "roles": ["定损员"],
+  "queryStartDate": "2020-07-01"
 }

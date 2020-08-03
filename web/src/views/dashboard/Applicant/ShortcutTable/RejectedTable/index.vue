@@ -8,7 +8,7 @@
     <el-table-column label="车牌号" prop="plateNo" />
     <el-table-column label="操作" align="left">
       <template slot-scope="scope">
-        <el-button type="primary" plain size="mini" @click="startReApply(scope.row._id)">修改申请</el-button>
+        <el-button type="primary" plain size="mini" @click="startReApply(scope.row.id)">修改申请</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -23,7 +23,10 @@ export default {
     }
   },
   methods: {
-    startReApply(id) {}
+    startReApply(id) {
+      /* eslint-disable */
+      this.$router.push({ name: '修改申请', params: { id } })
+    }
   }
 }
 </script>

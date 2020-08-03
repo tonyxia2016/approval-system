@@ -1,24 +1,45 @@
 <template>
   <div class="app-container">
-    <h2>申请详情</h2>
-    <application-form :application-detail="applicationDetail" :is-readonly="true" />
-    <h2>审批意见</h2>
-    <el-form>
-      <el-form-item>
-        <el-input v-model="approvalComment" type="textarea" :rows="4" placeholder="请输入审批意见"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" plain @click="conclusion('同意')">同意</el-button>
-        <el-button type="danger" plain @click="conclusion('驳回')">驳回</el-button>
-        <el-button v-if="roles.indexOf('组长') > -1" type="warning" plain @click="conclusion('上报')">上报</el-button>
-        <el-button v-if="roles.indexOf('组长') > -1" type="info" plain @click="handOver">移交</el-button>
-      </el-form-item>
-    </el-form>
+    <el-row>
+      <el-col :span="7">
+        <h2>申请详情</h2>
+        <application-form :application-detail="applicationDetail" :is-readonly="true" />
+      </el-col>
+      <el-col :span="7" :offset="1">
+        <approval-history :history="applicationDetail.approvalHistory" />
+      </el-col>
+    </el-row>
+    <el-row>
+      <h2>审批意见</h2>
+      <el-form>
+        <el-form-item>
+          <el-input
+            v-model="approvalComment"
+            type="textarea"
+            :rows="4"
+            placeholder="请输入审批意见"
+            style="width: 750px;"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" plain @click="conclusion('同意')">同意</el-button>
+          <el-button type="danger" plain @click="conclusion('驳回')">驳回</el-button>
+          <el-button
+            v-if="roles.indexOf('组长') > -1"
+            type="warning"
+            plain
+            @click="conclusion('上报')"
+          >上报</el-button>
+          <el-button v-if="roles.indexOf('组长') > -1" type="info" plain @click="handOver">移交</el-button>
+        </el-form-item>
+      </el-form>
+    </el-row>
   </div>
 </template>
 
 <script>
-import ApplicationForm from '../components/ApplicationForm'
+import ApplicationForm from '@/views/components/ApplicationForm'
+import ApprovalHistory from '@/views/components/ApprovalHistory'
 import SelectLeader from './components/SelectLeader'
 import {
   getApplicationDetail,
@@ -31,7 +52,8 @@ import moment from 'moment'
 
 export default {
   components: {
-    ApplicationForm
+    ApplicationForm,
+    ApprovalHistory
   },
   props: {
     id: {
@@ -47,7 +69,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['username', 'roles'])
+    ...mapGetters(['username', 'name', 'roles'])
   },
   created() {
     const _this = this
@@ -65,10 +87,12 @@ export default {
       const opt = {
         id: this.id,
         approver: this.username,
+        approverName: this.name,
         approvalDate: moment(),
         approvalConclusion: conclusion,
         approvalComment: this.approvalComment
       }
+      console.log(opt)
 
       switch (conclusion) {
         case '上报':
@@ -80,7 +104,7 @@ export default {
         case '移交':
           opt.nextApprover = {
             user: this.nextApprover.username,
-            group: '主任'
+            group: ''
           }
           break
       }

@@ -42,6 +42,44 @@ const createApplication = ({ applicationDetailDto }) =>
     }
   });
 
+const getHistoryList = ({ historyListQueryDto }) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const historyList = await camunda.getHistoryList(historyListQueryDto);
+
+      resolve(
+        Service.successResponse({
+          code: 20000,
+          data: historyList
+        })
+      );
+    } catch (e) {
+      reject(
+        Service.rejectResponse(e.message || "Invalid input", e.status || 405)
+      );
+    }
+  });
+
+const updateApplication = ({ applicationDetailDto }) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      await camunda.updateApplication(applicationDetailDto);
+
+      resolve(
+        Service.successResponse({
+          code: 20000,
+          data: "Success"
+        })
+      );
+    } catch (e) {
+      reject(
+        Service.rejectResponse(e.message || "Invalid input", e.status || 405)
+      );
+    }
+  });
+
 module.exports = {
-  createApplication
+  createApplication,
+  getHistoryList,
+  updateApplication
 };

@@ -2,7 +2,6 @@ const bpmClient = require("./CamundaUtils");
 
 // bpmClient
 //   .createApplication({
-//     state: "初审",
 //     type: "高价值件",
 //     application: "xiawei",
 //     startDate: "2020-7-24"

@@ -1,0 +1,100 @@
+{
+  "variables": {
+    "id": {
+      "value": "0c9c8d37-d569-11ea-a9b5-0242ac150005"
+    },
+    "agreementAmount": {
+      "value": "800117"
+    },
+    "insured": {
+      "value": "马丽"
+    },
+    "purchasePrice": {
+      "value": "702958"
+    },
+    "type": {
+      "value": "包干修复"
+    },
+    "quotedAmount": {
+      "value": "1438806"
+    },
+    "investigator": {
+      "value": "熊丽"
+    },
+    "approvalHistory": {
+      "value": [
+        {
+          "approver": "zhangyang",
+          "approverName": "张洋",
+          "approvalDate": "2020-08-03T09:09:34.774Z",
+          "approvalConclusion": "驳回",
+          "approvalComment": "不同意。"
+        }
+      ]
+    },
+    "approved": {
+      "value": false
+    },
+    "insurer": {
+      "value": "武汉人保"
+    },
+    "finalAmount": {
+      "value": "1052768"
+    },
+    "evaluationCost": {
+      "value": "1038521"
+    },
+    "vehicleModel": {
+      "value": "宝马（修改这个）"
+    },
+    "state": {
+      "value": "初审"
+    },
+    "actualCost": {
+      "value": "822287"
+    },
+    "occurredDate": {
+      "value": "2020-07-08T13:28:02.000Z"
+    },
+    "approver": {
+      "type": "Json",
+      "value": "{\"user\":\"\",\"group\":\"包干修复初审\"}"
+    },
+    "identifier": {
+      "value": "22114153"
+    },
+    "plateNo": {
+      "value": "鄂A-U3R82"
+    },
+    "targetAmount": {
+      "value": "642420"
+    },
+    "repairePlant": {
+      "value": "4S店"
+    },
+    "applicantName": {
+      "value": "郭平"
+    },
+    "caseNo": {
+      "value": "PICC-866705272684159"
+    },
+    "applicant": {
+      "value": "guoping"
+    },
+    "offerDate": {
+      "value": "2020-07-16T14:44:27.000Z"
+    },
+    "deductible": {
+      "value": "自付比例"
+    },
+    "investigateLocation": {
+      "value": "定损地点"
+    },
+    "startDate": {
+      "value": "2020-07-25T10:08:58.000Z"
+    },
+    "investigateDate": {
+      "value": "2020-07-22T20:21:33.000Z"
+    }
+  }
+}

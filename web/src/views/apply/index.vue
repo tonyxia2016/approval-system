@@ -109,7 +109,9 @@ export default {
           loading.close()
         })
     },
-    cancel: () => {}
+    cancel: () => {
+      this.$router.push({ name: 'Dashboard' })
+    }
   }
 }
 </script>

@@ -3,6 +3,7 @@
 const moment = require("moment");
 
 const axios = require("axios");
+const ApplicationController = require("../../controllers/ApplicationController");
 // 通过环境变量设置 Camunda BPM 的 host:port
 const bpmHost = process.env.CAMUNDA_BPM_HOST || "localhost";
 const bpmPort = process.env.CAMUNDA_BPM_PORT || "9001";
@@ -22,13 +23,13 @@ const jsonToTypeValue = json => {
 
   for (const key in json) {
     switch (Object.prototype.toString.call(json[key])) {
-      case "[object Object]":
-        // 是 JSON
-        res[key] = {
-          type: "Json",
-          value: JSON.stringify(json[key])
-        };
-        break;
+      // case "[object Object]":
+      //   // 是 JSON
+      //   res[key] = {
+      //     type: "Json",
+      //     value: JSON.stringify(json[key])
+      //   };
+      //   break;
       case "[object Date]":
         // 是 Date
         res[key] = {
@@ -115,7 +116,7 @@ const getApplicationDetail = id => {
       .request(opt)
       .then(res => {
         const variables = typeValueToJson(res.data);
-        resolve({ _id: id, ...variables });
+        resolve({ id: id, ...variables });
       })
       .catch(err => {
         reject(err.message);
@@ -175,12 +176,12 @@ const getTaskList = ({ username, roles }) => {
         if (res.data) {
           // 如果查询结果不为空，则生成 taskList 数组
           let taskList = res.data.map(item => {
-            return { _id: item.id };
+            return { id: item.id };
           });
 
           // 按照 taskList 获取申请详情，并返回。
           let queryTasks = taskList.map(item => {
-            return getApplicationDetail(item._id);
+            return getApplicationDetail(item.id);
           });
 
           Promise.all(queryTasks)
@@ -188,7 +189,7 @@ const getTaskList = ({ username, roles }) => {
               // 异步查询不能保证返回的申请详情按照申请时间排序，需按照原排序进行排序
               resolve(
                 taskList.map(item =>
-                  res.find(element => element._id === item._id)
+                  res.find(element => element.id === item.id)
                 )
               );
             })
@@ -213,6 +214,7 @@ const getTaskList = ({ username, roles }) => {
 const completeApproval = ({
   id,
   approver,
+  approverName,
   approvalDate,
   approvalConclusion,
   approvalComment,
@@ -222,9 +224,10 @@ const completeApproval = ({
     // 获取申请详情，包括历史审批信息
     const applicationDetail = await getApplicationDetail(id);
     // 添加本次的审批信息到历史审批信息
-    const approvalHistory = applicationDetail.applicationHistory || [];
+    const approvalHistory = applicationDetail.approvalHistory || [];
     approvalHistory.push({
       approver,
+      approverName,
       approvalDate,
       approvalConclusion,
       approvalComment
@@ -333,10 +336,117 @@ const claimApproval = ({ id, username }) => {
   });
 };
 
+/**
+ * 查询已完成的申请列表
+ *
+ * @param {string} username - 申请人用户ID
+ * @param {Array.<string>} roles - 用户角色
+ * @param {Date} queryStartDate - 查询的起始日期（默认终止日期为今天）
+ * @returns {Promise.<Array>} - 返回历史申请详情列表数组
+ */
+
+const getHistoryList = ({ username, roles, queryStartDate }) => {
+  return new Promise(async (resolve, reject) => {
+    const opt = {
+      url: "/history/process-instance",
+      method: "post",
+      data: {
+        processDefinitionKey: "approval-process",
+        completed: true,
+        finishedAfter: moment(queryStartDate)
+          .format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
+          .toString(),
+        variables: [
+          {
+            name: "applicant",
+            value: username,
+            operator: "eq"
+          }
+        ]
+      },
+      sorting: [
+        {
+          sortBy: "endTime",
+          sortOrder: "desc"
+        }
+      ]
+    };
+
+    const res = await bpmClient.request(opt);
+    // 如果查询列表不为空，则获取所有的申请详情
+    if (res.data) {
+      const opts = res.data.map(item => {
+        return {
+          url: `/history/variable-instance`,
+          method: "post",
+          data: {
+            processInstanceId: `${item.id}`
+          }
+        };
+      });
+      // 生成列表查询请求
+      const queries = opts.map(item => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const queryRes = await bpmClient.request(item);
+            // 将结果转换成 JSON
+            let applicationDetail = {
+              id: queryRes.data[0].processInstanceId
+            };
+            for (const item of queryRes.data) {
+              applicationDetail[item.name] = item.value;
+            }
+            resolve(applicationDetail);
+          } catch (err) {
+            reject(err.message);
+          }
+        });
+      });
+
+      // 开启批量查询
+      try {
+        const queriesRes = await Promise.all(queries);
+        // 异步查询不能保证返回的申请详情按照申请时间排序，需按照原排序进行排序
+        resolve(
+          res.data.map(item =>
+            queriesRes.find(element => element.id === item.id)
+          )
+        );
+      } catch (err) {
+        resolve([]);
+      }
+    } else {
+      resolve([]);
+    }
+  });
+};
+
+const updateApplication = applicationDetail => {
+  return new Promise((resolve, reject) => {
+    const opt = {
+      url: `/task/${applicationDetail.id}/complete`,
+      method: "post",
+      data: {
+        variables: jsonToTypeValue(applicationDetail)
+      }
+    };
+    bpmClient
+      .request(opt)
+      .then(() => {
+        resolve("Success");
+      })
+      .catch(err => {
+        reject(err.message);
+      });
+  });
+};
+
 module.exports = {
   createApplication,
   claimApproval,
   completeApproval,
   getTaskList,
-  getApplicationDetail
+  getApplicationDetail,
+  getHistoryList,
+  updateApplication
 };

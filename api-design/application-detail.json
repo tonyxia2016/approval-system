@@ -1,0 +1,58 @@
+{
+  "code": 20000,
+  "data": {
+    "id": "47b43e73-d561-11ea-a9b5-0242ac150005",
+    "agreementAmount": 30973,
+    "insured": "龚丽",
+    "purchasePrice": 744267,
+    "type": "包干修复",
+    "quotedAmount": 1351547,
+    "investigator": "卢娟",
+    "approvalHistory": [
+      {
+        "approver": "zhangyang",
+        "approverName": "张洋",
+        "approvalDate": "2020-08-03T08:12:27.976Z",
+        "approvalConclusion": "移交",
+        "approvalComment": "移交给李捷组长。"
+      },
+      {
+        "approver": "lijie",
+        "approverName": "李捷",
+        "approvalDate": "2020-08-03T08:13:08.442Z",
+        "approvalConclusion": "移交",
+        "approvalComment": "移交给冯明组长。"
+      },
+      {
+        "approver": "fengming",
+        "approverName": "冯明",
+        "approvalDate": "2020-08-03T08:13:57.948Z",
+        "approvalConclusion": "驳回",
+        "approvalComment": "不同意评估底价。"
+      }
+    ],
+    "approved": false,
+    "insurer": "武汉人保",
+    "finalAmount": 535471,
+    "evaluationCost": 6941,
+    "vehicleModel": "宝马",
+    "actualCost": 476174,
+    "occurredDate": "2020-07-18T06:21:41.000Z",
+    "approver": {
+      "user": "fengming",
+      "group": ""
+    },
+    "identifier": "24914472",
+    "plateNo": "鄂A-41367",
+    "targetAmount": 854970,
+    "repairePlant": "4S店",
+    "applicantName": "郭平",
+    "caseNo": "PICC-188555873281331",
+    "applicant": "guoping",
+    "offerDate": "2020-07-07T14:29:20.000Z",
+    "deductible": "自付比例",
+    "investigateLocation": "定损地点",
+    "startDate": "2020-07-25T12:23:06.000Z",
+    "investigateDate": "2020-07-04T01:53:34.000Z"
+  }
+}

@@ -12,6 +12,16 @@ const createApplication = async (request, response) => {
   await Controller.handleRequest(request, response, service.createApplication);
 };
 
+const getHistoryList = async (request, response) => {
+  await Controller.handleRequest(request, response, service.getHistoryList);
+};
+
+const updateApplication = async (request, response) => {
+  await Controller.handleRequest(request, response, service.updateApplication);
+};
+
 module.exports = {
-  createApplication
+  createApplication,
+  getHistoryList,
+  updateApplication
 };

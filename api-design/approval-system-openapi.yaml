@@ -39,9 +39,9 @@ paths:
             examples:
               包干修复初审:
                 value:
-                  state: 初审
                   type: 包干修复
-                  applicant: 定损员A
+                  applicant: 定损员用户ID
+                  applicantName: 定损员真实姓名
                   startDate: "2020-06-30T14:10:20.391"
                   caseNo: PICC-123456
                   plateNo: 鄂A-12345
@@ -55,9 +55,9 @@ paths:
                   investigateDate: 2020-06-28
               高价值件初审:
                 value:
-                  state: 初审
                   type: 高价值件
-                  applicant: 定损员A
+                  applicant: 定损员用户ID
+                  applicantName: 定损员真实姓名
                   startDate: "2020-06-30T14:10:20.391"
                   caseNo: PICC-123456
                   plateNo: 鄂A-12345
@@ -72,9 +72,9 @@ paths:
                   deductible: "10000"
               总成部件初审:
                 value:
-                  state: 初审
                   type: 总成部件
-                  applicant: 定损员A
+                  applicant: 定损员用户ID
+                  applicantName: 定损员真实姓名
                   startDate: "2020-06-30T14:10:20.391"
                   caseNo: PICC-123456
                   plateNo: 鄂A-12345
@@ -89,9 +89,9 @@ paths:
                   deductible: "20000"
               调价申请初审:
                 value:
-                  state: 初审
                   type: 包干修复
-                  applicant: 定损员A
+                  applicant: 定损员用户ID
+                  applicantName: 定损员真实姓名
                   startDate: "2020-06-30T14:10:20.391"
                   caseNo: PICC-123456
                   plateNo: 鄂A-12345
@@ -113,6 +113,100 @@ paths:
               example:
                 code: 20000
                 data: "bc8d2f78-ba94-11ea-b3de-0242ac130004"
+
+  /application/update:
+    post:
+      summary: 更新一个申请的内容
+      description: 通过任务ID来更新一个申请的内容（流程变量）
+      operationId: updateApplication
+      tags:
+        - Application
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApplicationDetailDto"
+            example:
+              type: 包干修复
+              applicant: 定损员用户ID
+              applicantName: 定损员真实姓名
+              startDate: "2020-06-30T14:10:20.391"
+              caseNo: PICC-123456
+              plateNo: 鄂A-12345
+              vehicleModel: 奔驰 GLC 260 豪华型
+              repairPlant: 武汉星隆汽车销售服务有限公司
+              actualCost: "250000"
+              evaluationCost: "250000"
+              purchasePrice: "422800"
+              agreementAmount: "100000"
+              investigator: 定损员A
+              investigateDate: 2020-06-28
+              approved: false
+              approvalHistory:
+                - approver: zhangyang
+                  approverName: 张洋
+                  approvalDate: "2020-08-03T08:12:27.976Z"
+                  approvalConclusion: 移交
+                  approvalComment: 移交给李捷组长。
+                - approver: lijie,
+                  approverName: 李捷
+                  approvalDate: "2020-08-03T08:13:08.442Z"
+                  approvalConclusion: "移交"
+                  approvalComment: 移交给冯明组长。
+                - approver: fengming
+                  approverName: 冯明
+                  approvalDate: "2020-08-03T08:13:57.948Z"
+                  approvalConclusion: 驳回
+                  approvalComment: 不同意评估底价。
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimpleSuccessResDto"
+
+  /application/history:
+    post:
+      summary: 查询已完成的历史申请详情
+      description: 通过用户名、用户角色、时间段来查询和用户相关的，已完成的申请详情
+      operationId: getHistoryList
+      tags:
+        - Application
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HistoryListQueryDto"
+            example:
+              username: zhangsan
+              roles:
+                - 定损员
+              queryStatDate: 2020-07-15
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HistoryListQueryResDto"
+              example:
+                code: 20000
+                data:
+                  - type: 包干修复
+                    applicant: lisi
+                    applicantName: 李四
+                    startDate: 2020-07-28
+                  - type: 包干修复
+                    applicant: wangwu
+                    applicantName: 王五
+                    startDate: 2020-07-25
 
   /task:
     post:
@@ -144,13 +238,13 @@ paths:
               example:
                 code: 20000
                 data:
-                  - state: 初审
-                    type: 包干修复
+                  - type: 包干修复
                     applicant: lisi
+                    applicantName: 李四
                     startDate: 2020-07-28
-                  - state: 初审
-                    type: 包干修复
+                  - type: 包干修复
                     applicant: wangwu
+                    applicantName: 王五
                     startDate: 2020-07-25
 
     get:
@@ -177,9 +271,9 @@ paths:
               example:
                 code: 20000
                 data:
-                  state: 初审
                   type: 包干修复
                   applicant: lisi
+                  applicantName: 李四
                   startDate: 2020-07-28
 
   /task/claim:
@@ -208,9 +302,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SimpleSuccessResDto"
-              example:
-                code: 20000
-                data: Success
 
   /task/complete:
     post:
@@ -275,9 +366,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SimpleSuccessResDto"
-              example:
-                code: 20000
-                data: Success
 
 components:
   schemas:
@@ -293,19 +381,26 @@ components:
             `50012`: 已在其它客户端登录 <br>
             `50014`: 过期的 token
 
+    SimpleSuccessResDto:
+      allOf:
+        - $ref: "#/components/schemas/ResponseCode"
+        - type: object
+          properties:
+            data:
+              type: string
+              description: 总是 "Success"
+      example:
+        code: 20000
+        data: Success
+
     ApplicationDetailDto:
       required:
-        - state
         - type
         - applicant
         - applicantName
         - startDate
       type: object
       properties:
-        state:
-          type: string
-          description: 审批状态。开始申请时，状态为“初审”。
-          enum: [初审, 复审]
         type:
           type: string
           description: 审批类型。
@@ -383,6 +478,16 @@ components:
         targetAmount:
           type: string
           description: 目标金额
+        approved:
+          type: boolean
+          description: 是否同意。`true`，同意；`false`，驳回
+        approvalHistory:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApprovalDetailDto"
+        id:
+          type: string
+          description: 当前任务ID
 
     ApplicationCreateResDto:
       allOf:
@@ -427,12 +532,16 @@ components:
       type: object
       required:
         - approver
+        - approverName
         - approvalDate
         - approvalConclusion
       properties:
         approver:
           type: string
-          description: 审批人
+          description: 审批人用户ID
+        approverName:
+          type: string
+          description: 审批人真实姓名
         approvalDate:
           type: string
           description: 审批时间
@@ -476,19 +585,27 @@ components:
           type: string
           description: 审批人用户ID
 
-    SimpleSuccessResDto:
+    HistoryListQueryDto:
+      type: object
+      properties:
+        username:
+          type: string
+          description: 用户名
+        roles:
+          type: array
+          items:
+            type: string
+            description: 用户角色
+        queryStatDate:
+          type: string
+          description: 查询的起始日期
+
+    HistoryListQueryResDto:
       allOf:
         - $ref: "#/components/schemas/ResponseCode"
         - type: object
           properties:
             data:
-              type: string
-              description: 总是 "Success"
-    # ApprovalHistoryDto:
-    #   type: object
-    #   properties:
-    #     approvalHistory:
-    #       type: array
-    #       description: 审核历史记录，按时间倒序排列。
-    #       items:
-    #         $ref: "#/components/schemas/ApprovalDetailsDto"
+              type: array
+              items:
+                $ref: "#/components/schemas/ApplicationDetailDto"

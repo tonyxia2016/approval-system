@@ -8,6 +8,14 @@ export function createApplication(data) {
   })
 }
 
+export function updateApplication(data) {
+  return request({
+    url: '/application/update',
+    method: 'post',
+    data
+  })
+}
+
 export function getTaskList(data) {
   return request({
     url: '/task',
@@ -35,6 +43,14 @@ export function completeApproval(data) {
 export function claimApproval(data) {
   return request({
     url: '/task/claim',
+    method: 'post',
+    data
+  })
+}
+
+export function getHistoryList(data) {
+  return request({
+    url: '/application/history',
     method: 'post',
     data
   })
